@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -11,10 +12,12 @@ public class PlayerLocalmotion : MonoBehaviour
    Transform cameraObject;
    InputHandler inputHandler;
    Vector3 moveDirection;
-
+   
    [HideInInspector] 
    public Transform myTransform;
 
+   [HideInInspector] public AnimationHandler animhandler;
+   
    public new Rigidbody rigidbody;
    public GameObject normalCamera;
 
@@ -26,8 +29,10 @@ public class PlayerLocalmotion : MonoBehaviour
    {
       rigidbody = GetComponent<Rigidbody>();
       inputHandler = GetComponent<InputHandler>();
+      animhandler = GetComponentInChildren<AnimationHandler>();
       cameraObject = Camera.main.transform;
       myTransform = transform;
+      animhandler.Initialize();
    }
 
    public void Update()
@@ -45,8 +50,11 @@ public class PlayerLocalmotion : MonoBehaviour
 
       Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
       rigidbody.velocity = projectedVelocity;
-      
-      
+
+      if (animhandler.canRotate)
+      {
+         HandleRotation(delta);
+      }
    }
 
    #region Movement

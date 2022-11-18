@@ -6,6 +6,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
   public float horizontal;
+  
   public float vertical;
   public float moveAmount;
   public float mouseX;
