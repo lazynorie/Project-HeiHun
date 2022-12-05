@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 523fec55b1c51fb4884b93bee2c8a0ae, type: 3}
       propertyPath: m_Name
-      value: LowPolyMan
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 523fec55b1c51fb4884b93bee2c8a0ae, type: 3}
@@ -590,7 +590,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900066531}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 523fec55b1c51fb4884b93bee2c8a0ae, type: 3}
   m_Controller: {fileID: 9100000, guid: 7e59905f94140cd45995806435b2845c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
