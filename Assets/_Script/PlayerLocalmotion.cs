@@ -44,6 +44,9 @@ public class PlayerLocalmotion : MonoBehaviour
       moveDirection = cameraObject.forward * inputHandler.vertical;
       moveDirection += cameraObject.right * inputHandler.horizontal;
       moveDirection.Normalize();
+      //限制玩家在Y轴上的移动，避免玩家飞天
+      moveDirection.y = 0;
+      
 
       float speed = movementSpeed;
       moveDirection *= speed;
