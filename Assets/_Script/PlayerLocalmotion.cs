@@ -23,7 +23,13 @@ public class PlayerLocalmotion : MonoBehaviour
 
    [Header("Stats")] 
    [SerializeField] private float movementSpeed = 5;
+   [SerializeField] private float sprintSpeed = 7;
    [SerializeField] private float rotationSpeed = 10;
+   
+
+   
+
+   public bool isSprinting;
       
    void Start()
    {
@@ -38,7 +44,8 @@ public class PlayerLocalmotion : MonoBehaviour
    public void Update()
    {
       float delta = Time.deltaTime;
-      
+
+      isSprinting = inputHandler.bInput;
       inputHandler.TickInput(delta);
       HandleMovement(delta);
       HandleRollingAndSprinting(delta);
@@ -74,6 +81,9 @@ public class PlayerLocalmotion : MonoBehaviour
    }
    public void HandleMovement(float delta)
    {
+      if (inputHandler.rollFlag)
+         return;
+      
       moveDirection = cameraObject.forward * inputHandler.vertical;
       moveDirection += cameraObject.right * inputHandler.horizontal;
       moveDirection.Normalize();
@@ -82,12 +92,23 @@ public class PlayerLocalmotion : MonoBehaviour
       
 
       float speed = movementSpeed;
-      moveDirection *= speed;
+
+      if (inputHandler.sprintFlag)
+      {
+         speed = sprintSpeed;
+         isSprinting = true;
+         moveDirection *= speed;
+      }
+      else
+      {
+         moveDirection *= speed;
+      }
+      
 
       Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
       rigidbody.velocity = projectedVelocity;
       
-      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
+      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, isSprinting);
 
       if (animhandler.canRotate)
       {

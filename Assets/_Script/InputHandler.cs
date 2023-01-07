@@ -14,7 +14,9 @@ public class InputHandler : MonoBehaviour
 
   public bool bInput;
   public bool rollFlag;
+  public float rollInputTimer;
   public bool isInteracting;
+  public bool sprintFlag;
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
@@ -82,7 +84,18 @@ public class InputHandler : MonoBehaviour
     bInput = inputActions.PlayerAction.Roll.triggered;
     if (bInput)
     {
-      rollFlag = true;
+      //rollFlag = true;
+      rollInputTimer += delta;
+      sprintFlag = true;
+    }
+    else
+    {
+      if (rollInputTimer>0 && rollInputTimer<0.5f)
+      {
+        sprintFlag = false;
+        rollFlag = true;
+      }
+      rollInputTimer = 0;
     }
   }
 }
