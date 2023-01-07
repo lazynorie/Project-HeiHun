@@ -26,9 +26,6 @@ public class PlayerLocalmotion : MonoBehaviour
    [SerializeField] private float sprintSpeed = 7;
    [SerializeField] private float rotationSpeed = 10;
    
-
-   
-
    public bool isSprinting;
       
    void Start()
@@ -46,13 +43,13 @@ public class PlayerLocalmotion : MonoBehaviour
       float delta = Time.deltaTime;
 
       isSprinting = inputHandler.bInput;
+      
       inputHandler.TickInput(delta);
       HandleMovement(delta);
       HandleRollingAndSprinting(delta);
    }
 
    #region Movement
-
    Vector3 normalVector;
    Vector3 targetPosition;
 
@@ -138,6 +135,5 @@ public class PlayerLocalmotion : MonoBehaviour
          }
       }
    }
-   
    #endregion
 }

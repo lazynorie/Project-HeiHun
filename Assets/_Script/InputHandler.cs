@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
@@ -50,7 +51,8 @@ public class InputHandler : MonoBehaviour
     if (inputActions == null)
     {
       inputActions = new PlayerControls();
-      inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
+      inputActions.PlayerMovement.Movement.performed += 
+        inputActions => movementInput = inputActions.ReadValue<Vector2>();
       inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
     }
     
@@ -81,7 +83,8 @@ public class InputHandler : MonoBehaviour
   {
     //bInput = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
     //以上代码新版inputsystem错误
-    bInput = inputActions.PlayerAction.Roll.triggered;
+    //bInput = inputActions.PlayerAction.Roll.triggered;
+    bInput = inputActions.PlayerAction.Roll.IsPressed();
     if (bInput)
     {
       //rollFlag = true;
