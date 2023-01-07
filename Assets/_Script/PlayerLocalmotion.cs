@@ -40,26 +40,8 @@ public class PlayerLocalmotion : MonoBehaviour
       float delta = Time.deltaTime;
       
       inputHandler.TickInput(delta);
-
-      moveDirection = cameraObject.forward * inputHandler.vertical;
-      moveDirection += cameraObject.right * inputHandler.horizontal;
-      moveDirection.Normalize();
-      //限制玩家在Y轴上的移动，避免玩家飞天
-      moveDirection.y = 0;
-      
-
-      float speed = movementSpeed;
-      moveDirection *= speed;
-
-      Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
-      rigidbody.velocity = projectedVelocity;
-      
-      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
-
-      if (animhandler.canRotate)
-      {
-         HandleRotation(delta);
-      }
+      HandleMovement(delta);
+      HandleRollingAndSprinting(delta);
    }
 
    #region Movement
@@ -90,6 +72,51 @@ public class PlayerLocalmotion : MonoBehaviour
 
       myTransform.rotation = targetRotation;
    }
+   public void HandleMovement(float delta)
+   {
+      moveDirection = cameraObject.forward * inputHandler.vertical;
+      moveDirection += cameraObject.right * inputHandler.horizontal;
+      moveDirection.Normalize();
+      //限制玩家在Y轴上的移动，避免玩家飞天
+      moveDirection.y = 0;
+      
 
+      float speed = movementSpeed;
+      moveDirection *= speed;
+
+      Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
+      rigidbody.velocity = projectedVelocity;
+      
+      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
+
+      if (animhandler.canRotate)
+      {
+         HandleRotation(delta);
+      }
+   }
+   public void HandleRollingAndSprinting(float delta)
+   {
+      if (animhandler.animator.GetBool("isInteracting"))
+         return;
+
+      if (inputHandler.rollFlag)
+      {
+         moveDirection = cameraObject.forward * inputHandler.vertical;
+         moveDirection += cameraObject.right * inputHandler.horizontal;
+
+         if (inputHandler.moveAmount>0)
+         {
+            animhandler.PlayTargetAnimation("StandToRoll",true);
+            moveDirection.y = 0;
+            Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+            myTransform.rotation = rollRotation;
+         }
+         else
+         {
+            animhandler.PlayTargetAnimation("BackStep",true);
+         }
+      }
+   }
+   
    #endregion
 }
