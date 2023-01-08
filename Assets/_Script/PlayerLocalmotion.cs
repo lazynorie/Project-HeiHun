@@ -12,6 +12,7 @@ public class PlayerLocalmotion : MonoBehaviour
    Transform cameraObject;
    InputHandler inputHandler;
    Vector3 moveDirection;
+   private PlayerManager playerManager;
    
    [HideInInspector] 
    public Transform myTransform;
@@ -25,11 +26,9 @@ public class PlayerLocalmotion : MonoBehaviour
    [SerializeField] private float movementSpeed = 5;
    [SerializeField] private float sprintSpeed = 7;
    [SerializeField] private float rotationSpeed = 10;
-   
-   public bool isSprinting;
-      
    void Start()
    {
+      playerManager = GetComponent<PlayerManager>();
       rigidbody = GetComponent<Rigidbody>();
       inputHandler = GetComponent<InputHandler>();
       animhandler = GetComponentInChildren<AnimationHandler>();
@@ -37,22 +36,10 @@ public class PlayerLocalmotion : MonoBehaviour
       myTransform = transform;
       animhandler.Initialize();
    }
-
-   public void Update()
-   {
-      float delta = Time.deltaTime;
-
-      isSprinting = inputHandler.bInput;
-      
-      inputHandler.TickInput(delta);
-      HandleMovement(delta);
-      HandleRollingAndSprinting(delta);
-   }
-
    #region Movement
    Vector3 normalVector;
    Vector3 targetPosition;
-
+   
    private void HandleRotation(float delta)
    {
       Vector3 targetDir = Vector3.zero;
@@ -84,7 +71,7 @@ public class PlayerLocalmotion : MonoBehaviour
       moveDirection = cameraObject.forward * inputHandler.vertical;
       moveDirection += cameraObject.right * inputHandler.horizontal;
       moveDirection.Normalize();
-      //限制玩家在Y轴上的移动，避免玩家飞天
+      //限制玩家在Y轴上的移动
       moveDirection.y = 0;
       
 
@@ -93,7 +80,7 @@ public class PlayerLocalmotion : MonoBehaviour
       if (inputHandler.sprintFlag)
       {
          speed = sprintSpeed;
-         isSprinting = true;
+         playerManager.isSprinting = true;
          moveDirection *= speed;
       }
       else
@@ -105,7 +92,7 @@ public class PlayerLocalmotion : MonoBehaviour
       Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
       rigidbody.velocity = projectedVelocity;
       
-      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, isSprinting);
+      animhandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
 
       if (animhandler.canRotate)
       {

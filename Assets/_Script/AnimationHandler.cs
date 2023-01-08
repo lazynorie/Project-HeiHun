@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
+    private PlayerManager playerManager;
     public Animator animator;
     public InputHandler inputHandler;
     public PlayerLocalmotion playerLocalmotion;
@@ -14,6 +15,7 @@ public class AnimationHandler : MonoBehaviour
 
     public void Initialize()
     {
+        playerManager = GetComponentInParent<PlayerManager>();
         animator = GetComponent<Animator>();
         inputHandler = GetComponentInParent<InputHandler>();
         playerLocalmotion = GetComponentInParent<PlayerLocalmotion>();
@@ -74,11 +76,12 @@ public class AnimationHandler : MonoBehaviour
         }
         #endregion
 
-        if (isSprinting)
+        if (inputHandler.moveAmount>0 && isSprinting)
         {
             v = 2;
             h = horizontalMovement;
         }
+        
         animator.SetFloat(vertical, v, 0.1f, Time.deltaTime);
         animator.SetFloat(horizontal,h,0.1f,Time.deltaTime);
     }
@@ -102,7 +105,7 @@ public class AnimationHandler : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        if (inputHandler.isInteracting == false)
+        if (playerManager.isInteracting == false)
             return;
 
         float delta = Time.deltaTime;

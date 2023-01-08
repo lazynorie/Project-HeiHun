@@ -16,36 +16,14 @@ public class InputHandler : MonoBehaviour
   public bool bInput;
   public bool rollFlag;
   public float rollInputTimer;
-  public bool isInteracting;
+  
   public bool sprintFlag;
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
 
-  Vector2 movementInput;
+  public Vector2 movementInput;
   Vector2 cameraInput;
-
-  private void Awake()
-  {
-    //在这里设置目标FPS
-    Application.targetFrameRate = 60;
-    
-    cameraHandler = CameraHandler.singleton;
-  }
-
-  private void FixedUpdate()
-  {
-    float delta = Time.fixedDeltaTime;
-    //float delta = Time.deltaTime;
-    
-
-    if (cameraHandler != null)
-    {
-      cameraHandler.FollowTarget(delta);
-      cameraHandler.HandleCameraRotation(delta,mouseX,mouseY);
-    }
-  }
-
   public void OnEnable()
   {
     if (inputActions == null)
@@ -78,7 +56,6 @@ public class InputHandler : MonoBehaviour
     mouseX = cameraInput.x;
     mouseY = cameraInput.y;
   }
-
   private void HandleRollInput(float delta)
   {
     //bInput = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
