@@ -76,7 +76,7 @@ public class AnimationHandler : MonoBehaviour
         }
         #endregion
 
-        if (inputHandler.moveAmount>0 && isSprinting)
+        if (/*inputHandler.moveAmount>0 &&*/ isSprinting)
         {
             v = 2;
             h = horizontalMovement;

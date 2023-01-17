@@ -23,6 +23,7 @@ public class PlayerLocalmotion : MonoBehaviour
    public GameObject normalCamera;
 
    [Header("Movement Stats")] 
+   [SerializeField] private float walkingSpeed = 3;
    [SerializeField] private float movementSpeed = 5;
    [SerializeField] private float sprintSpeed = 7;
    [SerializeField] private float rotationSpeed = 10;
@@ -90,7 +91,7 @@ public class PlayerLocalmotion : MonoBehaviour
 
       float speed = movementSpeed;
 
-      if (inputHandler.sprintFlag)
+      if (inputHandler.sprintFlag && inputHandler.moveAmount>0.5)
       {
          speed = sprintSpeed;
          playerManager.isSprinting = true;
@@ -98,7 +99,17 @@ public class PlayerLocalmotion : MonoBehaviour
       }
       else
       {
-         moveDirection *= speed;
+         if (inputHandler.moveAmount<0.5)
+         {
+            moveDirection *= walkingSpeed;
+            playerManager.isSprinting = false;
+         }
+         else
+         {
+            moveDirection *= speed;
+            playerManager.isSprinting = false;
+         }
+         
       }
       
 
@@ -209,7 +220,8 @@ public class PlayerLocalmotion : MonoBehaviour
       {
          if (playerManager.isInteracting || inputHandler.moveAmount>0)
          {
-            myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
+            //myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
+            myTransform.position = targetPosition;
          }
          else
          {
