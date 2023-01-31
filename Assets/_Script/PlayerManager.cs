@@ -54,6 +54,8 @@ public class PlayerManager : MonoBehaviour
     {
         inputHandler.rollFlag = false;
         inputHandler.sprintFlag = false;
+        inputHandler.rbInput = false;
+        inputHandler.rtInput = false;
         //isSprinting = inputHandler.bInput;
 
         if (isInAir)

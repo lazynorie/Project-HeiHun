@@ -7,4 +7,9 @@ public class WeaponItem : Item
 {
     public GameObject modelPrefab;
     public bool isUnarmed;
+
+    [Header("one hand attack animation")] 
+    public string OH_light_attack;
+    public string OH_heavy_attack;
+
 }
