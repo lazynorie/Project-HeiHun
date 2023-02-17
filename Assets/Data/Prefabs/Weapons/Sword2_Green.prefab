@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3487596822421657764}
   - component: {fileID: 561178922553071361}
   - component: {fileID: 2318581986704663499}
+  - component: {fileID: 3944461165340729002}
+  - component: {fileID: 1018287637995090727}
   m_Layer: 0
   m_Name: Sword2_Green
   m_TagString: Untagged
@@ -83,6 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3944461165340729002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264273846448226846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20846315, y: 1.4037626, z: 0.085479565}
+  m_Center: {x: -0.0000013658824, y: 1.0072012, z: -0.000027059828}
+--- !u!114 &1018287637995090727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264273846448226846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0771055e9aebfa94c8635d7cd6c24089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapondamage: 25
 --- !u!1 &7002557065446882131
 GameObject:
   m_ObjectHideFlags: 0
