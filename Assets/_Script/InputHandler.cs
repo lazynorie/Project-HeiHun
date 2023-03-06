@@ -19,6 +19,7 @@ public class InputHandler : MonoBehaviour
   public bool rbInput;
   public bool rtInput;
   public bool sprintFlag;
+  public bool comboFlag;
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
@@ -94,19 +95,33 @@ public class InputHandler : MonoBehaviour
 
   private void HandleAttackInput(float delta)
   {
-    if (playerManager.isInteracting)
-    return;
-    
     rbInput = inputActions.PlayerAction.RB.IsPressed();
     rtInput = inputActions.PlayerAction.RT.IsPressed();
 
     if (rbInput)
     {
-      playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+      if (playerManager.canDoCombo)
+      {
+        comboFlag = true;
+        playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+        Debug.Log("light attack 02");
+        comboFlag = false;
+      }
+      else
+      {
+        if (playerManager.isInteracting)
+          return;
+        if (playerManager.canDoCombo)
+          return;
+        playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+        Debug.Log("light attack 01");
+      }
     }
 
     if (rtInput)
     {
+      if (playerManager.isInteracting)
+        return;
       playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
     }
   }

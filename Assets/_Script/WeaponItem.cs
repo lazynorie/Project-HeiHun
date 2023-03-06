@@ -9,7 +9,9 @@ public class WeaponItem : Item
     public bool isUnarmed;
 
     [Header("one hand attack animation")] 
-    public string OH_light_attack;
+    public string OH_light_attack_01;
+    public string OH_light_attack_02;
+
     public string OH_heavy_attack;
 
 }
