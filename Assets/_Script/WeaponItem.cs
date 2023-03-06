@@ -11,7 +11,11 @@ public class WeaponItem : Item
     [Header("one hand attack animation")] 
     public string OH_light_attack_01;
     public string OH_light_attack_02;
-
     public string OH_heavy_attack;
 
+    [Header("idle animation")] 
+    public string right_hand_idle;
+    public string left_hand_idle;
+
+    [Header("toolstip")] public string toolstip;
 }

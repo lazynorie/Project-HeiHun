@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc21d83124f1ba4cb71be0eb6fa7dcf, type: 3}
-  m_Name: Sword01
+  m_Name: Hand
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
-  itemName: Long Sword
-  modelPrefab: {fileID: 93483267085740, guid: 30b4e150d25ccba41bf0c5956e779877, type: 3}
-  isUnarmed: 0
-  OH_light_attack_01: straight_sword_oh_light_attack_01
-  OH_light_attack_02: straight_sword_oh_light_attack_02
-  OH_heavy_attack: straight_sword_oh_heavy_attack_02
+  itemName: 
+  modelPrefab: {fileID: 5598351274435505842, guid: f3ae945218a4cc54d915dd2c69b726c1, type: 3}
+  isUnarmed: 1
+  OH_light_attack_01: 
+  OH_light_attack_02: 
+  OH_heavy_attack: 
   right_hand_idle: righ_arm_idle_01
   left_hand_idle: 
-  toolstip: A basic sword.
+  toolstip: Bare hands.

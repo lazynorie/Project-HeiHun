@@ -18,6 +18,11 @@ public class InputHandler : MonoBehaviour
   public float rollInputTimer;
   public bool rbInput;
   public bool rtInput;
+  public bool dPadUp;
+  public bool dPadDown;
+  public bool dPadLeft;
+  public bool dPadRight;
+  
   public bool sprintFlag;
   public bool comboFlag;
   
@@ -60,6 +65,7 @@ public class InputHandler : MonoBehaviour
     MoveInput(delta);
     HandleRollInput(delta);
     HandleAttackInput(delta);
+    HandleQuickSlotInput();
   }
 
   private void MoveInput(float delta)
@@ -95,8 +101,8 @@ public class InputHandler : MonoBehaviour
 
   private void HandleAttackInput(float delta)
   {
-    rbInput = inputActions.PlayerAction.RB.IsPressed();
-    rtInput = inputActions.PlayerAction.RT.IsPressed();
+    rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
+    rtInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
 
     if (rbInput)
     {
@@ -104,7 +110,6 @@ public class InputHandler : MonoBehaviour
       {
         comboFlag = true;
         playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-        Debug.Log("light attack 02");
         comboFlag = false;
       }
       else
@@ -114,7 +119,6 @@ public class InputHandler : MonoBehaviour
         if (playerManager.canDoCombo)
           return;
         playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
-        Debug.Log("light attack 01");
       }
     }
 
@@ -122,7 +126,25 @@ public class InputHandler : MonoBehaviour
     {
       if (playerManager.isInteracting)
         return;
-      playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+      playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
     }
+  }
+
+  private void HandleQuickSlotInput()
+  {
+    dPadUp = inputActions.PlayerAction.DPadUp.WasPressedThisFrame();
+    dPadDown = inputActions.PlayerAction.DPadDown.WasPressedThisFrame();
+    dPadLeft = inputActions.PlayerAction.DPadLeft.WasPressedThisFrame();
+    dPadRight = inputActions.PlayerAction.DPadRight.WasPressedThisFrame();
+    
+    if (dPadRight)
+    {
+      playerInventory.ChangeWeaponInRightHand();
+    }
+    else if (dPadLeft)
+    {
+      playerInventory.ChangeWeaponInLeftHand();
+    }
+    
   }
 }

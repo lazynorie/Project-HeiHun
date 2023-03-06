@@ -146,14 +146,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120355441}
-  m_LocalRotation: {x: 0.8600532, y: 0.3479286, z: 0.3717003, w: 0.033063546}
-  m_LocalPosition: {x: -0.1616, y: -0.0463, z: -0.0574}
+  m_LocalRotation: {x: 0.945156, y: 0.23883228, z: 0.21927984, w: 0.039442178}
+  m_LocalPosition: {x: -0.18, y: -0.047, z: -0.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2102464084}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -11.641, y: 137.446, z: 140.496}
+  m_LocalEulerAnglesHint: {x: -1.73, y: 154.307, z: 152.032}
 --- !u!1001 &168729011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,6 +161,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1729907128}
     m_Modifications:
+    - target: {fileID: 1014892570756712, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1074668445682794, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Soldier_Female_01
@@ -169,9 +173,37 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1087620045894332, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1090035402828608, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134154018782256, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145133871270474, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392233723241202, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426522637548258, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770550610906362, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838816650635982, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4341460358607452, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_RootOrder
@@ -5179,6 +5211,10 @@ MonoBehaviour:
   rollInputTimer: 0
   rbInput: 0
   rtInput: 0
+  dPadUp: 0
+  dPadDown: 0
+  dPadLeft: 0
+  dPadRight: 0
   sprintFlag: 0
   comboFlag: 0
   movementInput: {x: 0, y: 0}
@@ -5213,6 +5249,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightWeapon: {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
   leftWeapon: {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
+  unarmedWeapon: {fileID: 11400000, guid: 181c4f2a905a3534ea0cd242aa66113e, type: 2}
+  rightHandWeaponSlots:
+  - {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
+  - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
+  leftHandWeaponSlots:
+  - {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
+  - {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
+  currentRightWeaponIndex: 0
+  currentLeftWeaponIndex: 0
 --- !u!114 &1729907135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8031,6 +8076,8 @@ MonoBehaviour:
   healthLevel: 10
   maxHealth: 0
   currentHealth: 0
+  respawnTimer: 5
+  time: 0
 --- !u!54 &1991868618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8069,7 +8116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991868616}
   m_LocalRotation: {x: -0, y: 0.99960285, z: -0, w: -0.028181022}
-  m_LocalPosition: {x: -2.438449, y: 0.09000003, z: -4.7795663}
+  m_LocalPosition: {x: 3.04, y: 0.09000003, z: -2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

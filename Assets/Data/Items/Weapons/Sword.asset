@@ -16,5 +16,9 @@ MonoBehaviour:
   itemName: Sword
   modelPrefab: {fileID: 7002557065446882131, guid: c507497db159f3b4883e1b79511af128, type: 3}
   isUnarmed: 0
-  OH_light_attack: LeftHandAttack
+  OH_light_attack_01: 
+  OH_light_attack_02: 
   OH_heavy_attack: Standing Torch Melee Attack 05
+  right_hand_idle: 
+  left_hand_idle: 
+  toolstip: A bronze sword.

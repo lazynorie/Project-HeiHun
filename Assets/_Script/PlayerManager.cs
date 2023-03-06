@@ -59,7 +59,11 @@ public class PlayerManager : MonoBehaviour
         inputHandler.rbInput = false;
         inputHandler.rtInput = false;
         //isSprinting = inputHandler.bInput;
-
+        inputHandler.dPadLeft = false;
+        inputHandler.dPadRight = false;
+        inputHandler.dPadUp = false;
+        inputHandler.dPadDown = false;
+        
         if (isInAir)
         {
             playerLocalmotion.inAirTimer = playerLocalmotion.inAirTimer + Time.deltaTime;

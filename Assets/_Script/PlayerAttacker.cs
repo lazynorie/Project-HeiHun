@@ -17,14 +17,27 @@ public class PlayerAttacker : MonoBehaviour
 
   public void HandleLightAttack(WeaponItem weapon)
   {
+    if (weapon.OH_light_attack_01 == "")
+    {
+      Debug.Log("light attack 01 animation not assigned");
+      return;
+    }
     animationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
     lastAttack = weapon.OH_light_attack_01;
+    Debug.Log("light attack 01");
   }
+  
 
   public void HandleHeavyAttack(WeaponItem weapon)
   {
+    if (weapon.OH_heavy_attack == "")
+    {
+      Debug.Log("HeavyAttack animation not Assigned");
+      return;
+    }
     animationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
     lastAttack = weapon.OH_heavy_attack;
+    Debug.Log(weapon.OH_heavy_attack.ToString());
   }
 
   public void HandleWeaponCombo(WeaponItem weapon)
@@ -34,7 +47,13 @@ public class PlayerAttacker : MonoBehaviour
       animationHandler.animator.SetBool("canDoCombo", false);
       if (lastAttack == weapon.OH_light_attack_01)
       {
+        if (weapon.OH_light_attack_02 == "")
+        {
+          Debug.Log("light attack 02 animation not assigned");
+          return;
+        }
         animationHandler.PlayTargetAnimation(weapon.OH_light_attack_02, true);
+        Debug.Log("light attack 02");
       }
     }
   }
