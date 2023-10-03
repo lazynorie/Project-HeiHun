@@ -12,8 +12,11 @@ public class WeaponSlotManager : MonoBehaviour
    private DamageCollider righthanddamagecollider;
 
    private Animator animator;
+
+   private QuickSlotsUI quickSlotsUI;
    private void Awake()
    {
+      quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
       animator = GetComponent<Animator>();
       WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
       foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -36,6 +39,8 @@ public class WeaponSlotManager : MonoBehaviour
       {
          leftHandSlot.LoadWeaponModel(weaponItem);
          LoadLeftWeaponDamageCollider();
+         //update UI on the screen when swapping weapons
+         quickSlotsUI.UpdateWeaponQuickSlotsUI(true,weaponItem);
          #region handle left hand idel animation
          /*if (weaponItem != null)
                   {
@@ -51,7 +56,9 @@ public class WeaponSlotManager : MonoBehaviour
       {
          rightHandSlot.LoadWeaponModel(weaponItem);
          LoadRightWeaponDamageCollider();
-         #region Handle RH idle animation
+         //update UI on the screen when swapping weapons
+         quickSlotsUI.UpdateWeaponQuickSlotsUI(false,weaponItem);
+         #region Handle right hand idle animation
             if (weaponItem != null)
             {
                animator.CrossFade(weaponItem.right_hand_idle,0.2f);
@@ -71,7 +78,9 @@ public class WeaponSlotManager : MonoBehaviour
    {
       righthanddamagecollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
    }
-   public void OpenRightDamageCollider()
+
+   #region handling damagecollider 
+public void OpenRightDamageCollider()
    {
       righthanddamagecollider.EnableDamageCollider();
    }
@@ -87,5 +96,9 @@ public class WeaponSlotManager : MonoBehaviour
    {
       lefthanddamagecollider.DisableDamageCollider();
    }
+   
+
+   #endregion
+   
    #endregion
 }

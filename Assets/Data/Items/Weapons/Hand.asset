@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc21d83124f1ba4cb71be0eb6fa7dcf, type: 3}
   m_Name: Hand
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: f21f7a9cf531f0141950a6167a01eed3, type: 3}
   itemName: 
   modelPrefab: {fileID: 5598351274435505842, guid: f3ae945218a4cc54d915dd2c69b726c1, type: 3}
   isUnarmed: 1
