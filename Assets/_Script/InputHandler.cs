@@ -17,6 +17,7 @@ public class InputHandler : MonoBehaviour
   public bool rollFlag;
   public float rollInputTimer;
   public bool rbInput;
+  public bool raInput;
   public bool rtInput;
   public bool dPadUp;
   public bool dPadDown;
@@ -146,5 +147,10 @@ public class InputHandler : MonoBehaviour
       playerInventory.ChangeWeaponInLeftHand();
     }
     
+  }
+
+  private void HandleInteractingButtonInput(){
+    //check if player pressed button A
+    //raInput = inputActions.PlayerAction.
   }
 }

@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     private InputHandler inputHandler;
     private Animator animator;
-    private CameraHandler cameraHandler;
+    public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocalmotion; 
     
     public bool isInteracting;
@@ -67,6 +67,24 @@ public class PlayerManager : MonoBehaviour
         if (isInAir)
         {
             playerLocalmotion.inAirTimer = playerLocalmotion.inAirTimer + Time.deltaTime;
+        }
+    }
+
+    public void CheckForInteractableObject(){
+        RaycastHit hit;
+        
+        if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayer))
+        {
+            Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+            if(hit.collider.tag == "Interactable")
+            {
+                string interactableText = interactableObject.interacibleText;
+                //set UI test to display info like item names and info 
+
+                if(inputHandler.raInput){
+                    hit.collider.GetComponent<Interactable>().Interact(this);
+                }
+            }
         }
     }
 }
