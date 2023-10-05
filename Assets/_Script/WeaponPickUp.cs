@@ -10,6 +10,7 @@ public class WeaponPickUp : Interactable
     {
         base.Interact(playerManager);
         //pick up a weapon and add it to player inventory
+        PickUpItem(playerManager);
     }
 
     private void PickUpItem(PlayerManager playerManager)
@@ -25,7 +26,8 @@ public class WeaponPickUp : Interactable
         playerLocomotion.rigidbody.velocity = Vector3.zero;
         animationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
-    
+        //using destory for now. will implement object pooling later
+        Destroy(gameObject);
     }
     
 }

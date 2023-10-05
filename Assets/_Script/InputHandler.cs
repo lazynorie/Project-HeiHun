@@ -67,6 +67,7 @@ public class InputHandler : MonoBehaviour
     HandleRollInput(delta);
     HandleAttackInput(delta);
     HandleQuickSlotInput();
+    HandleInteractingButtonInput();
   }
 
   private void MoveInput(float delta)
@@ -140,17 +141,32 @@ public class InputHandler : MonoBehaviour
     
     if (dPadRight)
     {
+      Debug.Log("D pad right button is pressed");
       playerInventory.ChangeWeaponInRightHand();
     }
     else if (dPadLeft)
     {
+      Debug.Log("D pad left button is pressed");
       playerInventory.ChangeWeaponInLeftHand();
+    }
+    else if (dPadUp)
+    {
+      Debug.Log("D pad up button is pressed");
+    }
+    else if (dPadDown)
+    {
+      Debug.Log("D pad down button is pressed");
     }
     
   }
 
   private void HandleInteractingButtonInput(){
     //check if player pressed button A
-    //raInput = inputActions.PlayerAction.
+    raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
+    if (raInput)
+    {
+      Debug.Log("A button is pressed");
+    }
+    
   }
 }

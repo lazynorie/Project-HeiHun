@@ -258,6 +258,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""97513291-6878-4888-987a-602ccb1e9629"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -414,6 +423,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""D-Pad Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3a1a219-4d05-4f47-a2dc-ff34e3b71249"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e0ec23f-102e-4398-aa7b-77a9979aa8bd"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -433,6 +464,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerAction_DPadUp = m_PlayerAction.FindAction("D-Pad Up", throwIfNotFound: true);
         m_PlayerAction_DPadLeft = m_PlayerAction.FindAction("D-Pad Left", throwIfNotFound: true);
         m_PlayerAction_DPadRight = m_PlayerAction.FindAction("D-Pad Right", throwIfNotFound: true);
+        m_PlayerAction_A = m_PlayerAction.FindAction("A", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -540,6 +572,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerAction_DPadUp;
     private readonly InputAction m_PlayerAction_DPadLeft;
     private readonly InputAction m_PlayerAction_DPadRight;
+    private readonly InputAction m_PlayerAction_A;
     public struct PlayerActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -551,6 +584,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @DPadUp => m_Wrapper.m_PlayerAction_DPadUp;
         public InputAction @DPadLeft => m_Wrapper.m_PlayerAction_DPadLeft;
         public InputAction @DPadRight => m_Wrapper.m_PlayerAction_DPadRight;
+        public InputAction @A => m_Wrapper.m_PlayerAction_A;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -581,6 +615,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DPadRight.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnDPadRight;
                 @DPadRight.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnDPadRight;
                 @DPadRight.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnDPadRight;
+                @A.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
+                @A.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
+                @A.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
             }
             m_Wrapper.m_PlayerActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -606,6 +643,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DPadRight.started += instance.OnDPadRight;
                 @DPadRight.performed += instance.OnDPadRight;
                 @DPadRight.canceled += instance.OnDPadRight;
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
             }
         }
     }
@@ -624,5 +664,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDPadUp(InputAction.CallbackContext context);
         void OnDPadLeft(InputAction.CallbackContext context);
         void OnDPadRight(InputAction.CallbackContext context);
+        void OnA(InputAction.CallbackContext context);
     }
 }

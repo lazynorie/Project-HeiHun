@@ -51,6 +51,8 @@ public class PlayerManager : MonoBehaviour
         playerLocalmotion.HandleMovement(delta);
         playerLocalmotion.HandleRollingAndSprinting(delta);
         playerLocalmotion.HandleFalling(delta,playerLocalmotion.moveDirection);
+
+        CheckForInteractableObject();
     }
     private void LateUpdate()
     {
