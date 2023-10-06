@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class WeaponPickUpEvent : UnityEvent<WeaponItem>{}
 
 public class WeaponPickUp : Interactable
 {
-   public WeaponItem weapon;
+    public WeaponItem weapon;
+    public WeaponPickUpEvent onWeaponPickUp;
 
     public override void Interact(PlayerManager playerManager)
     {
@@ -18,16 +25,19 @@ public class WeaponPickUp : Interactable
         PlayerInventory playerInventory;
         PlayerLocalmotion playerLocomotion;
         AnimationHandler animationHandler;
-
+        
         playerInventory = playerManager.GetComponent<PlayerInventory>();
         playerLocomotion = playerManager.GetComponent<PlayerLocalmotion>();
         animationHandler = playerManager.GetComponentInChildren<AnimationHandler>();
 
-        playerLocomotion.rigidbody.velocity = Vector3.zero;
+        playerLocomotion.StopPlayer();
         animationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
+        //UI element to show what item player picks up, thinking about replacing this with event system
+        onWeaponPickUp.Invoke(weapon);
+        gameObject.SetActive(false);
         //using Destory() for now. will implement object pooling later
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
     
 }

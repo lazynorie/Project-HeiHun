@@ -239,4 +239,9 @@ public class PlayerLocalmotion : MonoBehaviour
       }
    }
    #endregion
+
+   public void StopPlayer()
+   {
+      rigidbody.velocity = Vector3.zero;
+   }
 }

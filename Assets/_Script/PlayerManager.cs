@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocalmotion; 
-    public InteractableUI interactableUI;
+    private InteractableUI interactableUI;
     public bool isInteracting;
     [Header("Player Flags")]
     public bool isSprinting;
@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     [Header("interactable item UI elements")]
     [SerializeField] private GameObject interactableUIGameObject;
 
+    [SerializeField] private GameObject itemInteractableGameObject;
 
     private static int targetFPS = 60;
     private void Awake()
@@ -84,17 +85,19 @@ public class PlayerManager : MonoBehaviour
         
         if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayer))
         {
-            Interactable interactableObject = hit.collider.GetComponent<Interactable>();
             if(hit.collider.tag == "Interactable")
             {
-                string interactableText = interactableObject.interacibleText;
-                //set UI test to display info like item names and info 
-                interactableUI.text.text = interactableText;
-                interactableUIGameObject.SetActive(true);
-
-
-                if(inputHandler.raInput){
-                    hit.collider.GetComponent<Interactable>().Interact(this);
+                Interactable interactableObject = hit.collider.GetComponent<Interactable>();
+                if (interactableObject != null)
+                {
+                    string interactableText = interactableObject.interacibleText;
+                    //set UI test to display info like item names and info 
+                    interactableUI.text.text = interactableText;
+                    interactableUIGameObject.SetActive(true);
+                    if(inputHandler.raInput)
+                    {
+                        hit.collider.GetComponent<Interactable>().Interact(this);
+                    }
                 }
             }
         }
@@ -102,6 +105,12 @@ public class PlayerManager : MonoBehaviour
                 if(interactableUIGameObject != null)
                 {
                     interactableUIGameObject.SetActive(false);
+                }
+
+                if (itemInteractableGameObject != null  && inputHandler.raInput)
+                {
+                    itemInteractableGameObject.SetActive(false);
+                    //Unpause Game
                 }
             }
     }

@@ -5,10 +5,16 @@ This is the base class of interactible items
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
+    public InteractEvent onItemIteract;
+    
     [TextAreaAttribute]
     [Header("Item name")]
     public string interactableItemName;
@@ -24,8 +30,11 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact(PlayerManager playerManager){
         //call when player interacts
+        onItemIteract.Invoke(this);
         Debug.Log("You've interacted with " + interactableItemName.ToString());
     }
-
 }
+
+[System.Serializable]
+public class InteractEvent : UnityEvent<Interactable>{}
 
