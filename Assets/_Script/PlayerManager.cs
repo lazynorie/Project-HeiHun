@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocalmotion; 
-    
+    public InteractableUI interactableUI;
     public bool isInteracting;
     [Header("Player Flags")]
     public bool isSprinting;
@@ -17,10 +17,15 @@ public class PlayerManager : MonoBehaviour
     public bool isGrounded;
     public bool canDoCombo;
     
+    [Header("interactable item UI elements")]
+    [SerializeField] private GameObject interactableUIGameObject;
+
+
+    private static int tagerFPS = 60;
     private void Awake()
     {
         //在这里设置目标FPS
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = tagerFPS;
     
         cameraHandler = CameraHandler.singleton;
     }
@@ -29,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponentInChildren<Animator>();
         playerLocalmotion = GetComponent<PlayerLocalmotion>();
+        //the interactableUIobject has to be set to active for this line to work, or assign the gameobject in editor.
+        interactableUI = FindObjectOfType<InteractableUI>();
     }
     private void FixedUpdate()
     {
@@ -82,11 +89,20 @@ public class PlayerManager : MonoBehaviour
             {
                 string interactableText = interactableObject.interacibleText;
                 //set UI test to display info like item names and info 
+                interactableUI.text.text = interactableText;
+                interactableUIGameObject.SetActive(true);
+
 
                 if(inputHandler.raInput){
                     hit.collider.GetComponent<Interactable>().Interact(this);
                 }
             }
         }
+        else{
+                if(interactableUIGameObject != null)
+                {
+                    interactableUIGameObject.SetActive(false);
+                }
+            }
     }
 }

@@ -9,10 +9,12 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField]private float radius = 0.6f;
+    [Header("Item name")]
+    public string interactableItemName;
     [Header("Item information")]
-
     public string interacibleText;
+    [Header("Detection radius")]
+    [SerializeField]private float radius = 0.6f;
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, radius);
@@ -20,6 +22,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact(PlayerManager playerManager){
         //call when player interacts
+        Debug.Log("You've interacted with " + interactableItemName.ToString());
     }
 
 }
