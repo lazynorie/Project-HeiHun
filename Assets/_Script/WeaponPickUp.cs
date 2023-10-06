@@ -26,7 +26,7 @@ public class WeaponPickUp : Interactable
         playerLocomotion.rigidbody.velocity = Vector3.zero;
         animationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
-        //using destory for now. will implement object pooling later
+        //using Destory() for now. will implement object pooling later
         Destroy(gameObject);
     }
     

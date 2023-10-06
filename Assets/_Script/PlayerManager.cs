@@ -21,11 +21,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject interactableUIGameObject;
 
 
-    private static int tagerFPS = 60;
+    private static int targetFPS = 60;
     private void Awake()
     {
         //在这里设置目标FPS
-        Application.targetFrameRate = tagerFPS;
+        Application.targetFrameRate = targetFPS;
     
         cameraHandler = CameraHandler.singleton;
     }

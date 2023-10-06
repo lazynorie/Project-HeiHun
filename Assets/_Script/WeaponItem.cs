@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "Item/Weapon Item")]
 public class WeaponItem : Item
@@ -17,5 +19,6 @@ public class WeaponItem : Item
     public string right_hand_idle;
     public string left_hand_idle;
 
-    [Header("toolstip")] public string toolstip;
+    [TextAreaAttribute]
+    [Header("toolstip")] public String toolstip;
 }

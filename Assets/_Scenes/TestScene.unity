@@ -197,13 +197,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1770550610906362, guid: 128d74125a472834991824f3f72198b5, type: 3}
+    - target: {fileID: 1519988694366778, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1770550610906362, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788192214910672, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809000050092792, guid: 128d74125a472834991824f3f72198b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1838816650635982, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4341460358607452, guid: 128d74125a472834991824f3f72198b5, type: 3}
       propertyPath: m_RootOrder
@@ -301,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34037e712e9ae4c08a0e1c4633a81c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableItemName: 
+  interactableItemName: test item
   interacibleText: This is a weapon case
   radius: 1
   weapon: {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}

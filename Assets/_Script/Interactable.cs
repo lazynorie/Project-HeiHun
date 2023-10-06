@@ -9,8 +9,10 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    [TextAreaAttribute]
     [Header("Item name")]
     public string interactableItemName;
+    [TextAreaAttribute]
     [Header("Item information")]
     public string interacibleText;
     [Header("Detection radius")]
