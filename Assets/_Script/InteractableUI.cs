@@ -38,6 +38,8 @@ public class InteractableUI : MonoBehaviour
          if (_bool)
          {
              //pause the game if in single player mode
+             //Time.timeScale = 0;
+             CustomTime.LocalTimeScale= 0.0f;
          }
      }
      

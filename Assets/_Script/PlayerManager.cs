@@ -111,6 +111,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     itemInteractableGameObject.SetActive(false);
                     //Unpause Game
+                    CustomTime.LocalTimeScale = 1.0f;
                 }
             }
     }
