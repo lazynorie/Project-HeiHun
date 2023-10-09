@@ -267,6 +267,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c35ef83-046d-4a31-a6d3-fd2bc835368e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -445,6 +454,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebf4f717-072e-4aaf-b403-2d47629ce3ef"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -465,6 +485,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerAction_DPadLeft = m_PlayerAction.FindAction("D-Pad Left", throwIfNotFound: true);
         m_PlayerAction_DPadRight = m_PlayerAction.FindAction("D-Pad Right", throwIfNotFound: true);
         m_PlayerAction_A = m_PlayerAction.FindAction("A", throwIfNotFound: true);
+        m_PlayerAction_Start = m_PlayerAction.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -573,6 +594,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerAction_DPadLeft;
     private readonly InputAction m_PlayerAction_DPadRight;
     private readonly InputAction m_PlayerAction_A;
+    private readonly InputAction m_PlayerAction_Start;
     public struct PlayerActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -585,6 +607,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @DPadLeft => m_Wrapper.m_PlayerAction_DPadLeft;
         public InputAction @DPadRight => m_Wrapper.m_PlayerAction_DPadRight;
         public InputAction @A => m_Wrapper.m_PlayerAction_A;
+        public InputAction @Start => m_Wrapper.m_PlayerAction_Start;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -618,6 +641,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @A.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
                 @A.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
                 @A.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnA;
+                @Start.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_PlayerActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -646,6 +672,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @A.started += instance.OnA;
                 @A.performed += instance.OnA;
                 @A.canceled += instance.OnA;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -665,5 +694,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDPadLeft(InputAction.CallbackContext context);
         void OnDPadRight(InputAction.CallbackContext context);
         void OnA(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

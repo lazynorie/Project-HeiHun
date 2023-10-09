@@ -23,6 +23,7 @@ public class InputHandler : MonoBehaviour
   public bool dPadDown;
   public bool dPadLeft;
   public bool dPadRight;
+  public bool startInput;
   
   public bool sprintFlag;
   public bool comboFlag;
@@ -68,6 +69,7 @@ public class InputHandler : MonoBehaviour
     HandleAttackInput(delta);
     HandleQuickSlotInput();
     HandleInteractingButtonInput();
+    handleStartButtonInput();
   }
 
   private void MoveInput(float delta)
@@ -100,7 +102,6 @@ public class InputHandler : MonoBehaviour
       rollInputTimer = 0;
     }
   }
-
   private void HandleAttackInput(float delta)
   {
     rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
@@ -131,7 +132,6 @@ public class InputHandler : MonoBehaviour
       playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
     }
   }
-
   private void HandleQuickSlotInput()
   {
     dPadUp = inputActions.PlayerAction.DPadUp.WasPressedThisFrame();
@@ -159,7 +159,6 @@ public class InputHandler : MonoBehaviour
     }
     
   }
-
   private void HandleInteractingButtonInput(){
     //check if player pressed button A
     raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
@@ -168,5 +167,13 @@ public class InputHandler : MonoBehaviour
       Debug.Log("A button is pressed");
     }
     
+  }
+  private void handleStartButtonInput()
+  {
+    startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
+    if (startInput)
+    {
+      Debug.Log("Start button is pressed");
+    }
   }
 }
