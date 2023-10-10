@@ -41,31 +41,22 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         float delta = Time.fixedDeltaTime;
-        //float delta = Time.deltaTime;
-        if (cameraHandler != null)
-        {
-            cameraHandler.FollowTarget(delta);
-            cameraHandler.HandleCameraRotation(delta,inputHandler.mouseX,inputHandler.mouseY);
-        }
-    }
-    void Update()
-    {
-        float delta = Time.deltaTime;
-        
-        isInteracting = animator.GetBool("isInteracting");
-        canDoCombo = animator.GetBool("canDoCombo");
-        
         inputHandler.TickInput(delta);
         playerLocalmotion.HandleMovement(delta);
         playerLocalmotion.HandleRollingAndSprinting(delta);
         playerLocalmotion.HandleFalling(delta,playerLocalmotion.moveDirection);
-
+    }
+    void Update()
+    {
+        float delta = Time.deltaTime;
+        isInteracting = animator.GetBool("isInteracting");
+        canDoCombo = animator.GetBool("canDoCombo");
         CheckForInteractableObject();
     }
     private void LateUpdate()
     {
         inputHandler.rollFlag = false;
-        inputHandler.sprintFlag = false;
+        //inputHandler.sprintFlag = false;
         inputHandler.rbInput = false;
         inputHandler.rtInput = false;
         //isSprinting = inputHandler.bInput;
@@ -77,6 +68,13 @@ public class PlayerManager : MonoBehaviour
         if (isInAir)
         {
             playerLocalmotion.inAirTimer = playerLocalmotion.inAirTimer + Time.deltaTime;
+        }
+        
+        float delta = Time.deltaTime;
+        if (cameraHandler != null)
+        {
+            cameraHandler.FollowTarget(delta);
+            cameraHandler.HandleCameraRotation(delta,inputHandler.mouseX,inputHandler.mouseY);
         }
     }
 

@@ -87,11 +87,11 @@ public class InputHandler : MonoBehaviour
     //以上代码新版inputsystem错误
     //bInput = inputActions.PlayerAction.Roll.triggered;
     bInput = inputActions.PlayerAction.Roll.IsPressed();
+    sprintFlag = bInput;
     if (bInput)
     {
       //rollFlag = true;
       rollInputTimer += delta;
-      sprintFlag = true;
     }
     else
     {
