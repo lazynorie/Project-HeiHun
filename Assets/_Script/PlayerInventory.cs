@@ -57,6 +57,26 @@ public class PlayerInventory : MonoBehaviour
     {
       currentRightWeaponIndex += 1;
     }
+    
+    else if (currentRightWeaponIndex == 2&& rightHandWeaponSlots[2]!=null)
+    {
+      rightWeapon = rightHandWeaponSlots[currentRightWeaponIndex];
+      weaponSlotManager.LoadWeaponOnSlot(rightHandWeaponSlots[currentRightWeaponIndex],false);
+    }
+    else if(currentRightWeaponIndex == 2 && rightHandWeaponSlots[2]==null)
+    {
+      currentRightWeaponIndex += 1;
+    }
+    
+    else if (currentRightWeaponIndex == 3&& rightHandWeaponSlots[3]!=null)
+    {
+      rightWeapon = rightHandWeaponSlots[currentRightWeaponIndex];
+      weaponSlotManager.LoadWeaponOnSlot(rightHandWeaponSlots[currentRightWeaponIndex],false);
+    }
+    else if(currentRightWeaponIndex == 3 && rightHandWeaponSlots[3]==null)
+    {
+      currentRightWeaponIndex += 1;
+    }
 
     if (currentRightWeaponIndex > rightHandWeaponSlots.Length -1)
     {
@@ -84,6 +104,26 @@ public class PlayerInventory : MonoBehaviour
       weaponSlotManager.LoadWeaponOnSlot(leftHandWeaponSlots[currentLeftWeaponIndex],true);
     }
     else if(currentLeftWeaponIndex == 1 && leftHandWeaponSlots[1]==null)
+    {
+      currentLeftWeaponIndex += 1;
+    }
+    
+    else if (currentLeftWeaponIndex == 2&& leftHandWeaponSlots[2]!=null)
+    {
+      leftWeapon = leftHandWeaponSlots[currentLeftWeaponIndex];
+      weaponSlotManager.LoadWeaponOnSlot(leftHandWeaponSlots[currentLeftWeaponIndex],true);
+    }
+    else if(currentLeftWeaponIndex == 2 && leftHandWeaponSlots[2]==null)
+    {
+      currentLeftWeaponIndex += 1;
+    }
+    
+    else if (currentLeftWeaponIndex == 3&& leftHandWeaponSlots[3]!=null)
+    {
+      leftWeapon = leftHandWeaponSlots[currentLeftWeaponIndex];
+      weaponSlotManager.LoadWeaponOnSlot(leftHandWeaponSlots[currentLeftWeaponIndex],true);
+    }
+    else if(currentLeftWeaponIndex == 3 && leftHandWeaponSlots[3]==null)
     {
       currentLeftWeaponIndex += 1;
     }

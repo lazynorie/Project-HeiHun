@@ -6,22 +6,32 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public PlayerInventory playerInventory;
+    private PlayerInventory playerInventory;
+    private EquipmentWindowUI equipmentWindowUI;
 
     [Header("UI windows")]
     public GameObject hudWindow; 
     public GameObject weaponInventoryWindow;
     public GameObject selectWindow;
+    public GameObject equipmentWindow;
+    [HideInInspector]
     public bool inventoryFlag;
 
     [Header("Weapon Inventory")]
     public GameObject weaponInventorySlotPrefab;
     public Transform weaponIventorySlotsParent;
     private WeaponInventorySlot[] weaponInventorySlots;
-    
+
+    private void Awake()
+    {
+        equipmentWindowUI = FindObjectOfType<EquipmentWindowUI>();
+        playerInventory = FindObjectOfType<PlayerInventory>();
+    }
+
     private void Start()
     {
         //inventoryFlag = false;
+        equipmentWindowUI.LoadWeaponsOnQuipmentScreen(playerInventory);
         weaponInventorySlots = weaponIventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
         DisplayPlayerHUD();
         ClearAllInventoryWindows();
@@ -65,6 +75,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAllInventoryWindows();
         CloseSelectWindow();
+        //equipmentWindow.SetActive(false);
     }
 
     private void DisplayPlayerHUD()
