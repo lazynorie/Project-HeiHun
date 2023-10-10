@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
   public float horizontal;
-  
   public float vertical;
   public float moveAmount;
   public float mouseX;
@@ -33,6 +32,7 @@ public class InputHandler : MonoBehaviour
    PlayerAttacker playerAttacker;
    private PlayerInventory playerInventory;
    private PlayerManager playerManager;
+   private UIManager uiManager;
 
   public Vector2 movementInput;
   Vector2 cameraInput;
@@ -42,6 +42,7 @@ public class InputHandler : MonoBehaviour
     playerAttacker = GetComponent<PlayerAttacker>();
     playerInventory = GetComponent<PlayerInventory>();
     playerManager = GetComponent<PlayerManager>();
+    uiManager = FindObjectOfType<UIManager>();
   }
 
   public void OnEnable()
@@ -174,6 +175,19 @@ public class InputHandler : MonoBehaviour
     if (startInput)
     {
       Debug.Log("Start button is pressed");
+      uiManager.inventoryFlag = !(uiManager.inventoryFlag);
+      if (uiManager.inventoryFlag)
+      {
+        uiManager.OpenSelectWindow();
+        uiManager.UpdateUI();
+        uiManager.hudWindow.SetActive(false);
+      }
+      else
+      {
+        uiManager.CloseSelectWindow();
+        uiManager.CloseAllInventoryWindows();
+        uiManager.hudWindow.SetActive(true);
+      }
     }
   }
 }
