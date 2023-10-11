@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
@@ -16,6 +17,7 @@ public class CameraHandler : MonoBehaviour
     private Transform myTransform;
     private Vector3 cameraTransformPosition;
     public LayerMask ignoreLayer;
+    public LayerMask enviromentLayer;
     private Vector3 cameraFollowVelocity = Vector3.zero;
 
     public static CameraHandler singleton;
@@ -44,10 +46,12 @@ public class CameraHandler : MonoBehaviour
     public Transform currentLockOnTarget;
     public Transform leftLockTarget;
     public Transform rightLockTarget;
+    public float lockedPivotPosition = 2.25f;
+    public float unlockedPivotPosition = 1.5f;
+
     [Header("Debug")]
     public GameObject currentHitObject = null;
-
-
+    
     private void Awake()
     {
         singleton = this;
@@ -56,6 +60,11 @@ public class CameraHandler : MonoBehaviour
         inputHandler = FindObjectOfType<InputHandler>();
         targetTransform = FindObjectOfType<PlayerManager>().transform;
         ignoreLayer = ~(1 << 8 | 1 << 9 | 1 << 10);
+    }
+
+    private void Start()
+    {
+        enviromentLayer = LayerMask.NameToLayer("Environment");
     }
 
     public void FollowTarget(float delta)
@@ -68,7 +77,6 @@ public class CameraHandler : MonoBehaviour
         
         HandleCameraCollision(delta);
     }
-
     public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
     {
         //if there's no lock on
@@ -100,7 +108,7 @@ public class CameraHandler : MonoBehaviour
 
             Quaternion targetRotation = Quaternion.LookRotation(dir);
             //transform.rotation = targetRotation;
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.5f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.1f);
 
             dir = currentLockOnTarget.position - cameraPivotTransform.position;
             dir.Normalize();
@@ -115,7 +123,6 @@ public class CameraHandler : MonoBehaviour
 
         }
     }
-
     private void HandleCameraCollision(float delta)
     {
         targetPosition = defaultPosition;
@@ -144,13 +151,14 @@ public class CameraHandler : MonoBehaviour
             targetPosition = -minimumCollisionOffSet;
         }
         
-        cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
-        cameraTransform.localPosition = cameraTransformPosition;
+        /*cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
+        cameraTransform.localPosition = cameraTransformPosition;*/
 
     }
     //Lock on method
     public void HandleLockOn()
     {
+        SetCameraHeight();
         float shortestDistance = Mathf.Infinity;
         float shortestDistanceOfLeftTarget = Mathf.Infinity;
         float shortestDistanceOfRightTarget = Mathf.Infinity;
@@ -165,12 +173,24 @@ public class CameraHandler : MonoBehaviour
                 float distanceFromTarget = Vector3.Distance(targetTransform.position, characters.transform.position);
                 float viewableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
 
+                RaycastHit hit;
                 //do this to prevent camera lock on to player themselves
                 if (characters.transform.root != targetTransform.transform.root 
                     && viewableAngle >-50 && viewableAngle <50 
                     && distanceFromTarget <= maximumLockOnDistance)
                 {
-                    availableTargets.Add(characters);
+                    if (Physics.Linecast(targetTransform.position, characters.lockOnTransform.position,out hit))
+                    {
+                        Debug.DrawLine(targetTransform.position, characters.lockOnTransform.position);
+                        if (hit.transform.gameObject.layer == enviromentLayer)
+                        {
+                            Debug.Log("target out of LOS");
+                        }
+                        else
+                        {
+                            availableTargets.Add(characters);
+                        }
+                    }
                 }
             }
         }
@@ -207,13 +227,29 @@ public class CameraHandler : MonoBehaviour
                 }
             }
         }
+        SetCameraHeight();
     }
-
     public void ClearLockOnTargets()
     {
         availableTargets.Clear();
         nearestLockOnTarget = null;
         currentLockOnTarget = null;
     }
+    public void SetCameraHeight()
+    {
+        Vector3 velocity = Vector3.zero;
+        Vector3 newLockedPosition = new Vector3(0, lockedPivotPosition);
+        Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
 
+        if (currentLockOnTarget != null)
+        {
+            cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraTransform.transform.localPosition,
+                newLockedPosition, ref velocity, Time.deltaTime);
+        }
+        else
+        {
+            cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(
+                cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
+        }
+    }
 }
