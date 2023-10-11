@@ -42,6 +42,8 @@ public class CameraHandler : MonoBehaviour
     public Transform nearestLockOnTarget;
     private List<CharacterManager> availableTargets = new List<CharacterManager>();
     public Transform currentLockOnTarget;
+    public Transform leftLockTarget;
+    public Transform rightLockTarget;
     [Header("Debug")]
     public GameObject currentHitObject = null;
 
@@ -150,23 +152,25 @@ public class CameraHandler : MonoBehaviour
     public void HandleLockOn()
     {
         float shortestDistance = Mathf.Infinity;
+        float shortestDistanceOfLeftTarget = Mathf.Infinity;
+        float shortestDistanceOfRightTarget = Mathf.Infinity;
 
         Collider[] colliders = Physics.OverlapSphere(targetTransform.position, 26);
         for (int i = 0; i < colliders.Length; i++)
         {
-            CharacterManager character = colliders[i].GetComponent<CharacterManager>();
-            if (character != null)
+            CharacterManager characters = colliders[i].GetComponent<CharacterManager>();
+            if (characters != null)
             {
-                Vector3 lockTargetDirection = character.transform.position - targetTransform.position;
-                float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
+                Vector3 lockTargetDirection = characters.transform.position - targetTransform.position;
+                float distanceFromTarget = Vector3.Distance(targetTransform.position, characters.transform.position);
                 float viewableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
 
                 //do this to prevent camera lock on to player themselves
-                if (character.transform.root != targetTransform.transform.root 
+                if (characters.transform.root != targetTransform.transform.root 
                     && viewableAngle >-50 && viewableAngle <50 
                     && distanceFromTarget <= maximumLockOnDistance)
                 {
-                    availableTargets.Add(character);
+                    availableTargets.Add(characters);
                 }
             }
         }
@@ -180,6 +184,27 @@ public class CameraHandler : MonoBehaviour
             {
                 shortestDistance = distanceFromTarget;
                 nearestLockOnTarget = availableTargets[k].lockOnTransform;
+            }
+
+            if (inputHandler.lockOnFlag)
+            {
+                //checking the how close the target is to the player base on relative x-axis
+                Vector3 relativeEnemyPosition =
+                    currentLockOnTarget.InverseTransformPoint(availableTargets[k].transform.position);
+                var distanceFromLeftTarget =
+                    currentLockOnTarget.transform.position.x - availableTargets[k].transform.position.x;
+                var distanceFromRightTarget =
+                    currentLockOnTarget.transform.position.x + availableTargets[k].transform.position.x;
+                if (relativeEnemyPosition.x > 0.00 && distanceFromTarget < shortestDistanceOfLeftTarget)
+                {
+                    shortestDistanceOfLeftTarget = distanceFromLeftTarget;
+                    leftLockTarget = availableTargets[k].lockOnTransform;
+                }
+                if (relativeEnemyPosition.x < 0.00 && distanceFromTarget < shortestDistanceOfRightTarget)
+                {
+                    shortestDistanceOfRightTarget = distanceFromRightTarget;
+                    rightLockTarget = availableTargets[k].lockOnTransform;
+                }
             }
         }
     }

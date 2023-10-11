@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAllInventoryWindows();
         CloseSelectWindow();
-        //equipmentWindow.SetActive(false);
+        equipmentWindow.SetActive(false);
     }
 
     private void DisplayPlayerHUD()

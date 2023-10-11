@@ -12,9 +12,10 @@ public class InputHandler : MonoBehaviour
   public float mouseX;
   public float mouseY;
 
-  public bool bInput;
   public bool rollFlag;
   public float rollInputTimer;
+  
+  public bool bInput;
   public bool rbInput;
   public bool raInput;
   public bool rtInput;
@@ -23,7 +24,10 @@ public class InputHandler : MonoBehaviour
   public bool dPadLeft;
   public bool dPadRight;
   public bool startInput;
+  
   public bool lockOnInput;
+  public bool rightStickLeftInput;
+  public bool rightStickRightInput;
   
   public bool lockOnFlag;
   public bool sprintFlag;
@@ -68,6 +72,7 @@ public class InputHandler : MonoBehaviour
 
   public void TickInput(float delta)
   {
+    ListeningToInput();
     MoveInput(delta);
     HandleRollInput(delta);
     HandleAttackInput(delta);
@@ -90,7 +95,6 @@ public class InputHandler : MonoBehaviour
     //bInput = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
     //以上代码新版inputsystem错误
     //bInput = inputActions.PlayerAction.Roll.triggered;
-    bInput = inputActions.PlayerAction.Roll.IsPressed();
     sprintFlag = bInput;
     if (bInput)
     {
@@ -109,9 +113,6 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleAttackInput(float delta)
   {
-    rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
-    rtInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
-
     if (rbInput)
     {
       if (playerManager.canDoCombo)
@@ -139,11 +140,6 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleQuickSlotInput()
   {
-    dPadUp = inputActions.PlayerAction.DPadUp.WasPressedThisFrame();
-    dPadDown = inputActions.PlayerAction.DPadDown.WasPressedThisFrame();
-    dPadLeft = inputActions.PlayerAction.DPadLeft.WasPressedThisFrame();
-    dPadRight = inputActions.PlayerAction.DPadRight.WasPressedThisFrame();
-    
     if (dPadRight)
     {
       Debug.Log("D pad right button is pressed");
@@ -164,9 +160,8 @@ public class InputHandler : MonoBehaviour
     }
     
   }
-  private void HandleInteractingButtonInput(){
-    //check if player pressed button A
-    raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
+  private void HandleInteractingButtonInput()
+  {
     if (raInput)
     {
       Debug.Log("A button is pressed");
@@ -175,7 +170,6 @@ public class InputHandler : MonoBehaviour
   }
   private void handleStartButtonInput()
   {
-    startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
     if (startInput)
     {
       Debug.Log("Start button is pressed");
@@ -194,13 +188,10 @@ public class InputHandler : MonoBehaviour
       }
     }
   }
-
   private void HandleLockOnButtonInput()
   {
-    lockOnInput = inputActions.PlayerAction.LockOn.WasPressedThisFrame();
     if (lockOnInput && !lockOnFlag)
     {
-      cameraHandler.ClearLockOnTargets();
       cameraHandler.HandleLockOn();
       if (cameraHandler.nearestLockOnTarget != null)
       {
@@ -214,5 +205,48 @@ public class InputHandler : MonoBehaviour
       lockOnFlag = false;
       cameraHandler.ClearLockOnTargets();
     }
+    if (lockOnFlag && rightStickLeftInput)
+    {
+      Debug.Log("rightStickLeft");
+      cameraHandler.HandleLockOn();
+      if (cameraHandler.leftLockTarget != null)
+      {
+        cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+      }
+      else
+      {
+        Debug.Log(cameraHandler.leftLockTarget.ToString());
+      }
+    }
+    if (lockOnFlag && rightStickRightInput)
+    {
+      Debug.Log("rightStickRight");
+      cameraHandler.HandleLockOn();
+      if (cameraHandler.rightLockTarget != null)
+      {
+        cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+      }
+      else
+      {
+        Debug.Log(cameraHandler.rightLockTarget.ToString());
+      }
+    }
   }
+  
+  private void ListeningToInput()
+  {
+    raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
+    dPadUp = inputActions.QuickSlotsInput.DPadUp.WasPressedThisFrame();
+    dPadDown = inputActions.QuickSlotsInput.DPadDown.WasPressedThisFrame();
+    dPadLeft = inputActions.QuickSlotsInput.DPadLeft.WasPressedThisFrame();
+    dPadRight = inputActions.QuickSlotsInput.DPadRight.WasPressedThisFrame();
+    rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
+    rtInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
+    bInput = inputActions.PlayerAction.Roll.IsPressed();
+    startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
+    rightStickLeftInput = inputActions.PlayerMovement.RightStickLeft.WasPressedThisFrame();
+    rightStickRightInput = inputActions.PlayerMovement.RightStickRight.WasPressedThisFrame();
+    lockOnInput = inputActions.PlayerAction.LockOn.WasPressedThisFrame();
+  }
+  
 }
