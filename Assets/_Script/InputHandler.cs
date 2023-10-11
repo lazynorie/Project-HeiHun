@@ -23,16 +23,18 @@ public class InputHandler : MonoBehaviour
   public bool dPadLeft;
   public bool dPadRight;
   public bool startInput;
+  public bool lockOnInput;
   
+  public bool lockOnFlag;
   public bool sprintFlag;
   public bool comboFlag;
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
-   PlayerAttacker playerAttacker;
-   private PlayerInventory playerInventory;
-   private PlayerManager playerManager;
-   private UIManager uiManager;
+  PlayerAttacker playerAttacker;
+  private PlayerInventory playerInventory;
+  private PlayerManager playerManager;
+  private UIManager uiManager;
 
   public Vector2 movementInput;
   Vector2 cameraInput;
@@ -43,6 +45,7 @@ public class InputHandler : MonoBehaviour
     playerInventory = GetComponent<PlayerInventory>();
     playerManager = GetComponent<PlayerManager>();
     uiManager = FindObjectOfType<UIManager>();
+    cameraHandler = FindObjectOfType<CameraHandler>();
   }
 
   public void OnEnable()
@@ -71,6 +74,7 @@ public class InputHandler : MonoBehaviour
     HandleQuickSlotInput();
     HandleInteractingButtonInput();
     handleStartButtonInput();
+    HandleLockOnButtonInput();
   }
 
   private void MoveInput(float delta)
@@ -188,6 +192,27 @@ public class InputHandler : MonoBehaviour
         uiManager.CloseAllInventoryWindows();
         uiManager.hudWindow.SetActive(true);
       }
+    }
+  }
+
+  private void HandleLockOnButtonInput()
+  {
+    lockOnInput = inputActions.PlayerAction.LockOn.WasPressedThisFrame();
+    if (lockOnInput && !lockOnFlag)
+    {
+      cameraHandler.ClearLockOnTargets();
+      cameraHandler.HandleLockOn();
+      if (cameraHandler.nearestLockOnTarget != null)
+      {
+        Debug.Log("lock on");
+        cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+        lockOnFlag = true;
+      }
+    }
+    else if(lockOnInput && lockOnFlag)
+    {
+      lockOnFlag = false;
+      cameraHandler.ClearLockOnTargets();
     }
   }
 }
