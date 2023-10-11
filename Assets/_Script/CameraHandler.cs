@@ -69,6 +69,7 @@ public class CameraHandler : MonoBehaviour
 
     public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
     {
+        //if there's no lock on
         if (inputHandler.lockOnFlag == false && currentLockOnTarget == null)
         {
             lookAngle += (mouseXInput * lookSpeed) / delta ;
@@ -86,6 +87,7 @@ public class CameraHandler : MonoBehaviour
             targetRotation = Quaternion.Euler(rotation);
             cameraPivotTransform.localRotation = targetRotation;
         }
+        //lock on activate
         else
         {
             float velocity = 0;
@@ -95,7 +97,8 @@ public class CameraHandler : MonoBehaviour
             dir.y = 0;
 
             Quaternion targetRotation = Quaternion.LookRotation(dir);
-            transform.rotation = targetRotation;
+            //transform.rotation = targetRotation;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.5f);
 
             dir = currentLockOnTarget.position - cameraPivotTransform.position;
             dir.Normalize();
@@ -103,7 +106,11 @@ public class CameraHandler : MonoBehaviour
             targetRotation = Quaternion.LookRotation(dir);
             Vector3 eularAngle = targetRotation.eulerAngles;
             eularAngle.y = 0;
-            cameraPivotTransform.localEulerAngles = eularAngle;
+            float xangle = Mathf.LerpAngle(cameraPivotTransform.localEulerAngles.x, eularAngle.x, 0.5f);
+            float zangle = Mathf.LerpAngle(cameraPivotTransform.localEulerAngles.z, eularAngle.z, 0.5f);
+            cameraPivotTransform.localEulerAngles = new Vector3(xangle, 0, zangle);
+            //cameraPivotTransform.localEulerAngles = eularAngle;
+
         }
     }
 
