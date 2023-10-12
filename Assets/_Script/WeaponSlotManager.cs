@@ -33,6 +33,14 @@ public class WeaponSlotManager : MonoBehaviour
    }
 
    #region Handle Weapon Damage Collider
+   /// <summary>
+   /// this is a function that load weapon to its slots
+   /// include activate damage collider
+   ///         hold idle animation
+   ///         updating UI
+   /// </summary>
+   /// <param name="weaponItem"></param>
+   /// <param name="isLeft"></param>
    public void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
    {
       if (isLeft)
@@ -42,14 +50,14 @@ public class WeaponSlotManager : MonoBehaviour
          //update UI on the screen when swapping weapons
          quickSlotsUI.UpdateWeaponQuickSlotsUI(true,weaponItem);
          #region handle left hand idel animation
-         /*if (weaponItem != null)
-                  {
-                     animator.CrossFade(weaponItem.left_hand_idle,0.2f);
-                  }
-                  else
-                  {
-                     animator.CrossFade("Left Arm Empty State", 0.2f);
-                  }*/
+         if (weaponItem != null)
+         {
+            animator.CrossFade(weaponItem.left_hand_idle,0.2f);
+         }
+         else
+         {
+            animator.CrossFade("Left Arm Empty State", 0.2f);
+         }
          #endregion
       }
       else

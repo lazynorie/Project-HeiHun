@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class PlayerManager : CharacterManager
 {
-    private InputHandler inputHandler;
+   public static event Action onPlayerDeath;
+   public static event Action onInteractable; 
+
+   private InputHandler inputHandler;
     private Animator animator;
     public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocalmotion; 
@@ -41,7 +44,7 @@ public class PlayerManager : CharacterManager
     private void FixedUpdate()
     {
         float delta = Time.fixedDeltaTime;
-        inputHandler.TickInput(delta);
+        inputHandler.FixedTickInput(delta);
         playerLocalmotion.HandleMovement(delta);
         playerLocalmotion.HandleRollingAndSprinting(delta);
         playerLocalmotion.HandleFalling(delta,playerLocalmotion.moveDirection);
@@ -49,6 +52,7 @@ public class PlayerManager : CharacterManager
     void Update()
     {
         float delta = Time.deltaTime;
+        inputHandler.TickInput(delta);
         isInteracting = animator.GetBool("isInteracting");
         canDoCombo = animator.GetBool("canDoCombo");
         CheckForInteractableObject();
@@ -57,13 +61,12 @@ public class PlayerManager : CharacterManager
     {
         inputHandler.rollFlag = false;
         //inputHandler.sprintFlag = false;
-        inputHandler.rbInput = false;
+        /*inputHandler.rbInput = false;
         inputHandler.rtInput = false;
-        //isSprinting = inputHandler.bInput;
         inputHandler.dPadLeft = false;
         inputHandler.dPadRight = false;
         inputHandler.dPadUp = false;
-        inputHandler.dPadDown = false;
+        inputHandler.dPadDown = false;*/
         
         if (isInAir)
         {
@@ -94,6 +97,7 @@ public class PlayerManager : CharacterManager
                     interactableUIGameObject.SetActive(true);
                     if(inputHandler.raInput)
                     {
+                        onInteractable?.Invoke();
                         hit.collider.GetComponent<Interactable>().Interact(this);
                     }
                 }

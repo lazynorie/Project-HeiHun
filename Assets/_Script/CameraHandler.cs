@@ -11,7 +11,7 @@ using Vector3 = UnityEngine.Vector3;
 public class CameraHandler : MonoBehaviour
 {
     private InputHandler inputHandler;
-    public Transform targetTransform;
+    public Transform targetTransform;//camera follow target. currently assign to player
     public Transform cameraTransform;
     public Transform cameraPivotTransform;
     private Transform myTransform;
@@ -33,7 +33,7 @@ public class CameraHandler : MonoBehaviour
     public float minimumPivot = -35;
     public float maximumPivot = 35;
 
-    //摄像头碰撞
+    [Header("Camera collision")]
     private float targetPosition;
     public float cameraSphereRadius = 0.2f;
     public float cameraCollisionOffSet = 0.2f;

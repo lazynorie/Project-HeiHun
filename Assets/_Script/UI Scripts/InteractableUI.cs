@@ -25,6 +25,7 @@ public class InteractableUI : MonoBehaviour
      private void Start()
      {
          interactableUIGameObject.SetActive(false);
+         PlayerManager.onInteractable += DelegatesTrigger;
      }
 
      public void ShowItemPickUpText(Interactable interactable)
@@ -46,5 +47,10 @@ public class InteractableUI : MonoBehaviour
      public void SetImageForItemPickUp(Item item)
      {
          imageToDisplay.texture = item.itemIcon.texture;
+     }
+
+     public void DelegatesTrigger()
+     {
+         Debug.Log("hi there");
      }
 }

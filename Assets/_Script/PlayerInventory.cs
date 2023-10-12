@@ -8,15 +8,14 @@ public class PlayerInventory : MonoBehaviour
   private WeaponSlotManager weaponSlotManager;
   public WeaponItem rightWeapon;
   public WeaponItem leftWeapon;
-
   public WeaponItem unarmedWeapon;
   
-  public WeaponItem[] rightHandWeaponSlots = new WeaponItem[1];
-  public WeaponItem[] leftHandWeaponSlots = new WeaponItem[1];
-
-  public int currentRightWeaponIndex = -1;
-  public int currentLeftWeaponIndex = -1;
-
+  [Header("Equipped Weapons Inventory")]
+  private int currentRightWeaponIndex = -1;
+  public WeaponItem[] rightHandWeaponSlots = new WeaponItem[3];
+  private int currentLeftWeaponIndex = -1;
+  public WeaponItem[] leftHandWeaponSlots = new WeaponItem[3];
+  [Header("Inactive Weapon Inventory")]
 //list for player weapons
   public List<WeaponItem> weaponInventory;
   
@@ -27,13 +26,7 @@ public class PlayerInventory : MonoBehaviour
 
   private void Start()
   {
-    /*rightWeapon = rightHandWeaponSlots[currentRightWeaponIndex];
-    leftWeapon = leftHandWeaponSlots[currentLeftWeaponIndex];
-    
-    weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-    weaponSlotManager.LoadWeaponOnSlot(leftWeapon,true);*/
-    rightWeapon = unarmedWeapon;
-    leftWeapon = unarmedWeapon;
+    LoadFirstWeaponsInInventory();
   }
 
   public void ChangeWeaponInRightHand()
@@ -134,5 +127,13 @@ public class PlayerInventory : MonoBehaviour
       leftWeapon = unarmedWeapon;
       weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon,true);
     }
+  }
+  
+  private void LoadFirstWeaponsInInventory()
+  {
+    rightWeapon = rightHandWeaponSlots[0];
+    weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+    leftWeapon = leftHandWeaponSlots[0];
+    weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
   }
 }

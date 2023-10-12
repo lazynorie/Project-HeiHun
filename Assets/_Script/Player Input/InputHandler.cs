@@ -73,13 +73,17 @@ public class InputHandler : MonoBehaviour
   public void TickInput(float delta)
   {
     ListeningToInput();
-    HandleMoveInput(delta);
-    HandleRollInput(delta);
-    HandleAttackInput(delta);
     HandleQuickSlotInput();
     HandleInteractingButtonInput();
     handleStartButtonInput();
     HandleLockOnButtonInput();
+  }
+
+  public void FixedTickInput(float delta)//rb related tick inputs goes here
+  {
+    HandleMoveInput(delta);
+    HandleRollInput(delta);
+    HandleAttackInput(delta);
   }
 
   private void HandleMoveInput(float delta)

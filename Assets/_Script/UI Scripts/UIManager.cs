@@ -69,13 +69,13 @@ public class UIManager : MonoBehaviour
     public void CloseAllInventoryWindows()
     {
         weaponInventoryWindow.SetActive(false);
+        equipmentWindow.SetActive(false);
     }
 
     private void ClearAllInventoryWindows()
     {
         CloseAllInventoryWindows();
         CloseSelectWindow();
-        equipmentWindow.SetActive(false);
     }
 
     private void DisplayPlayerHUD()
