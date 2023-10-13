@@ -7,7 +7,8 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private PlayerInventory playerInventory;
-    private EquipmentWindowUI equipmentWindowUI;
+    public EquipmentWindowUI equipmentWindowUI;
+    
 
     [Header("UI windows")]
     public GameObject hudWindow; 
@@ -16,6 +17,11 @@ public class UIManager : MonoBehaviour
     public GameObject equipmentWindow;
     [HideInInspector]
     public bool inventoryFlag;
+
+    [Header("Equipment Window Slot Selected")]
+    public bool[] rightHandWeaponSlotsSelected;
+    public bool[] leftHandWeaponSlotsSelected;
+    
 
     [Header("Weapon Inventory")]
     public GameObject weaponInventorySlotPrefab;
@@ -31,10 +37,13 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         //inventoryFlag = false;
+        rightHandWeaponSlotsSelected = new bool[4];
+        leftHandWeaponSlotsSelected = new bool[4];
         equipmentWindowUI.LoadWeaponsOnQuipmentScreen(playerInventory);
         weaponInventorySlots = weaponIventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
         DisplayPlayerHUD();
         ClearAllInventoryWindows();
+        EquipmentSlot.onButtonClicked += SetCurrentWeaponSlot;
     }
     public void UpdateUI()
     {
@@ -70,6 +79,7 @@ public class UIManager : MonoBehaviour
     {
         weaponInventoryWindow.SetActive(false);
         equipmentWindow.SetActive(false);
+        ResetAllSelectedSlot();//call this after the equipments slots arrays are created
     }
 
     private void ClearAllInventoryWindows()
@@ -81,5 +91,56 @@ public class UIManager : MonoBehaviour
     private void DisplayPlayerHUD()
     {
         hudWindow.SetActive(true);
+    }
+
+    private void SetCurrentWeaponSlot(int id)
+    {
+        if (id == 11)
+        {
+            rightHandWeaponSlotsSelected[0] = true;
+        }
+        if (id == 12)
+        {
+            rightHandWeaponSlotsSelected[1] = true;
+
+        }
+        if (id == 13)
+        {
+            rightHandWeaponSlotsSelected[2] = true;
+
+        }
+        if (id == 14)
+        {
+            rightHandWeaponSlotsSelected[3] = true;
+        }
+        if (id == 21)
+        {
+            leftHandWeaponSlotsSelected[0] = true;
+        }
+        if (id == 22)
+        {
+            leftHandWeaponSlotsSelected[1] = true;
+        }
+        if (id == 23)
+        {
+            leftHandWeaponSlotsSelected[2] = true;
+        }
+        if (id == 24)
+        {
+            leftHandWeaponSlotsSelected[3] = true;
+        }
+    }
+
+    public void ResetAllSelectedSlot()
+    {
+        for (int i = 0; i < rightHandWeaponSlotsSelected.Length; i++)
+        {
+            rightHandWeaponSlotsSelected[i] = false;
+        }
+
+        for (int i = 0; i < leftHandWeaponSlotsSelected.Length; i++)
+        {
+            leftHandWeaponSlotsSelected[i] = false;
+        }
     }
 }

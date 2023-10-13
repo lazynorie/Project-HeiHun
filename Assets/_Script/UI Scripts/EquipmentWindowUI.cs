@@ -24,41 +24,44 @@ public class EquipmentWindowUI : MonoBehaviour
     {
         for (int i = 0; i < equipmentInHandSlot.Length; i++)
         {
-            //right hand equipment slots
-            if (equipmentInHandSlot[i].rightHandSlot01)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.rightHandWeaponSlots[0]);
-            }
-            else if (equipmentInHandSlot[i].rightHandSlot02)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.rightHandWeaponSlots[1]);
-            }
-            else if (equipmentInHandSlot[i].rightHandSlot03)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.rightHandWeaponSlots[2]);
-            }
-            else if (equipmentInHandSlot[i].rightHandSlot04)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.rightHandWeaponSlots[3]);
-            }
+            if (equipmentInHandSlot[i] != null) {
+                //right hand equipment slots
+                if (equipmentInHandSlot[i].rightHandSlot01)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInRightHandSlots[0]);
+                }
+                else if (equipmentInHandSlot[i].rightHandSlot02)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInRightHandSlots[1]);
+                }
+                else if (equipmentInHandSlot[i].rightHandSlot03)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInRightHandSlots[2]);
+                }
+                else if (equipmentInHandSlot[i].rightHandSlot04)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInRightHandSlots[3]);
+                }
             
-            //left hand equipment slot
-            else if (equipmentInHandSlot[i].leftHandSlot01)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.leftHandWeaponSlots[0]);
+                //left hand equipment slot
+                else if (equipmentInHandSlot[i].leftHandSlot01)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInLeftHandSlots[0]);
+                }
+                else if (equipmentInHandSlot[i].leftHandSlot02)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInLeftHandSlots[1]);
+                }
+                else if (equipmentInHandSlot[i].leftHandSlot03)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInLeftHandSlots[2]);
+                }
+                else if (equipmentInHandSlot[i].leftHandSlot04)
+                {
+                    equipmentInHandSlot[i].AddItem(playerInventory.weaponsInLeftHandSlots[3]);
+                }
             }
-            else if (equipmentInHandSlot[i].leftHandSlot02)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.leftHandWeaponSlots[1]);
-            }
-            else if (equipmentInHandSlot[i].leftHandSlot03)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.leftHandWeaponSlots[2]);
-            }
-            else if (equipmentInHandSlot[i].leftHandSlot04)
-            {
-                equipmentInHandSlot[i].AddItem(playerInventory.leftHandWeaponSlots[3]);
-            }
+            else return;
         }
     }
 
@@ -67,22 +70,18 @@ public class EquipmentWindowUI : MonoBehaviour
     {
         rightHandSlot01 = true;
     }
-    
     public void SelectRightHandSlot02()
     {
         rightHandSlot02 = true;
     }
-    
     public void SelectRightHandSlot03()
     {
         rightHandSlot03 = true;
     }
-    
     public void SelectRightHandSlot04()
     {
         rightHandSlot04 = true;
     }
-    
     public void SelectLeftHandSlot01()
     {
         leftHandSlot01 = true;
@@ -99,10 +98,5 @@ public class EquipmentWindowUI : MonoBehaviour
     {
         leftHandSlot04 = true;
     }
-
-    
-
     #endregion
-    
-
 }
