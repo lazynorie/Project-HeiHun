@@ -7,6 +7,7 @@ public class AnimationHandler : MonoBehaviour
 {
     private PlayerManager playerManager;
     public Animator animator;
+    private Animation anim;
     public InputHandler inputHandler;
     public PlayerLocalmotion playerLocalmotion;
     private int vertical;
@@ -17,12 +18,12 @@ public class AnimationHandler : MonoBehaviour
     {
         playerManager = GetComponentInParent<PlayerManager>();
         animator = GetComponent<Animator>();
+        anim = GetComponent<Animation>();
         inputHandler = GetComponentInParent<InputHandler>();
         playerLocalmotion = GetComponentInParent<PlayerLocalmotion>();
         vertical = Animator.StringToHash("Vertical");
         horizontal = Animator.StringToHash("Horizontal");
     }
-
     public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
     {
         #region Vertical
@@ -85,34 +86,28 @@ public class AnimationHandler : MonoBehaviour
         animator.SetFloat(vertical, v, 0.1f, Time.deltaTime);
         animator.SetFloat(horizontal,h,0.1f,Time.deltaTime);
     }
-
     public void PlayTargetAnimation(string targetAnim, bool isInteracting)
     {
         animator.applyRootMotion = isInteracting;
         animator.SetBool("isInteracting", isInteracting);
         animator.CrossFade(targetAnim,0.2f);
     }
-
     public void CanRotate()
     {
         canRotate = true;
     }
-    
     public void StopRotate()
     {
         canRotate = false;
     }
-
     public void EnableCombo()
     {
         animator.SetBool("canDoCombo", true);
     }
-
     public void DisableCombo()
     {
         animator.SetBool("canDoCombo", false);
     }
-
     private void OnAnimatorMove()
     {
         if (playerManager.isInteracting == false)
@@ -124,6 +119,5 @@ public class AnimationHandler : MonoBehaviour
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
         playerLocalmotion.rigidbody.velocity = velocity;
-
     }
 }

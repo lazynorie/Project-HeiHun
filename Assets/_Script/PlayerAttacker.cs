@@ -17,27 +17,50 @@ public class PlayerAttacker : MonoBehaviour
 
   public void HandleLightAttack(WeaponItem weapon)
   {
-    if (weapon.OH_light_attack_01 == "")
+    if (inputHandler.twoHandFlag)
     {
-      Debug.Log("light attack 01 animation not assigned");
-      return;
+      if (weapon.TH_light_attack_01 == "")
+      {
+        Debug.Log("TH_light_attack_01 animation not assigned");
+        return;
+      }//null check
+      animationHandler.PlayTargetAnimation(weapon.TH_light_attack_01,true);
     }
-    animationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
-    lastAttack = weapon.OH_light_attack_01;
-    Debug.Log("light attack 01");
+    else
+    {
+      if (weapon.OH_light_attack_01 == "")
+      {
+        Debug.Log("light attack 01 animation not assigned");
+        return;
+      }//null check
+      animationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
+       lastAttack = weapon.OH_light_attack_01;
+       Debug.Log("light attack 01");
+    }
   }
   
 
   public void HandleHeavyAttack(WeaponItem weapon)
   {
-    if (weapon.OH_heavy_attack == "")
+    if (inputHandler.twoHandFlag)
     {
-      Debug.Log("HeavyAttack animation not Assigned");
-      return;
+      if (weapon.TH_heavy_attack == "")
+      {
+        Debug.Log("TH_light_attack_01 animation not assigned");
+        return;
+      }//null check
+      animationHandler.PlayTargetAnimation(weapon.TH_heavy_attack,true);
     }
-    animationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
-    lastAttack = weapon.OH_heavy_attack;
-    Debug.Log(weapon.OH_heavy_attack.ToString());
+    else
+    {
+      if (weapon.OH_heavy_attack == "")
+      {
+        Debug.Log("HeavyAttack animation not Assigned");
+        return;
+      }//null check
+      animationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
+      lastAttack = weapon.OH_heavy_attack;
+    }
   }
 
   public void HandleWeaponCombo(WeaponItem weapon)

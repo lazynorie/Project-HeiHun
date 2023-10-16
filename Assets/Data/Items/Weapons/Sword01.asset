@@ -19,6 +19,10 @@ MonoBehaviour:
   OH_light_attack_01: straight_sword_oh_light_attack_01
   OH_light_attack_02: straight_sword_oh_light_attack_02
   OH_heavy_attack: straight_sword_oh_heavy_attack_02
+  TH_light_attack_01: th_light_attack_01
+  TH_light_attack_02: th_light_attack_02
+  TH_heavy_attack: th_heavy_attack_01
   right_hand_idle: righ_arm_idle_01
   left_hand_idle: 
+  th_idle: th_idle_01
   toolstip: A basic sword.

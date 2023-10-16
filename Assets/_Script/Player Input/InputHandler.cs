@@ -15,7 +15,10 @@ public class InputHandler : MonoBehaviour
   public bool rollFlag;
   public float rollInputTimer;
   
+  public bool aInput;
   public bool bInput;
+  public bool xInput;
+  public bool yInput;
   public bool rbInput;
   public bool raInput;
   public bool rtInput;
@@ -32,6 +35,7 @@ public class InputHandler : MonoBehaviour
   public bool lockOnFlag;
   public bool sprintFlag;
   public bool comboFlag;
+  public bool twoHandFlag { get; set; }
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
@@ -39,6 +43,7 @@ public class InputHandler : MonoBehaviour
   private PlayerInventory playerInventory;
   private PlayerManager playerManager;
   private UIManager uiManager;
+  private WeaponSlotManager weaponSlotManager;
 
   public Vector2 movementInput;
   Vector2 cameraInput;
@@ -50,6 +55,7 @@ public class InputHandler : MonoBehaviour
     playerManager = GetComponent<PlayerManager>();
     uiManager = FindObjectOfType<UIManager>();
     cameraHandler = FindObjectOfType<CameraHandler>();
+    weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
   }
 
   public void OnEnable()
@@ -64,12 +70,10 @@ public class InputHandler : MonoBehaviour
     
     inputActions.Enable();
   }
-
   private void OnDisable()
   {
     inputActions.Disable();
   }
-
   public void TickInput(float delta)
   {
     ListeningToInput();
@@ -77,15 +81,14 @@ public class InputHandler : MonoBehaviour
     HandleInteractingButtonInput();
     handleStartButtonInput();
     HandleLockOnButtonInput();
+    HandleTwoHandInput();
   }
-
   public void FixedTickInput(float delta)//rb related tick inputs goes here
   {
     HandleMoveInput(delta);
     HandleRollInput(delta);
     HandleAttackInput(delta);
   }
-
   private void HandleMoveInput(float delta)
   {
     horizontal = movementInput.x;
@@ -144,14 +147,14 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleQuickSlotInput()
   {
+    if (playerManager.isInteracting) return;
     if (dPadRight)
     {
-      Debug.Log("D pad right button is pressed");
       playerInventory.ChangeWeaponInRightHand();
     }
     else if (dPadLeft)
     {
-      Debug.Log("D pad left button is pressed");
+      if (twoHandFlag) return; //no left hand weapon swap when in two hand mode
       playerInventory.ChangeWeaponInLeftHand();
     }
     else if (dPadUp)
@@ -236,7 +239,24 @@ public class InputHandler : MonoBehaviour
       }
     }
   }
-  
+  private void HandleTwoHandInput()
+  {
+    if (yInput)
+    {
+      twoHandFlag = !twoHandFlag;
+      if (twoHandFlag)
+      {
+        //enable two hand
+        weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon,false);
+      }
+      else
+      {
+        //disable two hand
+        weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon,false);
+        weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon,true);
+      }
+    }
+  }
   private void ListeningToInput()
   {
     raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
@@ -246,6 +266,7 @@ public class InputHandler : MonoBehaviour
     dPadRight = inputActions.QuickSlotsInput.DPadRight.WasPressedThisFrame();
     rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
     rtInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
+    yInput = inputActions.PlayerAction.Y.WasPressedThisFrame();
     bInput = inputActions.PlayerAction.Roll.IsPressed();
     startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
     rightStickLeftInput = inputActions.PlayerMovement.RightStickLeft.WasPressedThisFrame();
