@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : CharacterStats
 {
-    public int healthLevel = 10;
-    public int maxHealth;
-    public int currentHealth;
     public float respawnTimer;
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
     private bool isDead;
     CapsuleCollider collider; 
+    [Header("Respawn time")]
     [SerializeField]
     private float time;
     
