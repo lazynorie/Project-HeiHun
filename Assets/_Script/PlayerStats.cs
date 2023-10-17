@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
+   public static event Action onPlayerDeath;
    public HealthBar healthbar;
    private PlayerAnimationHandler animhandler;
+   [SerializeField]
+   private int experience;
    private void Start()
    {
       maxHealth = SetMaxHealthFromHealthLevel();
       currentHealth = maxHealth;
       healthbar.SetMaxHealth(maxHealth);
       animhandler = GetComponentInChildren<PlayerAnimationHandler>();
+      EnemyStats.onEnemyDeath += IncreasePlayerExperience;
    }
 
    private int SetMaxHealthFromHealthLevel()
@@ -34,7 +38,13 @@ public class PlayerStats : CharacterStats
       {
          currentHealth = 0;
          animhandler.PlayTargetAnimation("dead01", true);
+         onPlayerDeath?.Invoke();
          //玩家死亡逻辑
       }
+   }
+
+   private void IncreasePlayerExperience(int exp)
+   {
+      experience += exp;
    }
 }

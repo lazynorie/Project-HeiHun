@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : CharacterManager
-{
-   public static event Action onPlayerDeath;
-   public static event Action onInteractable; 
-
-   private InputHandler inputHandler;
+{ 
+    public static event Action onInteractable; 
+    private InputHandler inputHandler;
     private Animator animator;
     public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocalmotion; 

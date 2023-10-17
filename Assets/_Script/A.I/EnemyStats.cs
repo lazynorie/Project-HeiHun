@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    public static event Action onEnemyDeath; 
+    public static event Action<int> onEnemyDeath; 
     public float respawnTimer;
+    public int exp = 50;
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
     private bool isDead;
@@ -58,7 +59,7 @@ public class EnemyStats : CharacterStats
             isDead = true;
             currentHealth = 0;
             animator.Play("dead01");
-            onEnemyDeath?.Invoke();
+            onEnemyDeath?.Invoke(exp);
             //死亡逻辑
             //collider.enabled = false;
         }
@@ -67,9 +68,6 @@ public class EnemyStats : CharacterStats
     private void Respawn()
     {
         animator.CrossFade("Empty",0.3f);
-        //animator.Play("Empty");
-        transform.position = spawnPosition;
-        transform.rotation = spawnRotation;
         collider.enabled = true;
         currentHealth = maxHealth;
         isDead = false;

@@ -36,6 +36,7 @@ public class EnemyLocomotionManager : MonoBehaviour
     private void Update()
     {
         HandleDetection();
+        GetCurrentDistantFromTarget();
     }
 
     public void HandleDetection()
@@ -54,7 +55,7 @@ public class EnemyLocomotionManager : MonoBehaviour
                 {
                     currentTarget = characterStats;
                 }
-                /*else     save for state machine
+                /*else     //save for state machine
                 {
                     currentTarget = null;
                 }*/
@@ -64,6 +65,7 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     public void HandleMoveToTarget()
     {
+        if (enemyManager.isPerformingAction) return;
         Vector3 targetDir = currentTarget.transform.position - transform.position;
         distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
         float viewableAngle = Vector3.Angle(targetDir, transform.forward);
@@ -103,7 +105,7 @@ public class EnemyLocomotionManager : MonoBehaviour
             }
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation =
-                Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
+                Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed/Time.deltaTime);
         }
         else//rotate with pathfinding
         {
@@ -122,5 +124,15 @@ public class EnemyLocomotionManager : MonoBehaviour
     {
         navMeshAgent.transform.localPosition = Vector3.zero;
         navMeshAgent.transform.localRotation = Quaternion.identity;
+    }
+
+    private void GetCurrentDistantFromTarget()
+    {
+        if (currentTarget != null)
+        {
+            distanceFromTarget = Vector3.Distance(currentTarget.transform.position ,transform.position);
+        }
+        else    
+            Debug.Log("there's no current target");
     }
 }
