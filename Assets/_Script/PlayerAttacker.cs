@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PlayerAttacker : MonoBehaviour
 {
-  private AnimationHandler animationHandler;
+  private PlayerAnimationHandler playerAnimationHandler;
   public string lastAttack;
   private InputHandler inputHandler;
 
   private void Awake()
   {
-    animationHandler = GetComponentInChildren<AnimationHandler>();
+    playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
     inputHandler = GetComponent<InputHandler>();
   }
 
@@ -24,7 +24,7 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
-      animationHandler.PlayTargetAnimation(weapon.TH_light_attack_01,true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_01,true);
     }
     else
     {
@@ -33,7 +33,7 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("light attack 01 animation not assigned");
         return;
       }//null check
-      animationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
        lastAttack = weapon.OH_light_attack_01;
        Debug.Log("light attack 01");
     }
@@ -49,7 +49,7 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
-      animationHandler.PlayTargetAnimation(weapon.TH_heavy_attack,true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack,true);
     }
     else
     {
@@ -58,7 +58,7 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("HeavyAttack animation not Assigned");
         return;
       }//null check
-      animationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
       lastAttack = weapon.OH_heavy_attack;
     }
   }
@@ -67,7 +67,7 @@ public class PlayerAttacker : MonoBehaviour
   {
     if (inputHandler.comboFlag)
     {
-      animationHandler.animator.SetBool("canDoCombo", false);
+      playerAnimationHandler.animator.SetBool("canDoCombo", false);
       if (lastAttack == weapon.OH_light_attack_01)
       {
         if (weapon.OH_light_attack_02 == "")
@@ -75,7 +75,7 @@ public class PlayerAttacker : MonoBehaviour
           Debug.Log("light attack 02 animation not assigned");
           return;
         }
-        animationHandler.PlayTargetAnimation(weapon.OH_light_attack_02, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_02, true);
         Debug.Log("light attack 02");
       }
     }

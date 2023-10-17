@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
+    public static event Action onEnemyDeath; 
     public float respawnTimer;
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
@@ -30,14 +31,14 @@ public class EnemyStats : CharacterStats
 
     private void Update()
     {
-        if (isDead)
+        /*if (isDead)
         {
             time += Time.deltaTime;
             if (time >= respawnTimer)
             {
                 Respawn();
             }
-        }
+        }*/
     }
 
     private int SetMaxHealthFromHealthLevel()
@@ -57,8 +58,9 @@ public class EnemyStats : CharacterStats
             isDead = true;
             currentHealth = 0;
             animator.Play("dead01");
+            onEnemyDeath?.Invoke();
             //死亡逻辑
-            collider.enabled = false;
+            //collider.enabled = false;
         }
     }
 

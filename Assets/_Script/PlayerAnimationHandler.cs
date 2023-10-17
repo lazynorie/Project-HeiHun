@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationHandler : MonoBehaviour
+public class PlayerAnimationHandler : AnimationHandler
 {
     private PlayerManager playerManager;
-    public Animator animator;
     private Animation anim;
     public InputHandler inputHandler;
     public PlayerLocalmotion playerLocalmotion;
@@ -86,12 +85,7 @@ public class AnimationHandler : MonoBehaviour
         animator.SetFloat(vertical, v, 0.1f, Time.deltaTime);
         animator.SetFloat(horizontal,h,0.1f,Time.deltaTime);
     }
-    public void PlayTargetAnimation(string targetAnim, bool isInteracting)
-    {
-        animator.applyRootMotion = isInteracting;
-        animator.SetBool("isInteracting", isInteracting);
-        animator.CrossFade(targetAnim,0.2f);
-    }
+    
     public void CanRotate()
     {
         canRotate = true;

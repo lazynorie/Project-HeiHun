@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerStats : CharacterStats
 {
    public HealthBar healthbar;
-   private AnimationHandler animhandler;
+   private PlayerAnimationHandler animhandler;
    private void Start()
    {
       maxHealth = SetMaxHealthFromHealthLevel();
       currentHealth = maxHealth;
       healthbar.SetMaxHealth(maxHealth);
-      animhandler = GetComponentInChildren<AnimationHandler>();
+      animhandler = GetComponentInChildren<PlayerAnimationHandler>();
    }
 
    private int SetMaxHealthFromHealthLevel()

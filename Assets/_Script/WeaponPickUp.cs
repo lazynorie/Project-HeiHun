@@ -24,14 +24,14 @@ public class WeaponPickUp : Interactable
     {
         PlayerInventory playerInventory;
         PlayerLocalmotion playerLocomotion;
-        AnimationHandler animationHandler;
+        PlayerAnimationHandler playerAnimationHandler;
         
         playerInventory = playerManager.GetComponent<PlayerInventory>();
         playerLocomotion = playerManager.GetComponent<PlayerLocalmotion>();
-        animationHandler = playerManager.GetComponentInChildren<AnimationHandler>();
+        playerAnimationHandler = playerManager.GetComponentInChildren<PlayerAnimationHandler>();
 
         playerLocomotion.StopPlayer();
-        animationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
+        playerAnimationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
         //UI element to show what item player picks up, thinking about replacing this with event system
         onWeaponPickUp.Invoke(weapon);
