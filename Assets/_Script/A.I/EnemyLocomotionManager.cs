@@ -17,7 +17,7 @@ public class EnemyLocomotionManager : MonoBehaviour
     [SerializeField]
     public CharacterStats currentTarget;
     [SerializeField] private LayerMask detectionLayer;
-    [SerializeField] private float rotationSpeed = 15f;
+    [SerializeField] private float rotationSpeed = 25f;
 
     private void Awake()
     {
@@ -79,7 +79,7 @@ public class EnemyLocomotionManager : MonoBehaviour
         {
             if (distanceFromTarget > stoppingDistance)
             {
-                enemyAnimationHandler.animator.SetFloat("Vertical",1,0.1f,Time.deltaTime);
+                enemyAnimationHandler.animator.SetFloat("Vertical",1.5f,0.1f,Time.deltaTime);
             }
             else if (distanceFromTarget <= stoppingDistance)
             {
@@ -132,7 +132,5 @@ public class EnemyLocomotionManager : MonoBehaviour
         {
             distanceFromTarget = Vector3.Distance(currentTarget.transform.position ,transform.position);
         }
-        else    
-            Debug.Log("there's no current target");
     }
 }

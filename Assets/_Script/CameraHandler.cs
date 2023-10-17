@@ -51,7 +51,7 @@ public class CameraHandler : MonoBehaviour
 
     [Header("Debug")]
     public GameObject currentHitObject = null;
-    
+    public Vector3 camCollisionPoint;
     private void Awake()
     {
         singleton = this;
@@ -59,14 +59,14 @@ public class CameraHandler : MonoBehaviour
         defaultPosition = cameraTransform.localPosition.z;
         inputHandler = FindObjectOfType<InputHandler>();
         targetTransform = FindObjectOfType<PlayerManager>().transform;
-        ignoreLayer = ~(1 << 8 | 1 << 9 | 1 << 10);
-    }
+        
 
+    }
     private void Start()
     {
+        ignoreLayer = ~(1 << 8 | 1 << 9 | 1 << 10);
         enviromentLayer = LayerMask.NameToLayer("Environment");
     }
-
     public void FollowTarget(float delta)
     {
         //Vector3 targetPosition = Vector3.Lerp(myTransform.position, tragetTransform.position, delta / followSpeed);
@@ -138,8 +138,7 @@ public class CameraHandler : MonoBehaviour
             targetPosition = -(dis - cameraCollisionOffSet);
             
             currentHitObject = hit.transform.gameObject;
-            //print(hit.transform.name);
-            //Debug.DrawRay(cameraPivotTransform.position,direction* dis,Color.blue);
+            camCollisionPoint = hit.point;
         }
         else
         {
@@ -151,8 +150,8 @@ public class CameraHandler : MonoBehaviour
             targetPosition = -minimumCollisionOffSet;
         }
         
-        /*cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
-        cameraTransform.localPosition = cameraTransformPosition;*/
+        cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
+        cameraTransform.localPosition = cameraTransformPosition;
 
     }
     //Lock on method
@@ -250,6 +249,15 @@ public class CameraHandler : MonoBehaviour
         {
             cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(
                 cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (currentHitObject)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(camCollisionPoint,cameraSphereRadius);
         }
     }
 }
