@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -10,10 +7,11 @@ public class EnemyManager : CharacterManager
     private EnemyLocomotionManager enemyLocomotionManager;
     private NavMeshAgent navMeshAgent;
     private EnemyAnimationHandler enemyAnimationHandler;
-
-    public EnemyAttackAction[] enemyAttacks;
-    public EnemyAttackAction currentAttack;
-
+    private EnemyStats enemyStats;
+    
+    public CharacterStats currentTarget;
+    public State currentState;
+    
     public float currentRecoverTime = 0;
     
     public bool isPerformingAction;
@@ -28,6 +26,8 @@ public class EnemyManager : CharacterManager
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         enemyAnimationHandler = GetComponentInChildren<EnemyAnimationHandler>();
+        enemyStats = GetComponent<EnemyStats>();
+        currentState = GetComponentInChildren<StateMachineManager>().idleState;
     }
     private void Update()
     {
@@ -36,11 +36,19 @@ public class EnemyManager : CharacterManager
 
     private void FixedUpdate()
     {
-        HandleCurrentAction();
+        HandleStateMachine();
     }
-    private void HandleCurrentAction()
+    private void HandleStateMachine()
     {
-        if (enemyLocomotionManager.currentTarget == null)
+        if (currentState != null)
+        {
+            State nexState = currentState.Tick(this, enemyStats, enemyAnimationHandler);
+            if (nexState != null)
+            {
+                SwitchToNextState(nexState);
+            }
+        }
+        /*if (enemyLocomotionManager.currentTarget == null)
         {
             enemyLocomotionManager.HandleDetection();
         }
@@ -52,11 +60,17 @@ public class EnemyManager : CharacterManager
         {
             //perform action
             AttackTarget();
-        }
+        }*/
     }
+
+    private void SwitchToNextState(State nexState)
+    {
+        currentState = nexState;
+    }
+
     private void AttackTarget()
     {
-        if (isPerformingAction) return;
+        /*if (isPerformingAction) return;
         if (currentAttack == null)
         {
             GetNewAttack();
@@ -67,11 +81,11 @@ public class EnemyManager : CharacterManager
             currentRecoverTime = currentAttack.recoveryTime;
             enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
             currentAttack = null; //IMPORTANT! reset current attack!
-        }
+        }*/
     }
     private void GetNewAttack()
     {
-        Vector3 targetDir = enemyLocomotionManager.currentTarget.transform.position - transform.position;
+        /*Vector3 targetDir = enemyLocomotionManager.currentTarget.transform.position - transform.position;
         float viewableAngle = Vector3.Angle(targetDir, transform.forward);
         enemyLocomotionManager.distanceFromTarget =
             Vector3.Distance(enemyLocomotionManager.currentTarget.transform.position, transform.position);
@@ -113,7 +127,7 @@ public class EnemyManager : CharacterManager
                     }
                 }
             }
-        }
+        }*/
 
     }
 
@@ -123,7 +137,6 @@ public class EnemyManager : CharacterManager
         {
             currentRecoverTime -= Time.deltaTime;
         }
-
         if (isPerformingAction)
         {
             if (currentRecoverTime <= 0)

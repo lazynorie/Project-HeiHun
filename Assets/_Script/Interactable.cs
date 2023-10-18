@@ -3,13 +3,8 @@ created by Jing Yuan Cheng on Oct 3 2023
 This is the base class of interactible items
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
