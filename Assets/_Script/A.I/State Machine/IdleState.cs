@@ -8,11 +8,12 @@ public class IdleState : State
     public LayerMask detectionLayer;
     private PursueTargetState pursueTargetState;
 
-    private void Awake()
+    private void Start()
     {
         AssignStateMachineManager();
         pursueTargetState = stateMachineManager.pursueTargetState;
     }
+    
     public override State Tick(EnemyManager manager, EnemyStats stats, EnemyAnimationHandler anim)
     {
         #region look for potential target

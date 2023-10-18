@@ -21,7 +21,7 @@ public class PlayerManager : CharacterManager
 
     [SerializeField] private GameObject itemInteractableGameObject;
 
-    private static int targetFPS = 60;
+    private const int targetFPS = 60;
     private void Awake()
     {
         //在这里设置目标FPS

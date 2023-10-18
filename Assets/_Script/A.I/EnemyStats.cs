@@ -29,14 +29,6 @@ public class EnemyStats : CharacterStats
 
     private void Update()
     {
-        /*if (isDead)
-        {
-            time += Time.deltaTime;
-            if (time >= respawnTimer)
-            {
-                Respawn();
-            }
-        }*/
     }
 
     private int SetMaxHealthFromHealthLevel()

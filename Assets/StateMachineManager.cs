@@ -11,14 +11,12 @@ public class StateMachineManager : MonoBehaviour
     public PursueTargetState pursueTargetState;
     public CombatStanceState combatStanceState;
     public AttackState attackState;
-
-
-    private void Awake()
+    
+    public void Initialize()
     {
         states = GetComponentsInChildren<State>();
         AssignStates();
     }
-
     private void AssignStates()
     {
         foreach (State state in states)
