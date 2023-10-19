@@ -47,7 +47,6 @@ public class EnemyManager : CharacterManager
     {
         SetInitialStateToIdleState();
         enemyRb.isKinematic = false;
-
     }
 
     private void Update()

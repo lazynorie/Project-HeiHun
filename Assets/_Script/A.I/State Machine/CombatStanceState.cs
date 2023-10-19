@@ -14,9 +14,6 @@ public class CombatStanceState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position,
-            enemyManager.transform.position);
-        
         //check for attack range
         if (enemyManager.currentRecoverTime <=0 && enemyManager.distanceFromTarget <= enemyManager.attackRange)
         {

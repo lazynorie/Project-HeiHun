@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,39 +16,41 @@ public class PursueTargetState : State
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
         //chase the target
-        if (enemyManager.isPerformingAction) return this;
-        
-
+        if (enemyManager.isPerformingAction)
+        {
+            enemyAnimationHandler.animator.SetFloat("Vertical",0f,0f,Time.deltaTime);
+            return this;
+        }
         if (enemyManager.distanceFromTarget > enemyManager.attackRange)
         {
             enemyAnimationHandler.animator.SetFloat("Vertical",1f,0.1f,Time.deltaTime);
         }
-        
         HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset
         ResetNavmeshLocationRotation(enemyManager);
-
-        if (enemyManager.distanceFromTarget <= enemyManager.attackRange)//if within attack range, switch to combat stance state
+        if (Mathf.Abs(enemyManager.distanceFromTarget - enemyManager.attackRange)<= 0.1f)//if within attack range, switch to combat stance state
         {
-            enemyAnimationHandler.animator.SetFloat("Vertical",0f,0.1f,Time.deltaTime);
             return combatStanceState;
         }
-        else return this;
+        else
+        {
+            return this;
+        }
     }
     
     private void HandleRotateTowardsTarget(EnemyManager enemyManager)
     {
         if (enemyManager.isPerformingAction)//rotate manually
         {
-            Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+            Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             direction.y = 0;
             direction.Normalize();
             if (direction == Vector3.zero)
             {
-                direction = transform.forward;
+                direction = enemyManager.transform.forward;
             }
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             enemyManager.transform.rotation =
-                Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed/Time.deltaTime);
+                Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed/Time.deltaTime);
         }
         else//rotate with pathfinding
         {

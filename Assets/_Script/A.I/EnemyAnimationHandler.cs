@@ -9,7 +9,7 @@ public class EnemyAnimationHandler : AnimationHandler
         animator = GetComponent<Animator>();
     }
 
-    private void OnAnimatorMove()
+    private void OnAnimatorMove()// velocity of enemy is totally base on animation
     {
         float delta = Time.deltaTime;
         enemyManager.enemyRb.drag = 0;

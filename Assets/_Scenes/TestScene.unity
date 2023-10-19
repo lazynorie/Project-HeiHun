@@ -14205,7 +14205,7 @@ MonoBehaviour:
   distanceFromTarget: 0
   viewableAngle: 0
   rotationSpeed: 25
-  attackRange: 3
+  attackRange: 2
   enemyRb: {fileID: 0}
   currentTarget: {fileID: 0}
   currentState: {fileID: 0}
