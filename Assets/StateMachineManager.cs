@@ -11,6 +11,7 @@ public class StateMachineManager : MonoBehaviour
     public PursueTargetState pursueTargetState;
     public CombatStanceState combatStanceState;
     public AttackState attackState;
+    public AmbushState ambushState;
     
     public void Initialize()
     {
@@ -37,6 +38,11 @@ public class StateMachineManager : MonoBehaviour
             {
                 attackState = (AttackState)state;
             }
+            else if (state is AmbushState)
+            {
+                ambushState = (AmbushState)state;
+            }
+           
         }
     }
     

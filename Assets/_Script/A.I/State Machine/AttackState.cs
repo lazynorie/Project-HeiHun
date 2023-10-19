@@ -49,21 +49,16 @@ public class AttackState : State
     
     private void GetNewAttack(EnemyManager enemyManager)
     {
-        Vector3 targetDir = enemyManager.currentTarget.transform.position - transform.position;
-        float viewableAngle = Vector3.Angle(targetDir, transform.forward);
-        enemyManager.distanceFromTarget =
-            Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
-
         int maxScore = 0;
 
         for (int i = 0; i < enemyAttacks.Length; i++)
         {
             EnemyAttackAction enemyAttack = enemyAttacks[i];
-            if (enemyManager.distanceFromTarget <= enemyAttack.maximumAttackAngle 
-                && enemyManager.distanceFromTarget >= enemyAttack.minimumAttackAngle)//distance check
+            if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeededToAttack 
+                && enemyManager.distanceFromTarget >= enemyAttack.minimumDistanceNeededToAttack)//distance check
             {
-                if (viewableAngle <= enemyAttack.maximumAttackAngle 
-                    && viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
+                if (enemyManager.viewableAngle <= enemyAttack.maximumAttackAngle 
+                    && enemyManager.viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
                 {
                     maxScore += enemyAttack.attackScore;
                 }
@@ -76,11 +71,11 @@ public class AttackState : State
         for (int i = 0; i < enemyAttacks.Length; i++)
         {
             EnemyAttackAction enemyAttack = enemyAttacks[i];
-            if (enemyManager.distanceFromTarget <= enemyAttack.maximumAttackAngle 
-                && enemyManager.distanceFromTarget >= enemyAttack.minimumAttackAngle)//distance check
+            if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeededToAttack 
+                && enemyManager.distanceFromTarget >= enemyAttack.minimumDistanceNeededToAttack)//distance check
             {
-                if (viewableAngle <= enemyAttack.maximumAttackAngle 
-                    && viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
+                if (enemyManager.viewableAngle <= enemyAttack.maximumAttackAngle 
+                    && enemyManager.viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
                 {
                     if (currentAttack != null)
                         return;
@@ -92,6 +87,5 @@ public class AttackState : State
                 }
             }
         }
-
     }
 }

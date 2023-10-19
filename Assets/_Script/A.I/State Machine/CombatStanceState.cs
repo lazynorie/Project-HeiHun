@@ -19,12 +19,17 @@ public class CombatStanceState : State
         {
             return attackState;
         }
-        if (enemyManager.distanceFromTarget > enemyManager.attackRange)//return pursue state if oor
+        if (enemyManager.distanceFromTarget > enemyManager.attackRange)//return pursue state if oor 
         {
             return pursueTargetState;
+        }
+        if (enemyManager.distanceFromTarget < enemyManager.attackRange)
+        {
+            return attackState;
         }
         else return this;        
         //circle player or walk around
         // if in attack range return attack state
+        
     }
 }

@@ -25,6 +25,7 @@ public class EnemyManager : CharacterManager
     public float currentRecoverTime = 0;
     
     public bool isPerformingAction;
+    public bool isInteracting;
     [Header("A.I")]
     public float detectionRadius = 15f;
     [Header("detection angles")]
@@ -45,7 +46,8 @@ public class EnemyManager : CharacterManager
 
     private void Start()
     {
-        SetInitialStateToIdleState();
+        SwitchToNextState(GetComponentInChildren<StateMachineManager>().ambushState);
+        //SetInitialStateToIdleState();
         enemyRb.isKinematic = false;
     }
 
@@ -53,6 +55,7 @@ public class EnemyManager : CharacterManager
     {
         HandleRecoveryTimer();
         UpdateDistanceAndAngleFromTarget();
+        isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
     }
 
     private void FixedUpdate()
