@@ -22,27 +22,24 @@ public class StateMachineManager : MonoBehaviour
     {
         foreach (State state in states)
         {
-            if (state is IdleState)
+            switch (state)
             {
-                idleState = (IdleState)state;
+                case IdleState:
+                    idleState = (IdleState)state;
+                    break;
+                case PursueTargetState:
+                    pursueTargetState = (PursueTargetState)state;
+                    break;
+                case CombatStanceState:
+                    combatStanceState = (CombatStanceState)state;
+                    break;
+                case AttackState:
+                    attackState = (AttackState)state;
+                    break;
+                case AmbushState:
+                    ambushState = (AmbushState)state;
+                    break;
             }
-            else if (state is PursueTargetState)
-            {
-                pursueTargetState = (PursueTargetState)state;
-            }
-            else if (state is CombatStanceState)
-            {
-                combatStanceState = (CombatStanceState)state;
-            }
-            else if (state is AttackState)
-            {
-                attackState = (AttackState)state;
-            }
-            else if (state is AmbushState)
-            {
-                ambushState = (AmbushState)state;
-            }
-           
         }
     }
     

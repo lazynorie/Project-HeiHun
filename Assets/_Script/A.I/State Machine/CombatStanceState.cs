@@ -14,6 +14,10 @@ public class CombatStanceState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        if (enemyManager.isPerformingAction)
+        {
+            enemyAnimationHandler.animator.SetFloat("Vertical",0f,0.1f,Time.deltaTime);
+        }
         //check for attack range
         if (enemyManager.currentRecoverTime <=0 && enemyManager.distanceFromTarget <= enemyManager.attackRange)
         {

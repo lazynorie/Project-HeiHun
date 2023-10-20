@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 21.5
+    agentSlope: 23.1
     agentClimb: 0.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -5225,7 +5225,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24984
+  m_Name: pb_Mesh25816
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6267,7 +6267,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25456
+  m_Name: pb_Mesh26338
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10196,7 +10196,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24940
+  m_Name: pb_Mesh25772
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14260,10 +14260,10 @@ MonoBehaviour:
   attackRange: 2
   enemyRb: {fileID: 0}
   currentTarget: {fileID: 0}
-  currentState: {fileID: 0}
   currentRecoverTime: 0
   isPerformingAction: 0
   isInteracting: 0
+  currentState: {fileID: 0}
   detectionRadius: 15
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50

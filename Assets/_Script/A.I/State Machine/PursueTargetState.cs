@@ -15,10 +15,6 @@ public class PursueTargetState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        if (enemyManager.isInteracting)
-        {
-            return this;
-        }
         //chase the target
         if (enemyManager.isPerformingAction)
         {
@@ -31,7 +27,7 @@ public class PursueTargetState : State
         }
         HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset
         ResetNavmeshLocationRotation(enemyManager);
-        if (Mathf.Abs(enemyManager.distanceFromTarget - enemyManager.attackRange)<= 0.1f)//if within attack range, switch to combat stance state
+        if (enemyManager.distanceFromTarget <= enemyManager.attackRange)//if within attack range, switch to combat stance state
         {
             return combatStanceState;
         }

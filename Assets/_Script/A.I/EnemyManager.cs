@@ -20,13 +20,13 @@ public class EnemyManager : CharacterManager
     public Rigidbody enemyRb;
     
     public CharacterStats currentTarget;
-    public State currentState;
     
     public float currentRecoverTime = 0;
     
     public bool isPerformingAction;
     public bool isInteracting;
     [Header("A.I")]
+    public State currentState;
     public float detectionRadius = 15f;
     [Header("detection angles")]
     [SerializeField] public float minimumDetectionAngle = -50f;
@@ -46,8 +46,7 @@ public class EnemyManager : CharacterManager
 
     private void Start()
     {
-        SwitchToNextState(GetComponentInChildren<StateMachineManager>().ambushState);
-        //SetInitialStateToIdleState();
+        SwitchToNextState(GetComponentInChildren<StateMachineManager>().idleState);
         enemyRb.isKinematic = false;
     }
 
