@@ -15,6 +15,8 @@ public class PlayerManager : CharacterManager
     public bool isInAir;
     public bool isGrounded;
     public bool canDoCombo;
+    public bool isUsingRightHand;
+    public bool isUsingLeftHand;
     
     [Header("interactable item UI elements")]
     [SerializeField] private GameObject interactableUIGameObject;
@@ -52,6 +54,8 @@ public class PlayerManager : CharacterManager
         isInteracting = animator.GetBool("isInteracting");
         canDoCombo = animator.GetBool("canDoCombo");
         CheckForInteractableObject();
+        isUsingRightHand = animator.GetBool("isUsingRightHand");
+        isUsingLeftHand = animator.GetBool("isUsingLeftHand");
     }
     private void LateUpdate()
     {

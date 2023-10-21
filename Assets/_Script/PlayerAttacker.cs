@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerAttacker : MonoBehaviour
 {
+  
   private PlayerAnimationHandler playerAnimationHandler;
   public string lastAttack;
   private InputHandler inputHandler;
@@ -76,5 +77,16 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("light attack 02");
       }
     }
+  }
+
+  public void SetIsLeftHandAttack(bool isAttacking)
+  {
+    playerAnimationHandler.animator.SetBool("isUsingLeftHand" ,isAttacking);
+  }
+
+  public void SetIsRightHandAttack(bool isAttacking)
+  {
+    playerAnimationHandler.animator.SetBool("isUsingRightHand" ,isAttacking);
+
   }
 }

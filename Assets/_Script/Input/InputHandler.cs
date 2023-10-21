@@ -75,7 +75,7 @@ public class InputHandler : MonoBehaviour
     ListeningToInput();
     HandleQuickSlotInput();
     HandleInteractingButtonInput();
-    handleStartButtonInput();
+    HandleStartButtonInput();
     HandleLockOnButtonInput();
     HandleTwoHandInput();
   }
@@ -171,7 +171,7 @@ public class InputHandler : MonoBehaviour
     }
     
   }
-  private void handleStartButtonInput()
+  private void HandleStartButtonInput()
   {
     if (startInput)
     {

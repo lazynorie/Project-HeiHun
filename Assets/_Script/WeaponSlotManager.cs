@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class WeaponSlotManager : MonoBehaviour
 {
+   private PlayerManager playerManager;
    private WeaponHolderSlot leftHandSlot;
    private WeaponHolderSlot rightHandSlot;
    private WeaponHolderSlot backSlot;
 
-   private DamageCollider lefthanddamagecollider;
-   private DamageCollider righthanddamagecollider;
+   private DamageCollider leftHandDamageCollider;
+   private DamageCollider rightHandDamageCollider;
 
    private Animator animator;
 
@@ -15,6 +16,7 @@ public class WeaponSlotManager : MonoBehaviour
    private InputHandler inputHandler;
    private void Awake()
    {
+      playerManager = GetComponentInParent<PlayerManager>();
       quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
       animator = GetComponent<Animator>();
       inputHandler = GetComponentInParent<InputHandler>();
@@ -35,7 +37,6 @@ public class WeaponSlotManager : MonoBehaviour
          }
       }
    }
-
    /// <summary>
    /// this is a function that load weapon to its slots
    /// include activate damage collider
@@ -99,33 +100,35 @@ public class WeaponSlotManager : MonoBehaviour
    #region Handle Weapon Damage Collider
    private void LoadLeftWeaponDamageCollider()
    {
-      lefthanddamagecollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+      leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
    }
    private void LoadRightWeaponDamageCollider()
    {
-      righthanddamagecollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+      rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
    }
-
    #region handling damagecollider 
-public void OpenRightDamageCollider()
+   public void OpenDamageCollider()
    {
-      righthanddamagecollider.EnableDamageCollider();
+      if (playerManager.isUsingRightHand)
+      {
+         rightHandDamageCollider.EnableDamageCollider();
+      }
+      if (playerManager.isUsingLeftHand)
+      {
+         leftHandDamageCollider.EnableDamageCollider();
+      }
    }
-   public void OpenLeftDamageCollider()
+   public void CloseDamageCollider()
    {
-      lefthanddamagecollider.EnableDamageCollider();
+      if (playerManager.isUsingRightHand)
+      {
+         rightHandDamageCollider.DisableDamageCollider();
+      }
+      if (playerManager.isUsingLeftHand)
+      {
+         leftHandDamageCollider.DisableDamageCollider();
+      }
    }
-   public void CloseRightDamageCollider()
-   {
-      righthanddamagecollider.DisableDamageCollider();
-   }
-   public void CloseLeftDamageCollider()
-   {
-      lefthanddamagecollider.DisableDamageCollider();
-   }
-   
-
    #endregion
-   
    #endregion
 }

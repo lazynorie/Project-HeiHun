@@ -33,8 +33,7 @@ public class DamageCollider : MonoBehaviour
                 playerStats.TakeDamage(weapondamage);
             }
         }
-
-        if (other.tag == "Enemy")
+        else if (other.tag == "Enemy")
         {
             EnemyStats enemyStats = other.GetComponent<EnemyStats>();
             if (enemyStats != null)
