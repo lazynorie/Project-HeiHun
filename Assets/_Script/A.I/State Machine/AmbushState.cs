@@ -31,7 +31,7 @@ public class AmbushState : State
         for (int i = 0; i < colliders.Length; i++)
         {
             CharacterStats characterStats = colliders[i].transform.GetComponent<CharacterStats>();
-            if (characterStats != null)
+            if (characterStats != null && characterStats.transform.root != transform.root)
             {
                 Vector3 targetDir = characterStats.transform.position - enemyManager.transform.position;
                 float viewableAngle = Vector3.Angle(targetDir, enemyManager.transform.position);

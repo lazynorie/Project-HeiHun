@@ -3,18 +3,24 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
+    private EnemyManager enemyManager;
     public static event Action<int> onEnemyDeath; 
     public float respawnTimer;
     public int exp = 50;
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
-    private bool isDead;
     CapsuleCollider collider; 
     [Header("Respawn time")]
     [SerializeField]
     private float time;
     
     private Animator animator;
+
+    private void Awake()
+    {
+        enemyManager = GetComponent<EnemyManager>();
+    }
+
     private void Start()
     {
         spawnPosition = transform.position;
@@ -40,6 +46,8 @@ public class EnemyStats : CharacterStats
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+        return;
         currentHealth = currentHealth - damage;
         animator.Play("Getting Hit");
 
@@ -61,5 +69,6 @@ public class EnemyStats : CharacterStats
         currentHealth = maxHealth;
         isDead = false;
         time = 0f;
+        enemyManager.currentState = GetComponentInChildren<StateMachineManager>().idleState;
     }
 }

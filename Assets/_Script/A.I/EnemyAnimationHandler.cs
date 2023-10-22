@@ -18,4 +18,12 @@ public class EnemyAnimationHandler : AnimationHandler
         Vector3 velocity = deltaPosition / delta;
         enemyManager.enemyRb.velocity = velocity;
     }
+    public void EnableCombo()
+    {
+        animator.SetBool("canDoCombo", true);
+    }
+    public void DisableCombo()
+    {
+        animator.SetBool("canDoCombo", false);
+    }
 }

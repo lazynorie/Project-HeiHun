@@ -82,6 +82,7 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     {
         rightHandDamageCollider.DisableDamageCollider();
     }
+    
 
     public void LoadWeapons()
     {

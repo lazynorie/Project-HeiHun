@@ -8,6 +8,19 @@ public class PlayerStats : CharacterStats
    private PlayerAnimationHandler animhandler;
    [SerializeField]
    private int experience;
+   public int Experience
+   {
+      get
+      {
+         return experience;
+         
+      }
+      set
+      {
+         experience = value;
+      }
+   }
+
    private void Start()
    {
       maxHealth = SetMaxHealthFromHealthLevel();
@@ -26,6 +39,7 @@ public class PlayerStats : CharacterStats
 
    public void TakeDamage(int damage)
    {
+      if (isDead) return;
       currentHealth = currentHealth - damage;
       
       healthbar.SetCurrentHealth(currentHealth);

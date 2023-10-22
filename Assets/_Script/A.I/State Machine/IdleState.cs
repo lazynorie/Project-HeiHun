@@ -21,7 +21,7 @@ public class IdleState : State
         for (int i = 0; i < colliders.Length; i++)
         {
             CharacterStats characterStats = colliders[i].transform.GetComponent<CharacterStats>();
-            if (characterStats != null)
+            if (characterStats != null && transform.root != characterStats.transform.root )
             {
                 //todo: check team ID
                 //Vector3 relativeDir = transform.TransformDirection(characterStats.transform.position);

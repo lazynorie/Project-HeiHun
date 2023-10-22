@@ -19,6 +19,10 @@ public class PlayerLocalmotion : MonoBehaviour
    public new Rigidbody rigidbody;
    public GameObject normalCamera;
 
+   [Header("Player Collision")]
+   public CapsuleCollider characterCollider;
+   public CapsuleCollider collisonCollider;
+   
    [Header("Movement Stats")] 
    [SerializeField] private float walkingSpeed = 3;
    [SerializeField] private float movementSpeed = 5;
@@ -48,8 +52,9 @@ public class PlayerLocalmotion : MonoBehaviour
       cameraObject = Camera.main.transform;
       myTransform = transform;
       animhandler.Initialize();
-
       playerManager.isGrounded = true;
+      
+      Physics.IgnoreCollision(characterCollider,collisonCollider,true);
    }
    #region Movement
    Vector3 normalVector;

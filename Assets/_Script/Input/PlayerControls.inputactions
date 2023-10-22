@@ -443,6 +443,17 @@
                     "action": "Y",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50dc2b65-53ef-443f-8ede-5f8b88c512ee",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

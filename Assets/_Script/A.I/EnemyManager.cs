@@ -28,6 +28,7 @@ public class EnemyManager : CharacterManager
     [Header("A.I")]
     public State currentState;
     public float detectionRadius = 15f;
+    public bool canDoCombo;
     [Header("detection angles")]
     [SerializeField] public float minimumDetectionAngle = -50f;
     [SerializeField] public float maximumDetectionAngle = 50f;
@@ -55,6 +56,7 @@ public class EnemyManager : CharacterManager
         HandleRecoveryTimer();
         UpdateDistanceAndAngleFromTarget();
         isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
+        canDoCombo = enemyAnimationHandler.animator.GetBool("canDoCombo");
     }
 
     private void FixedUpdate()
@@ -76,7 +78,6 @@ public class EnemyManager : CharacterManager
     {
         currentState = nexState;
     }
-    
     private void HandleRecoveryTimer()
     {
         if (currentRecoverTime > 0)
@@ -91,7 +92,6 @@ public class EnemyManager : CharacterManager
             }
         }
     }
-    
     private void SetInitialStateToIdleState()
     {
         if (currentState == null)
@@ -99,7 +99,6 @@ public class EnemyManager : CharacterManager
             currentState =  statesMgr.idleState;
         }
     }
-
     private void UpdateDistanceAndAngleFromTarget()
     {
         if (currentTarget != null)
