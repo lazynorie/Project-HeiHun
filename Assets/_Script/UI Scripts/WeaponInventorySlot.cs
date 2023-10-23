@@ -70,10 +70,20 @@ public class WeaponInventorySlot : MonoBehaviour
         //add current item to inventory
         //equip this new item
         //remove this item from inventory
-        playerInventory.rightWeapon =
-            playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex];
-        playerInventory.leftWeapon =
-            playerInventory.weaponsInLeftHandSlots[playerInventory.currentLeftWeaponIndex];
+        if (playerInventory.currentRightWeaponIndex != -1)
+        {
+            playerInventory.rightWeapon =
+                playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex];
+        }
+        else Debug.Log("You are on your fist");
+
+        if (playerInventory.currentLeftWeaponIndex != -1)
+        {
+            playerInventory.leftWeapon =
+                playerInventory.weaponsInLeftHandSlots[playerInventory.currentLeftWeaponIndex];
+        }
+        else Debug.Log("You are on your fist");
+
         weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon,false);
         weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon,true);
         

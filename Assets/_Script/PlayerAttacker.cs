@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerAttacker : MonoBehaviour
 {
@@ -17,23 +18,25 @@ public class PlayerAttacker : MonoBehaviour
   {
     if (inputHandler.twoHandFlag)
     {
-      if (weapon.TH_light_attack_01 == "")
+      if (weapon.TH_light_attack_01 == "")//todo: switch to new system
       {
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
       playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_01,true);
+      //playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.AttackAnimationName, true);
     }
     else
     {
-      if (weapon.OH_light_attack_01 == "")
+      if (weapon.OH_light_attack_1 == null)
       {
         Debug.Log("light attack 01 animation not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_01,true);
-       lastAttack = weapon.OH_light_attack_01;
-       Debug.Log("light attack 01");
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.AttackAnimationName, true);
+
+       //lastAttack = weapon.OH_light_attack_01;
+       lastAttack = weapon.OH_light_attack_1.AttackAnimationName;
     }
   }
   
@@ -47,17 +50,19 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
+      //todo: switch to the new system
       playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack,true);
+      //playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.AttackAnimationName,true);
     }
     else
     {
-      if (weapon.OH_heavy_attack == "")
+      if (weapon.OH_heavy_attack_1 == null)
       {
-        Debug.Log("HeavyAttack animation not Assigned");
+        Debug.Log("OH HeavyAttack animation not Assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack,true);
-      lastAttack = weapon.OH_heavy_attack;
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.AttackAnimationName,true);
+      lastAttack = weapon.OH_heavy_attack_1.AttackAnimationName;
     }
   }
 
@@ -66,15 +71,14 @@ public class PlayerAttacker : MonoBehaviour
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.OH_light_attack_01)
+      if (lastAttack == weapon.OH_light_attack_1.AttackAnimationName)
       {
-        if (weapon.OH_light_attack_02 == "")
+        if (weapon.OH_light_attack_2 == null)
         {
           Debug.Log("light attack 02 animation not assigned");
           return;
         }
-        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_02, true);
-        Debug.Log("light attack 02");
+        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.AttackAnimationName, true);
       }
     }
   }

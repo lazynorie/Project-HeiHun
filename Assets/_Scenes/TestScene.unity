@@ -11157,7 +11157,7 @@ MonoBehaviour:
   weaponsInRightHandSlots:
   - {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
-  - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
+  - {fileID: 11400000, guid: 1574b0fc9facf11499a301e9aa24bc15, type: 2}
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
   currentLeftWeaponIndex: -1
   weaponsInLeftHandSlots:
@@ -11204,6 +11204,7 @@ MonoBehaviour:
   experience: 1000
   tili: 0
   level: 0
+  staminaRegenRateTimer: 0
 --- !u!1 &1731062847
 GameObject:
   m_ObjectHideFlags: 0

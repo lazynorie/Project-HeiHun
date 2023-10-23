@@ -24,6 +24,11 @@ public class PlayerStats : CharacterStats
    }
    [SerializeField]
    private int level;
+
+   [Header("Player Stamina RegenTimer")]
+   [SerializeField]
+   private float staminaRegenRateTimer;
+
    public int Level {
       get
       {
@@ -108,9 +113,14 @@ public class PlayerStats : CharacterStats
 
    private void RegenStamina()
    {
-      if (!playerManager.isInteracting)
+      if (playerManager.isInteracting)
       {
-         if (currentStamina < maxStamina)
+         staminaRegenRateTimer = 0;
+      }
+      else
+      {
+         staminaRegenRateTimer += Time.deltaTime;
+         if (currentStamina < maxStamina && staminaRegenRateTimer > 1f)
          {
             currentStamina += staminaRegenRate * Time.deltaTime;
             staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));//need to update every frame
