@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerAnimationHandler : AnimationHandler
 {
     private PlayerManager playerManager;
+    private PlayerStats playerStats;
     private Animation anim;
     public InputHandler inputHandler;
     public PlayerLocalmotion playerLocalmotion;
@@ -13,6 +14,7 @@ public class PlayerAnimationHandler : AnimationHandler
     public void Initialize()
     {
         playerManager = GetComponentInParent<PlayerManager>();
+        playerStats = GetComponentInParent<PlayerStats>();
         animator = GetComponent<Animator>();
         anim = GetComponent<Animation>();
         inputHandler = GetComponentInParent<InputHandler>();
@@ -82,7 +84,6 @@ public class PlayerAnimationHandler : AnimationHandler
         animator.SetFloat(vertical, v, 0.1f, Time.deltaTime);
         animator.SetFloat(horizontal,h,0.1f,Time.deltaTime);
     }
-    
     public void CanRotate()
     {
         canRotate = true;
@@ -98,6 +99,19 @@ public class PlayerAnimationHandler : AnimationHandler
     public void DisableCombo()
     {
         animator.SetBool("canDoCombo", false);
+    }
+    public void CosumeStamina(int staminaCost)
+    {   
+        playerStats.DrainStamina(staminaCost);
+    }
+
+    public void EnableIFrame()
+    {
+        animator.SetBool("isInvulnerable", true);
+    }
+    public void DisableIFrame()
+    {
+        animator.SetBool("isInvulnerable", false);
     }
     private void OnAnimatorMove()
     {

@@ -6,16 +6,16 @@ public class CharacterStats : MonoBehaviour
     public int healthLevel = 10;
     public int maxHealth;
     public int currentHealth;
-    private int staminaLevel;
-    public int Stamina 
+    [Header("Stamina stats")]
+    [SerializeField] protected float staminaLevel;
+    [SerializeField] protected float currentStamina;
+    [SerializeField] protected float maxStamina;
+    [SerializeField] protected float staminaRegenRate;
+    public int MaxiumHealth
     {
-        get
-        {
-            return staminaLevel * 10 + 50;
-        }
+        get { return maxHealth;}
+        set { maxHealth = 10 * healthLevel; }
     }
-    
-    public int MaxiumHealth { get; set; }
 
     [Header("Death flag")] [SerializeField]
     protected bool isDead;

@@ -41,19 +41,18 @@ public class PlayerLocalmotion : MonoBehaviour
    private void Awake()
    {
       cameraHandler = FindObjectOfType<CameraHandler>();
-   }
-
-   void Start()
-   {
       playerManager = GetComponent<PlayerManager>();
       rigidbody = GetComponent<Rigidbody>();
       inputHandler = GetComponent<InputHandler>();
       animhandler = GetComponentInChildren<PlayerAnimationHandler>();
+   }
+
+   void Start()
+   {
       cameraObject = Camera.main.transform;
       myTransform = transform;
       animhandler.Initialize();
       playerManager.isGrounded = true;
-      
       Physics.IgnoreCollision(characterCollider,collisonCollider,true);
    }
    #region Movement

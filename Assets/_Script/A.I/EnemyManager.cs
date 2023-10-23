@@ -46,7 +46,7 @@ public class EnemyManager : CharacterManager
     }
 
     private void Start()
-    {
+    {   //TODO: write a function for setting intial state
         SwitchToNextState(GetComponentInChildren<StateMachineManager>().idleState);
         enemyRb.isKinematic = false;
     }
@@ -55,10 +55,8 @@ public class EnemyManager : CharacterManager
     {
         HandleRecoveryTimer();
         UpdateDistanceAndAngleFromTarget();
-        isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
-        canDoCombo = enemyAnimationHandler.animator.GetBool("canDoCombo");
+        GetParametersFromAnimationHandler();
     }
-
     private void FixedUpdate()
     {
         HandleStateMachine();
@@ -107,5 +105,10 @@ public class EnemyManager : CharacterManager
             Vector3 targetDir = currentTarget.transform.position - transform.position;
             viewableAngle = Vector3.Angle(targetDir,transform.forward);
         }
+    }
+    private void GetParametersFromAnimationHandler()
+    {
+        isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
+        canDoCombo = enemyAnimationHandler.animator.GetBool("canDoCombo");
     }
 }

@@ -10,7 +10,8 @@ public class PlayerManager : CharacterManager
     private PlayerLocalmotion playerLocalmotion; 
     private InteractableUI interactableUI;
     public bool isInteracting;
-    [Header("Player Flags")]
+    [Header("Player Flags")] 
+    public bool isInvulnerable;
     public bool isSprinting;
     public bool isInAir;
     public bool isGrounded;
@@ -23,12 +24,11 @@ public class PlayerManager : CharacterManager
 
     [SerializeField] private GameObject itemInteractableGameObject;
 
-    private const int targetFPS = 60;
+    private const int TargetFPS = 60;
     private void Awake()
     {
         //在这里设置目标FPS
-        Application.targetFrameRate = targetFPS;
-    
+        Application.targetFrameRate = TargetFPS;
         cameraHandler = CameraHandler.singleton;
     }
     void Start()
@@ -53,9 +53,10 @@ public class PlayerManager : CharacterManager
         inputHandler.TickInput(delta);
         isInteracting = animator.GetBool("isInteracting");
         canDoCombo = animator.GetBool("canDoCombo");
-        CheckForInteractableObject();
         isUsingRightHand = animator.GetBool("isUsingRightHand");
         isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+        isInvulnerable = animator.GetBool("isInvulnerable");
+        CheckForInteractableObject();
     }
     private void LateUpdate()
     {
@@ -83,7 +84,6 @@ public class PlayerManager : CharacterManager
 
     public void CheckForInteractableObject(){
         RaycastHit hit;
-        
         if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayer))
         {
             if(hit.collider.tag == "Interactable")
