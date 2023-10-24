@@ -1,16 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerStats : CharacterStats
 {
-   public static event Action onPlayerDeath;
+   public static event Action OnPlayerDeath;
    private PlayerManager playerManager;
-   public HealthBar healthbar;
+   public HealthBar healthBar;
    public StaminaBar staminaBar;
-   private PlayerAnimationHandler animhandler;
+   public ManaBar manaBar;
+   private PlayerAnimationHandler animHandler;
    [SerializeField]
    private int experience;
-   public int tili;
+
    public int Experience
    {
       get
@@ -29,53 +31,45 @@ public class PlayerStats : CharacterStats
    [SerializeField]
    private float staminaRegenRateTimer;
 
-   public int Level {
-      get
-      {
-         return experience / 1000;
-      }
-      set
-      {
-         level = value;
-      }
-   }
-
    private void Awake()
    {
       playerManager = GetComponent<PlayerManager>();
    }
-
    private void Start()
    {
+      maxMana = SetMaxManaFromManaLevel();
       maxHealth = SetMaxHealthFromHealthLevel();
       maxStamina = SetMaxStaminaFromStaminaLevel();
       currentHealth = maxHealth;
       currentStamina = maxStamina;
-      healthbar.SetMaxHealth(maxHealth);
+      currentMana = maxMana;
+      healthBar.SetMaxHealth(maxHealth);
       staminaBar.SetMaxStamina(maxStamina);
-      animhandler = GetComponentInChildren<PlayerAnimationHandler>();
+      
+      animHandler = GetComponentInChildren<PlayerAnimationHandler>();
       EnemyStats.OnEnemyDeath += IncreasePlayerExperience;
       HealingSpell.OnHealingSpellCast += HealPlayer;
    }
-   
    private void Update()
    {
       RegenStamina();
    }
-
-   private float SetMaxStaminaFromStaminaLevel()
+   private int SetMaxStaminaFromStaminaLevel()
    {
       maxStamina = staminaLevel * 5 + 10;
-      return maxStamina;
+      return Mathf.RoundToInt(maxStamina);
    }
-
    private int SetMaxHealthFromHealthLevel()
    {
       //在这里设置玩家血量
       maxHealth = healthLevel * 10;
       return maxHealth;
    }
-
+   private int SetMaxManaFromManaLevel()
+   {
+      maxMana = manaLevel * 5 + 50;
+      return maxMana;
+   }
    public void TakeDamage(int damage)
    {
       if (isDead) return;
@@ -83,16 +77,16 @@ public class PlayerStats : CharacterStats
       {
          currentHealth = currentHealth - damage;
       
-         healthbar.SetCurrentHealth(currentHealth);
+         healthBar.SetCurrentHealth(currentHealth);
       
-         animhandler.PlayTargetAnimation("Getting Hit", true);
+         animHandler.PlayTargetAnimation("Getting Hit", true);
       }
 
       if (currentHealth <=0)
       {
          currentHealth = 0;
-         animhandler.PlayTargetAnimation("dead01", true);
-         onPlayerDeath?.Invoke();
+         animHandler.PlayTargetAnimation("dead01", true);
+         OnPlayerDeath?.Invoke();
          //玩家死亡逻辑
       }
    }
@@ -133,6 +127,7 @@ public class PlayerStats : CharacterStats
       {
          currentHealth += healAmount;
       }
+      healthBar.SetCurrentHealth(currentHealth);
    }
    public void HealPlayerOverTime(float healrate, float lastTime)
    {
@@ -146,7 +141,12 @@ public class PlayerStats : CharacterStats
       {
          currentHealth = maxHealth;
       }
-      healthbar.SetCurrentHealth(currentHealth);
+      healthBar.SetCurrentHealth(currentHealth);
+   }
+
+   public void DrainMana(int manaCost)
+   {
+      currentMana -= manaCost;
    }
 }
 
