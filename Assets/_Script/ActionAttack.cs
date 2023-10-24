@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[CreateAssetMenu(menuName = "Attack")]
-public class Attack : ScriptableObject
+
+[CreateAssetMenu(menuName = "Action/AttackAction")]
+public class ActionAttack : ScriptableObject
 {
    public string uniqueID;
    public string animationName;

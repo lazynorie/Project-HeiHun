@@ -8,12 +8,9 @@ public class WeaponItem : Item
     public bool isUnarmed;
 
     [Header("one hand attack animation")] 
-    /*public string OH_light_attack_01;
-    public string OH_light_attack_02;
-    public string OH_heavy_attack;*/
-    public Attack OH_light_attack_1;
-    public Attack OH_light_attack_2;
-    public Attack OH_heavy_attack_1;
+    public ActionAttack ohLightActionAttack1;
+    public ActionAttack ohLightActionAttack2;
+    public ActionAttack ohHeavyActionAttack1;
 
 
     [Header("two hand attack animation")] 
@@ -26,7 +23,8 @@ public class WeaponItem : Item
     public string left_hand_idle;
     public string th_idle;
 
-    [Header("Stamina Cost")] public int baseStamina;
+    [Header("Stamina Cost")] 
+    public int baseStamina;
     public float lightAttackMultiplier;
     public float heavyAttackMultiplier;
 

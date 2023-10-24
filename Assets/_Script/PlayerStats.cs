@@ -133,8 +133,6 @@ public class PlayerStats : CharacterStats
       {
          currentHealth += healAmount;
       }
-
-      
    }
    public void HealPlayerOverTime(float healrate, float lastTime)
    {

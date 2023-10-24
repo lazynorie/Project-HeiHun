@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OH sword light attack 01
   m_EditorClassIdentifier: 
   uniqueID: 
-  attackAnimationName: straight_sword_oh_light_attack_01
+  animationName: straight_sword_oh_light_attack_01
   attackPower: 20
   staminaConsum: 15

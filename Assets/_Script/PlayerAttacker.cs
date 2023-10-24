@@ -35,15 +35,15 @@ public class PlayerAttacker : MonoBehaviour
     }
     else
     {
-      if (weapon.OH_light_attack_1 == null)
+      if (weapon.ohLightActionAttack1 == null)
       {
-        Debug.Log("light attack 01 animation not assigned");
+        Debug.Log("ohLightActionAttack1 is not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.animationName, true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack1.animationName, true);
 
        //lastAttack = weapon.OH_light_attack_01;
-       lastAttack = weapon.OH_light_attack_1.animationName;
+       lastAttack = weapon.ohLightActionAttack1.animationName;
     }
   }
   public void HandleHeavyAttack(WeaponItem weapon)
@@ -61,13 +61,13 @@ public class PlayerAttacker : MonoBehaviour
     }
     else
     {
-      if (weapon.OH_heavy_attack_1 == null)
+      if (weapon.ohHeavyActionAttack1 == null)
       {
-        Debug.Log("OH HeavyAttack animation not Assigned");
+        Debug.Log("ohHeavyActionAttack1 not Assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.animationName,true);
-      lastAttack = weapon.OH_heavy_attack_1.animationName;
+      playerAnimationHandler.PlayTargetAnimation(weapon.ohHeavyActionAttack1.animationName,true);
+      lastAttack = weapon.ohHeavyActionAttack1.animationName;
     }
   }
   public void HandleWeaponCombo(WeaponItem weapon)
@@ -75,14 +75,14 @@ public class PlayerAttacker : MonoBehaviour
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.OH_light_attack_1.animationName)
+      if (lastAttack == weapon.ohLightActionAttack1.animationName)
       {
-        if (weapon.OH_light_attack_2 == null)
+        if (weapon.ohLightActionAttack2 == null)
         {
-          Debug.Log("light attack 02 animation not assigned");
+          Debug.Log("ohLightActionAttack2 not assigned");
           return;
         }
-        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.animationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack2.animationName, true);
       }
     }
   }
@@ -99,7 +99,7 @@ public class PlayerAttacker : MonoBehaviour
              playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster ||
              playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
     {
-      //handle spell faith and fire magic input
+      //handle spell faith and fire magic
       PerformRbMagicAction(playerInventory.rightWeapon);
     }
     else if (playerInventory.rightWeapon.weaponType is WeaponType.RangeWeapon)

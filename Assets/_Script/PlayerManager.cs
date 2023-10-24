@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : CharacterManager
 { 
-    public static event Action onInteractable; 
+    public static event Action OnInteractable; 
     private InputHandler inputHandler;
     private Animator animator;
     public CameraHandler cameraHandler;
@@ -97,7 +97,7 @@ public class PlayerManager : CharacterManager
                     interactableUIGameObject.SetActive(true);
                     if(inputHandler.raInput)
                     {
-                        onInteractable?.Invoke();
+                        OnInteractable?.Invoke();
                         hit.collider.GetComponent<Interactable>().Interact(this);
                     }
                 }

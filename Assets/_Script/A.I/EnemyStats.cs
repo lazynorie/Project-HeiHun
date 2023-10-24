@@ -32,18 +32,12 @@ public class EnemyStats : CharacterStats
         isDead = false;
         time = 0f;
     }
-
-    private void Update()
-    {
-    }
-
     private int SetMaxHealthFromHealthLevel()
     {
         //在这里设置血量
         maxHealth = healthLevel * 10;
         return maxHealth;
     }
-
     public void TakeDamage(int damage)
     {
         if (isDead)

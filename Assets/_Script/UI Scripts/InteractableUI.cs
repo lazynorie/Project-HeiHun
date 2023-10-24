@@ -22,7 +22,7 @@ public class InteractableUI : MonoBehaviour
      private void Start()
      {
          interactableUIGameObject.SetActive(false);
-         PlayerManager.onInteractable += DelegatesTrigger;
+         PlayerManager.OnInteractable += DelegatesTrigger;
      }
 
      public void ShowItemPickUpText(Interactable interactable)
