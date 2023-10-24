@@ -3,10 +3,11 @@ using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerAttacker : MonoBehaviour
 {
-  [SerializeField]private PlayerAnimationHandler playerAnimationHandler;
-  [SerializeField]private InputHandler inputHandler;
+  [SerializeField] private PlayerAnimationHandler playerAnimationHandler;
+  [SerializeField] private InputHandler inputHandler;
   [SerializeField] private PlayerInventory playerInventory;
-  [SerializeField]private PlayerManager playerManager;
+  [SerializeField] private PlayerManager playerManager;
+  [SerializeField] private PlayerStats playerStats;
   public string lastAttack;
 
 
@@ -16,6 +17,7 @@ public class PlayerAttacker : MonoBehaviour
     inputHandler = GetComponentInParent<InputHandler>();
     playerInventory = GetComponentInParent<PlayerInventory>();
     playerManager = GetComponentInParent<PlayerManager>();
+    playerStats = GetComponentInParent<PlayerStats>();
   }
 
   public void HandleLightAttack(WeaponItem weapon)
@@ -142,9 +144,14 @@ public class PlayerAttacker : MonoBehaviour
       if (playerInventory.currentSpell != null && playerInventory.currentSpell.spellType is SpellType.Faith)
       {
         //check for mana
-        //attempt to cast 
+        playerInventory.currentSpell.AttempToCastSpell(playerAnimationHandler,playerStats);
       }
     }
+  }
+
+  private void SuccessfullyCastSpell()
+  {
+    playerInventory.currentSpell.SuccessfulCastSpell(playerAnimationHandler,playerStats);
   }
   #endregion
   public void SetIsLeftHandAttack(bool isAttacking)

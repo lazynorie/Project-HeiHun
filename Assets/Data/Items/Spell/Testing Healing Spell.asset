@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82158fa9daaa4fd429cf52150016f343, type: 3}
-  m_Name: test spell 01
+  m_Script: {fileID: 11500000, guid: f96bfe2a301dedb4d97769654493c6bf, type: 3}
+  m_Name: Testing Healing Spell
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: 

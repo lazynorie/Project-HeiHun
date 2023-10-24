@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Item/Spell")]
 public class SpellItem : Item
 {
     [Header("VFX and animation")]
@@ -14,12 +13,12 @@ public class SpellItem : Item
     [Header("Spell Description")] [TextArea]
     public string spellDescription;
 
-    public virtual void AttempToCastSpell()
+    public virtual void AttempToCastSpell(AnimationHandler anim, PlayerStats playerStats)
     {
         Debug.Log("You attempt to cast a spell!");
     }
 
-    public virtual void SuccessfulCastSpell()
+    public virtual void SuccessfulCastSpell(AnimationHandler anim, PlayerStats playerStats)
     {
         Debug.Log("Successfully cast a spell!");
     }
