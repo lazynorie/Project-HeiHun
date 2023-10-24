@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     private EnemyManager enemyManager;
-    public static event Action<int> onEnemyDeath; 
+    public static event Action<int> OnEnemyDeath; 
     public float respawnTimer;
     public int exp = 50;
     private Vector3 spawnPosition;
@@ -56,7 +56,7 @@ public class EnemyStats : CharacterStats
             isDead = true;
             currentHealth = 0;
             animator.Play("dead01");
-            onEnemyDeath?.Invoke(exp);
+            OnEnemyDeath?.Invoke(exp);
             //死亡逻辑
             //collider.enabled = false;
         }

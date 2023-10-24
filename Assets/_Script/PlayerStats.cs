@@ -54,7 +54,8 @@ public class PlayerStats : CharacterStats
       healthbar.SetMaxHealth(maxHealth);
       staminaBar.SetMaxStamina(maxStamina);
       animhandler = GetComponentInChildren<PlayerAnimationHandler>();
-      EnemyStats.onEnemyDeath += IncreasePlayerExperience;
+      EnemyStats.OnEnemyDeath += IncreasePlayerExperience;
+      HealingSpell.OnHealingSpellCast += HealPlayer;
    }
    
    private void Update()
@@ -110,7 +111,6 @@ public class PlayerStats : CharacterStats
    {
       experience += exp;
    }
-
    private void RegenStamina()
    {
       if (playerManager.isInteracting)
@@ -126,6 +126,29 @@ public class PlayerStats : CharacterStats
             staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));//need to update every frame
          }
       }
+   }
+   private void HealPlayer(int healAmount)
+   {
+      if (currentHealth < maxHealth)
+      {
+         currentHealth += healAmount;
+      }
+
+      
+   }
+   public void HealPlayerOverTime(float healrate, float lastTime)
+   {
+      lastTime -= Time.deltaTime;
+      if (lastTime > 0)
+      {
+         currentHealth += (int)(healrate * Time.deltaTime);
+      }
+      
+      if (currentHealth > maxHealth)
+      {
+         currentHealth = maxHealth;
+      }
+      healthbar.SetCurrentHealth(currentHealth);
    }
 }
 

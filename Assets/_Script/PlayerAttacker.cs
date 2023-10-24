@@ -18,6 +18,7 @@ public class PlayerAttacker : MonoBehaviour
     playerInventory = GetComponentInParent<PlayerInventory>();
     playerManager = GetComponentInParent<PlayerManager>();
     playerStats = GetComponentInParent<PlayerStats>();
+    
   }
 
   public void HandleLightAttack(WeaponItem weapon)
@@ -39,10 +40,10 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("light attack 01 animation not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.attackAnimationName, true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.animationName, true);
 
        //lastAttack = weapon.OH_light_attack_01;
-       lastAttack = weapon.OH_light_attack_1.attackAnimationName;
+       lastAttack = weapon.OH_light_attack_1.animationName;
     }
   }
   public void HandleHeavyAttack(WeaponItem weapon)
@@ -65,8 +66,8 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("OH HeavyAttack animation not Assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.attackAnimationName,true);
-      lastAttack = weapon.OH_heavy_attack_1.attackAnimationName;
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.animationName,true);
+      lastAttack = weapon.OH_heavy_attack_1.animationName;
     }
   }
   public void HandleWeaponCombo(WeaponItem weapon)
@@ -74,14 +75,14 @@ public class PlayerAttacker : MonoBehaviour
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.OH_light_attack_1.attackAnimationName)
+      if (lastAttack == weapon.OH_light_attack_1.animationName)
       {
         if (weapon.OH_light_attack_2 == null)
         {
           Debug.Log("light attack 02 animation not assigned");
           return;
         }
-        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.attackAnimationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.animationName, true);
       }
     }
   }
@@ -94,22 +95,16 @@ public class PlayerAttacker : MonoBehaviour
       //todo: handle melee action
       PerformRbMeleeAction();
     }
-    else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster)
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster ||
+             playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster ||
+             playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
     {
-      //todo: handle spell casting
+      //handle spell faith and fire magic input
       PerformRbMagicAction(playerInventory.rightWeapon);
     }
     else if (playerInventory.rightWeapon.weaponType is WeaponType.RangeWeapon)
     {
       //todo: handle range action
-    }
-    else if (playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster)
-    {
-      //todo: handle Miracle action
-    }
-    else if (playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
-    {
-      //todo: handle fire magic action
     }
   }
   public void HandleRtAction()
