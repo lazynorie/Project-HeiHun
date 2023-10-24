@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : ScriptableObject
 {
    public string uniqueID;
-   public string AttackAnimationName;
+   public string attackAnimationName;
    public int attackPower;
    public int staminaConsum;
 }

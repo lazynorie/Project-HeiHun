@@ -33,10 +33,10 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("light attack 01 animation not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.AttackAnimationName, true);
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.attackAnimationName, true);
 
        //lastAttack = weapon.OH_light_attack_01;
-       lastAttack = weapon.OH_light_attack_1.AttackAnimationName;
+       lastAttack = weapon.OH_light_attack_1.attackAnimationName;
     }
   }
   
@@ -61,8 +61,8 @@ public class PlayerAttacker : MonoBehaviour
         Debug.Log("OH HeavyAttack animation not Assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.AttackAnimationName,true);
-      lastAttack = weapon.OH_heavy_attack_1.AttackAnimationName;
+      playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.attackAnimationName,true);
+      lastAttack = weapon.OH_heavy_attack_1.attackAnimationName;
     }
   }
 
@@ -71,14 +71,14 @@ public class PlayerAttacker : MonoBehaviour
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.OH_light_attack_1.AttackAnimationName)
+      if (lastAttack == weapon.OH_light_attack_1.attackAnimationName)
       {
         if (weapon.OH_light_attack_2 == null)
         {
           Debug.Log("light attack 02 animation not assigned");
           return;
         }
-        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.AttackAnimationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_2.attackAnimationName, true);
       }
     }
   }

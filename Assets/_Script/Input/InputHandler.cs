@@ -46,7 +46,7 @@ public class InputHandler : MonoBehaviour
 
   private void Awake()
   {
-    playerAttacker = GetComponent<PlayerAttacker>();
+    playerAttacker = GetComponentInChildren<PlayerAttacker>();
     playerInventory = GetComponent<PlayerInventory>();
     playerManager = GetComponent<PlayerManager>();
     uiManager = FindObjectOfType<UIManager>();
