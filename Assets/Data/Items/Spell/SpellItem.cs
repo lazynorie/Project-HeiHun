@@ -1,16 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Item/Spell")]
 public class SpellItem : Item
 {
-    public enum SpellType
-    {
-        Faith,
-        Magic,
-        PyroSpell
-    };
-
+    [Header("VFX and animation")]
     public GameObject spellWarmupFX;
     public GameObject spellCastFX;
     public string spellAnimation;
@@ -31,4 +26,12 @@ public class SpellItem : Item
 
 
 }
+
+[System.Serializable]
+public enum SpellType
+{
+    Faith,
+    Magic,
+    Pyro
+};
 

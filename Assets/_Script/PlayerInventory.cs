@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
   private WeaponSlotManager weaponSlotManager;
+  public SpellItem currentSpell;
   public WeaponItem rightWeapon;
   public WeaponItem leftWeapon;
   public WeaponItem unarmedWeapon;

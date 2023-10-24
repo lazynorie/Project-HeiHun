@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OH sword heavy attack 01
   m_EditorClassIdentifier: 
   uniqueID: 
-  AttackAnimationName: straight_sword_oh_heavy_attack_02
+  attackAnimationName: straight_sword_oh_heavy_attack_02
   attackPower: 30
   staminaConsum: 30

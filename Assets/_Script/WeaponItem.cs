@@ -20,14 +20,29 @@ public class WeaponItem : Item
     public string TH_light_attack_01;
     public string TH_light_attack_02;
     public string TH_heavy_attack;
-    public Attack[] TH_hand_attacks;
-
-
+    
     [Header("idle animation")] 
     public string right_hand_idle;
     public string left_hand_idle;
     public string th_idle;
 
-    [TextAreaAttribute]
+    [Header("Stamina Cost")] public int baseStamina;
+    public float lightAttackMultiplier;
+    public float heavyAttackMultiplier;
+
+    [Header("Weapon Type")]
+    public WeaponType weaponType;
+    
+    [TextArea]
     [Header("toolstip")] public String toolstip;
+}
+
+[Serializable]
+public enum WeaponType
+{
+    MeleeWeapon,
+    RangeWeapon,
+    SpellCaster,
+    PyroCaster,
+    FaithCaster,
 }

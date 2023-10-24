@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OH sword back stab
   m_EditorClassIdentifier: 
   uniqueID: 
-  AttackAnimationName: straight_sword_oh_heavy_attack_01
+  attackAnimationName: straight_sword_oh_heavy_attack_01
   attackPower: 50
   staminaConsum: 30

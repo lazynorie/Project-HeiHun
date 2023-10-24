@@ -3,22 +3,26 @@ using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerAttacker : MonoBehaviour
 {
-  
-  private PlayerAnimationHandler playerAnimationHandler;
+  [SerializeField]private PlayerAnimationHandler playerAnimationHandler;
+  [SerializeField]private InputHandler inputHandler;
+  [SerializeField] private PlayerInventory playerInventory;
+  [SerializeField]private PlayerManager playerManager;
   public string lastAttack;
-  private InputHandler inputHandler;
+
 
   private void Awake()
   {
-    playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
-    inputHandler = GetComponent<InputHandler>();
+    playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
+    inputHandler = GetComponentInParent<InputHandler>();
+    playerInventory = GetComponentInParent<PlayerInventory>();
+    playerManager = GetComponentInParent<PlayerManager>();
   }
 
   public void HandleLightAttack(WeaponItem weapon)
   {
     if (inputHandler.twoHandFlag)
     {
-      if (weapon.TH_light_attack_01 == "")//todo: switch to new system
+      if (weapon.TH_heavy_attack == "")//todo: switch to new system
       {
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
@@ -39,8 +43,6 @@ public class PlayerAttacker : MonoBehaviour
        lastAttack = weapon.OH_light_attack_1.attackAnimationName;
     }
   }
-  
-
   public void HandleHeavyAttack(WeaponItem weapon)
   {
     if (inputHandler.twoHandFlag)
@@ -65,7 +67,6 @@ public class PlayerAttacker : MonoBehaviour
       lastAttack = weapon.OH_heavy_attack_1.attackAnimationName;
     }
   }
-
   public void HandleWeaponCombo(WeaponItem weapon)
   {
     if (inputHandler.comboFlag)
@@ -83,11 +84,73 @@ public class PlayerAttacker : MonoBehaviour
     }
   }
 
+  #region Input Actions
+  public void HandleRbAction()
+  {
+    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
+    {
+      //todo: handle melee action
+      PerformRbMeleeAction();
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster)
+    {
+      //todo: handle spell casting
+      PerformRbMagicAction(playerInventory.rightWeapon);
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.RangeWeapon)
+    {
+      //todo: handle range action
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster)
+    {
+      //todo: handle Miracle action
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
+    {
+      //todo: handle fire magic action
+    }
+  }
+  public void HandleRtAction()
+  {
+    
+  }
+
+  #endregion
+
+  #region Attack Actions
+  public void PerformRbMeleeAction()
+  {
+      if (playerManager.canDoCombo)
+      {
+        inputHandler.comboFlag = true;
+        HandleWeaponCombo(playerInventory.rightWeapon);
+        inputHandler.comboFlag = false;
+      }
+      else
+      {
+        if (playerManager.isInteracting)
+          return;
+        if (playerManager.canDoCombo)
+          return;
+        HandleLightAttack(playerInventory.rightWeapon);
+      }
+  }
+  public void PerformRbMagicAction(WeaponItem weapon)
+  {
+    if (weapon.weaponType is WeaponType.FaithCaster)
+    {
+      if (playerInventory.currentSpell != null && playerInventory.currentSpell.spellType is SpellType.Faith)
+      {
+        //check for mana
+        //attempt to cast 
+      }
+    }
+  }
+  #endregion
   public void SetIsLeftHandAttack(bool isAttacking)
   {
     playerAnimationHandler.animator.SetBool("isUsingLeftHand" ,isAttacking);
   }
-
   public void SetIsRightHandAttack(bool isAttacking)
   {
     playerAnimationHandler.animator.SetBool("isUsingRightHand" ,isAttacking);

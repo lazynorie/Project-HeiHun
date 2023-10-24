@@ -35,7 +35,7 @@ public class InputHandler : MonoBehaviour
   
   PlayerControls inputActions;
   CameraHandler cameraHandler;
-  PlayerAttacker playerAttacker;
+  private PlayerAttacker playerAttacker;
   private PlayerInventory playerInventory;
   private PlayerManager playerManager;
   private UIManager uiManager;
@@ -46,12 +46,12 @@ public class InputHandler : MonoBehaviour
 
   private void Awake()
   {
-    playerAttacker = GetComponentInChildren<PlayerAttacker>();
     playerInventory = GetComponent<PlayerInventory>();
     playerManager = GetComponent<PlayerManager>();
     uiManager = FindObjectOfType<UIManager>();
     cameraHandler = FindObjectOfType<CameraHandler>();
     weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+    playerAttacker = GetComponentInChildren<PlayerAttacker>();
   }
 
   public void OnEnable()
@@ -118,20 +118,7 @@ public class InputHandler : MonoBehaviour
   {
     if (rbInput)
     {
-      if (playerManager.canDoCombo)
-      {
-        comboFlag = true;
-        playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-        comboFlag = false;
-      }
-      else
-      {
-        if (playerManager.isInteracting)
-          return;
-        if (playerManager.canDoCombo)
-          return;
-        playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
-      }
+      playerAttacker.HandleRbAction();
     }
 
     if (rtInput)

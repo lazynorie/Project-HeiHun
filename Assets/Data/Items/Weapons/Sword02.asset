@@ -22,8 +22,13 @@ MonoBehaviour:
   TH_light_attack_01: 
   TH_light_attack_02: 
   TH_heavy_attack: 
-  TH_hand_attacks: []
   right_hand_idle: righ_arm_idle_01
   left_hand_idle: 
   th_idle: th_idle_01
-  toolstip: 
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
+  weaponType: 0
+  toolstip: 'a JIAN
+
+'
