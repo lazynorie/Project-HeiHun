@@ -25,13 +25,12 @@ public class PlayerManager : CharacterManager
     [SerializeField] private GameObject itemInteractableGameObject;
 
     private const int TargetFPS = 60;
-
     protected override void Awake()
     {
         base.Awake();
         //在这里设置目标FPS
         Application.targetFrameRate = TargetFPS;
-        cameraHandler = CameraHandler.singleton;
+        //cameraHandler = FindObjectOfType<CameraHandler>();
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponentInChildren<Animator>();
         playerLocomotion = GetComponent<PlayerLocalmotion>();
@@ -39,6 +38,8 @@ public class PlayerManager : CharacterManager
     }
     void Start()
     {
+        cameraHandler = CameraHandler.singleton;
+
         //the interactableUIobject has to be set to active for this line to work, or assign the gameobject in editor.
     }
     private void FixedUpdate()

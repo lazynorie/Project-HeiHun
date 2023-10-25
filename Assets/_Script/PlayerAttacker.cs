@@ -37,6 +37,7 @@ public class PlayerAttacker : MonoBehaviour
 
   public void HandleLightAttack(WeaponItem weapon)
   {
+    if (playerStats.currentStamina <= 0) return;
     if (inputHandler.twoHandFlag)
     {
       if (weapon.TH_heavy_attack == "")//todo: switch to new system
@@ -62,6 +63,7 @@ public class PlayerAttacker : MonoBehaviour
   }
   public void HandleHeavyAttack(WeaponItem weapon)
   {
+    if (playerStats.currentStamina <= 0) return;
     if (inputHandler.twoHandFlag)
     {
       if (weapon.TH_heavy_attack == "")
@@ -86,6 +88,7 @@ public class PlayerAttacker : MonoBehaviour
   }
   public void HandleWeaponCombo(WeaponItem weapon)
   {
+    if (playerStats.currentStamina <= 0) return;
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
@@ -178,6 +181,7 @@ public class PlayerAttacker : MonoBehaviour
 
   public void AttemptBackStabOrRiposte()
   {
+    if (playerStats.currentStamina <= 0) return;
     RaycastHit hit;
     if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
           transform.TransformDirection(Vector3.forward),out hit, 0.5f, backStabLayer))

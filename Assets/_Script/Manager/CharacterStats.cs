@@ -8,7 +8,7 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth;
     [Header("Stamina stats")]
     [SerializeField] protected int staminaLevel;
-    [SerializeField] protected float currentStamina;
+    [SerializeField] public float currentStamina;
     [SerializeField] protected float maxStamina;
     [SerializeField] protected float staminaRegenRate;
 

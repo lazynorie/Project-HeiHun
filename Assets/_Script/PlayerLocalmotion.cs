@@ -4,17 +4,20 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerLocalmotion : MonoBehaviour
 {
+   private PlayerManager playerManager;
+   private PlayerStats playerStats;
    Transform cameraObject;
    InputHandler inputHandler;
+   private CameraHandler cameraHandler;
+   private PlayerAnimationHandler animhandler;
+   
    public Vector3 moveDirection;
-   private PlayerManager playerManager;
+   
    
    [HideInInspector] 
    public Transform myTransform;
 
-   private CameraHandler cameraHandler;
-
-   [HideInInspector] public PlayerAnimationHandler animhandler;
+   
    
    public new Rigidbody rigidbody;
    public GameObject normalCamera;
@@ -42,6 +45,7 @@ public class PlayerLocalmotion : MonoBehaviour
    {
       cameraHandler = FindObjectOfType<CameraHandler>();
       playerManager = GetComponent<PlayerManager>();
+      playerStats = GetComponent<PlayerStats>();
       rigidbody = GetComponent<Rigidbody>();
       inputHandler = GetComponent<InputHandler>();
       animhandler = GetComponentInChildren<PlayerAnimationHandler>();
@@ -187,6 +191,7 @@ public class PlayerLocalmotion : MonoBehaviour
    }
    public void HandleRollingAndSprinting(float delta)
    {
+      if (playerStats.currentStamina <= 0) return;
       if (animhandler.animator.GetBool("isInteracting"))
          return;
 

@@ -54,8 +54,6 @@ public class CameraHandler : MonoBehaviour
         defaultPosition = cameraTransform.localPosition.z;
         inputHandler = FindObjectOfType<InputHandler>();
         targetTransform = FindObjectOfType<PlayerManager>().transform;
-        
-
     }
     private void Start()
     {
