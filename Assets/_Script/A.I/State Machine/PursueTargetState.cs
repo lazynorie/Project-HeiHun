@@ -15,6 +15,8 @@ public class PursueTargetState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        if (enemyManager.isInteracting)
+            return this;
         //chase the target
         if (enemyManager.isPerformingAction)
         {

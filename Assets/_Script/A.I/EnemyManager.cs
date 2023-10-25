@@ -33,8 +33,9 @@ public class EnemyManager : CharacterManager
     [SerializeField] public float minimumDetectionAngle = -50f;
     [SerializeField] public float maximumDetectionAngle = 50f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
         enemyAnimationHandler = GetComponentInChildren<EnemyAnimationHandler>();
         enemyStats = GetComponent<EnemyStats>();

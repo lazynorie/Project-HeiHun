@@ -7,7 +7,7 @@ public class PlayerManager : CharacterManager
     private InputHandler inputHandler;
     private Animator animator;
     public CameraHandler cameraHandler;
-    private PlayerLocalmotion playerLocalmotion; 
+    private PlayerLocalmotion playerLocomotion; 
     private InteractableUI interactableUI;
     public bool isInteracting;
     [Header("Player Flags")] 
@@ -25,27 +25,29 @@ public class PlayerManager : CharacterManager
     [SerializeField] private GameObject itemInteractableGameObject;
 
     private const int TargetFPS = 60;
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
         //在这里设置目标FPS
         Application.targetFrameRate = TargetFPS;
         cameraHandler = CameraHandler.singleton;
+        inputHandler = GetComponent<InputHandler>();
+        animator = GetComponentInChildren<Animator>();
+        playerLocomotion = GetComponent<PlayerLocalmotion>();
+        interactableUI = FindObjectOfType<InteractableUI>();
     }
     void Start()
     {
-        inputHandler = GetComponent<InputHandler>();
-        animator = GetComponentInChildren<Animator>();
-        playerLocalmotion = GetComponent<PlayerLocalmotion>();
         //the interactableUIobject has to be set to active for this line to work, or assign the gameobject in editor.
-        interactableUI = FindObjectOfType<InteractableUI>();
     }
     private void FixedUpdate()
     {
         float delta = Time.fixedDeltaTime;
         inputHandler.FixedTickInput(delta);
-        playerLocalmotion.HandleMovement(delta);
-        playerLocalmotion.HandleRollingAndSprinting(delta);
-        playerLocalmotion.HandleFalling(delta,playerLocalmotion.moveDirection);
+        playerLocomotion.HandleMovement(delta);
+        playerLocomotion.HandleRollingAndSprinting(delta);
+        playerLocomotion.HandleFalling(delta,playerLocomotion.moveDirection);
     }
     void Update()
     {
@@ -71,7 +73,7 @@ public class PlayerManager : CharacterManager
         
         if (isInAir)
         {
-            playerLocalmotion.inAirTimer = playerLocalmotion.inAirTimer + Time.deltaTime;
+            playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
         }
         
         float delta = Time.deltaTime;

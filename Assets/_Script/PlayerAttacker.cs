@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.Design;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerAttacker : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerAttacker : MonoBehaviour
   public string lastAttack;
   private bool hasEnoughMana;
   private bool hasEnoughStamina;
+  [SerializeField] private LayerMask backStabLayer;
 
 
   private void Awake()
@@ -164,19 +166,39 @@ public class PlayerAttacker : MonoBehaviour
     playerInventory.currentSpell.SuccessfulCastSpell(playerAnimationHandler,playerStats);
   }
   #endregion
-  public void SetIsLeftHandAttack(bool isAttacking)
-  {
-    playerAnimationHandler.animator.SetBool("isUsingLeftHand" ,isAttacking);
-  }
-  public void SetIsRightHandAttack(bool isAttacking)
-  {
-    playerAnimationHandler.animator.SetBool("isUsingRightHand" ,isAttacking);
-
-  }
-
   public void CheckIfPlayerHasEnoughMana(int requiredMana)
   {
     hasEnoughMana = playerStats.currentMana > requiredMana;
     Debug.Log("current mana " + hasEnoughMana);
+  }
+
+  public void AttemptBackStabOrRiposte()
+  {
+    RaycastHit hit;
+    if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
+          transform.TransformDirection(Vector3.forward),out hit, 0.5f, backStabLayer))
+    {
+      CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+      if (enemyCharacterManager != null)
+      {
+        //check for team ID
+        //pull into a transform.positon so that the animation doesnt look off
+        playerManager.transform.position = enemyCharacterManager.backStabCollider.backStabberPoint.position;
+        //rotate towards target transform
+        Vector3 rotationDir = playerManager.transform.root.eulerAngles;
+        rotationDir = hit.transform.position - playerManager.transform.position;
+        rotationDir.y = 0;
+        rotationDir.Normalize();
+        Quaternion tr = Quaternion.LookRotation(rotationDir);
+        Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
+        playerManager.transform.rotation = targetRotation;
+        
+        //play animation
+        playerAnimationHandler.PlayTargetAnimation("Stab",true);
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);
+        //enemy play animation
+        //do damage
+      }
+    }
   }
 }

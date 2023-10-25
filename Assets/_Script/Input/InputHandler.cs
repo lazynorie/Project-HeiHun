@@ -49,6 +49,8 @@ public class InputHandler : MonoBehaviour
   public Vector2 movementInput;
   Vector2 cameraInput;
 
+  public Transform criticalAttackRaycastStartPoint;
+
   private void Awake()
   {
     playerInventory = GetComponent<PlayerInventory>();
@@ -270,7 +272,7 @@ public class InputHandler : MonoBehaviour
     if (criticalHitInput)
     {
       criticalHitInput = false;
-      //todo: playerAttacker.AttemptBackStab();
+      playerAttacker.AttemptBackStabOrRiposte();
     }
   }
   private void ListeningToInput()
