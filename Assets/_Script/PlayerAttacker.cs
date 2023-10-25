@@ -11,6 +11,8 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private PlayerInventory playerInventory;
   [SerializeField] private PlayerManager playerManager;
   [SerializeField] private PlayerStats playerStats;
+  [SerializeField] private PlayerLocalmotion playerLocoMotion;
+  private WeaponSlotManager weaponSlotManager;
   public string lastAttack;
   private bool hasEnoughMana;
   private bool hasEnoughStamina;
@@ -24,6 +26,8 @@ public class PlayerAttacker : MonoBehaviour
     playerInventory = GetComponentInParent<PlayerInventory>();
     playerManager = GetComponentInParent<PlayerManager>();
     playerStats = GetComponentInParent<PlayerStats>();
+    weaponSlotManager = GetComponent<WeaponSlotManager>();
+    playerLocoMotion = GetComponentInParent<PlayerLocalmotion>();
   }
 
   private void Start()
@@ -179,25 +183,31 @@ public class PlayerAttacker : MonoBehaviour
           transform.TransformDirection(Vector3.forward),out hit, 0.5f, backStabLayer))
     {
       CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+      DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
       if (enemyCharacterManager != null)
       {
-        //check for team ID
+        if (enemyCharacterManager.GetComponent<EnemyStats>().isDead)
+        {
+          return;
+        }
+        //todo: check for team ID
         //pull into a transform.positon so that the animation doesnt look off
-        playerManager.transform.position = enemyCharacterManager.backStabCollider.backStabberPoint.position;
+        playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,enemyCharacterManager.backStabCollider.backStabberPoint.position,Time.deltaTime);
         //rotate towards target transform
-        Vector3 rotationDir = playerManager.transform.root.eulerAngles;
+        playerLocoMotion.RotateTowardsTarget(hit.transform);
+        /*Vector3 rotationDir = playerManager.transform.root.eulerAngles;
         rotationDir = hit.transform.position - playerManager.transform.position;
         rotationDir.y = 0;
         rotationDir.Normalize();
         Quaternion tr = Quaternion.LookRotation(rotationDir);
         Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
-        playerManager.transform.rotation = targetRotation;
-        
-        //play animation
-        playerAnimationHandler.PlayTargetAnimation("Stab",true);
-        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);
-        //enemy play animation
+        playerManager.transform.rotation = targetRotation;*/
         //do damage
+        int criticalDamage = playerInventory.rightWeapon.criticalDamageMuiliplier *
+                             rightWeapon.weapondamage;
+        enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
+        playerAnimationHandler.PlayTargetAnimation("Stab",true);//play animation
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
       }
     }
   }

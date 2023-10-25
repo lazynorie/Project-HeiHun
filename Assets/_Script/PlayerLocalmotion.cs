@@ -306,4 +306,15 @@ public class PlayerLocalmotion : MonoBehaviour
    {
       rigidbody.velocity = Vector3.zero;
    }
+
+   public void RotateTowardsTarget(Transform target)
+   {
+      Vector3 targetDir = transform.root.eulerAngles;
+      targetDir = target.position - transform.position;
+      targetDir.y = 0;
+      targetDir.Normalize();
+      Quaternion tr = Quaternion.LookRotation(targetDir);
+      Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
+      transform.rotation = targetRotation;
+   }
 }

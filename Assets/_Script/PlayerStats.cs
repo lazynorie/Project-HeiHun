@@ -96,6 +96,22 @@ public class PlayerStats : CharacterStats
          //玩家死亡逻辑
       }
    }
+
+   public void TakeDamageWithOutAnimation(int damage)
+   {
+      if (isDead) return;
+      if (!playerManager.isInvulnerable)
+      {
+         currentHealth = currentHealth - damage;
+         healthBar.SetCurrentHealth(currentHealth);
+      }
+
+      if (currentHealth <=0)
+      {
+         currentHealth = 0;
+         OnPlayerDeath?.Invoke();
+      }
+   }
    public void DrainStamina(int staminaCost)
    {
       if (currentStamina <= 0) return;

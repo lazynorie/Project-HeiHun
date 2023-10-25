@@ -41,10 +41,9 @@ public class EnemyStats : CharacterStats
     public void TakeDamage(int damage)
     {
         if (isDead)
-        return;
+            return;
         currentHealth = currentHealth - damage;
         animator.Play("Getting Hit");
-
         if (currentHealth <=0)
         {
             isDead = true;
@@ -55,7 +54,21 @@ public class EnemyStats : CharacterStats
             //collider.enabled = false;
         }
     }
-
+    public void TakeDamageWithOutAnimation(int damage)
+    {
+        if (isDead)
+            return;
+        currentHealth = currentHealth - damage;
+        if (currentHealth <=0)
+        {
+            isDead = true;
+            currentHealth = 0;
+            OnEnemyDeath?.Invoke(exp);
+            //死亡逻辑
+            //collider.enabled = false;
+        }
+    }
+    
     private void Respawn()
     {
         animator.CrossFade("Empty",0.3f);

@@ -8,6 +8,5 @@ public class ActionAttack : ScriptableObject
 {
    public string uniqueID;
    public string animationName;
-   public int attackPower;
    public int staminaConsum;
 }

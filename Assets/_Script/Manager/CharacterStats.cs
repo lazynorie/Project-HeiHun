@@ -18,5 +18,8 @@ public class CharacterStats : MonoBehaviour
     public int maxMana;
     
     [Header("Death flag")] [SerializeField]
-    protected bool isDead;
+    public bool isDead;
+
+    [Header("Critical hit")] public int pendingCriticalDamage;
+    [TextArea] public string toolstip;
 }

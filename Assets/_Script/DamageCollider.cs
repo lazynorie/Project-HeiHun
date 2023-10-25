@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DamageCollider : MonoBehaviour
 {
-    [SerializeField] private int weapondamage =25;
+    public int weapondamage = 25;
     private Collider dmgCollider;
 
     private void Awake()

@@ -21,6 +21,7 @@ public class PlayerAnimationHandler : AnimationHandler
         playerLocalmotion = GetComponentInParent<PlayerLocalmotion>();
         vertical = Animator.StringToHash("Vertical");
         horizontal = Animator.StringToHash("Horizontal");
+        animator.SetBool("isDead", playerStats.isDead);
     }
     public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
     {
@@ -124,5 +125,11 @@ public class PlayerAnimationHandler : AnimationHandler
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
         playerLocalmotion.rigidbody.velocity = velocity;
+    }
+    public override void TakeCriticalDamageAnimationEvent()
+    {
+        base.TakeCriticalDamageAnimationEvent();
+        playerStats.TakeDamageWithOutAnimation(playerStats.pendingCriticalDamage);
+        playerStats.pendingCriticalDamage = 0;
     }
 }

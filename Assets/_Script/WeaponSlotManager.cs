@@ -6,9 +6,10 @@ public class WeaponSlotManager : MonoBehaviour
    private WeaponHolderSlot leftHandSlot;
    private WeaponHolderSlot rightHandSlot;
    private WeaponHolderSlot backSlot;
+   private PlayerInventory playerInventory;
 
    private DamageCollider leftHandDamageCollider;
-   private DamageCollider rightHandDamageCollider;
+   public DamageCollider rightHandDamageCollider;
 
    private Animator animator;
 
@@ -16,6 +17,7 @@ public class WeaponSlotManager : MonoBehaviour
    private InputHandler inputHandler;
    private void Awake()
    {
+      playerInventory = GetComponentInParent<PlayerInventory>();
       playerManager = GetComponentInParent<PlayerManager>();
       quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
       animator = GetComponent<Animator>();
@@ -101,10 +103,16 @@ public class WeaponSlotManager : MonoBehaviour
    private void LoadLeftWeaponDamageCollider()
    {
       leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+      if (leftHandDamageCollider != null)
+         leftHandDamageCollider.weapondamage = playerInventory.leftWeapon.baseDamage;//assign damage to damage collider
+      else Debug.Log("there's no dmg collider assigned to this weapon");
    }
    private void LoadRightWeaponDamageCollider()
    {
       rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+      if (rightHandDamageCollider != null) 
+         rightHandDamageCollider.weapondamage = playerInventory.rightWeapon.baseDamage;
+      else Debug.Log("there's no dmg collider assigned to this weapon");
    }
    #region handling damagecollider 
    public void OpenDamageCollider()

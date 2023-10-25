@@ -16,6 +16,8 @@ MonoBehaviour:
   itemName: Broad Sword
   modelPrefab: {fileID: 93483267085740, guid: 56fa8111e9000b743ac390d200e30ff9, type: 3}
   isUnarmed: 0
+  baseDamage: 25
+  criticalDamageMuiliplier: 4
   ohLightActionAttack1: {fileID: 11400000, guid: 531362527906dd64890d1ba1d74fa4cf, type: 2}
   ohLightActionAttack2: {fileID: 11400000, guid: 95e3d45d16e1fc44ea6548a81ec8ef9e, type: 2}
   ohHeavyActionAttack1: {fileID: 11400000, guid: 42152c9cb537d4b45b07d53e89c870e4, type: 2}

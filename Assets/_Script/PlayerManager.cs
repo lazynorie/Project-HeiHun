@@ -58,6 +58,7 @@ public class PlayerManager : CharacterManager
         isUsingRightHand = animator.GetBool("isUsingRightHand");
         isUsingLeftHand = animator.GetBool("isUsingLeftHand");
         isInvulnerable = animator.GetBool("isInvulnerable");
+        
         CheckForInteractableObject();
     }
     private void LateUpdate()

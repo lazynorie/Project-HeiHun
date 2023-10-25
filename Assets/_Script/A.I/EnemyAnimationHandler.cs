@@ -1,12 +1,20 @@
+using System;
 using UnityEngine;
 
 public class EnemyAnimationHandler : AnimationHandler
 {
     private EnemyManager enemyManager;
+    private EnemyStats enemyStats;
     private void Awake()
     {
         enemyManager = GetComponentInParent<EnemyManager>();
         animator = GetComponent<Animator>();
+        enemyStats = GetComponentInParent<EnemyStats>();
+    }
+
+    private void Update()
+    {
+        animator.SetBool("isDead",enemyStats.isDead);
     }
 
     private void OnAnimatorMove()// velocity of enemy is totally base on animation
@@ -25,5 +33,12 @@ public class EnemyAnimationHandler : AnimationHandler
     public void DisableCombo()
     {
         animator.SetBool("canDoCombo", false);
+    }
+
+    public override void TakeCriticalDamageAnimationEvent()
+    {
+        base.TakeCriticalDamageAnimationEvent();
+        enemyStats.TakeDamageWithOutAnimation(enemyStats.pendingCriticalDamage);
+        enemyStats.pendingCriticalDamage = 0;
     }
 }

@@ -16,16 +16,21 @@ MonoBehaviour:
   itemName: Sword
   modelPrefab: {fileID: 7002557065446882131, guid: c507497db159f3b4883e1b79511af128, type: 3}
   isUnarmed: 0
-  OH_light_attack_1: {fileID: 0}
-  OH_light_attack_2: {fileID: 0}
-  OH_heavy_attack_1: {fileID: 0}
+  baseDamage: 25
+  criticalDamageMuiliplier: 4
+  ohLightActionAttack1: {fileID: 0}
+  ohLightActionAttack2: {fileID: 0}
+  ohHeavyActionAttack1: {fileID: 0}
   TH_light_attack_01: 
   TH_light_attack_02: 
   TH_heavy_attack: 
-  TH_hand_attacks: []
   right_hand_idle: righ_arm_idle_01
   left_hand_idle: 
   th_idle: th_idle_01
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
+  weaponType: 0
   toolstip: 'This is a bronze sword. Haven''t finished yet.
 
 '

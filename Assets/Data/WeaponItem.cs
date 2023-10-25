@@ -7,6 +7,8 @@ public class WeaponItem : Item
     public GameObject modelPrefab;
     public bool isUnarmed;
 
+    [Header("Damage")] public int baseDamage =25;
+    public int criticalDamageMuiliplier = 4;
     [Header("one hand attack animation")] 
     public ActionAttack ohLightActionAttack1;
     public ActionAttack ohLightActionAttack2;

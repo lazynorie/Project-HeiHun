@@ -16,9 +16,11 @@ MonoBehaviour:
   itemName: mega sword
   modelPrefab: {fileID: 93483267085740, guid: 30b4e150d25ccba41bf0c5956e779877, type: 3}
   isUnarmed: 0
-  OH_light_attack_1: {fileID: 11400000, guid: 531362527906dd64890d1ba1d74fa4cf, type: 2}
-  OH_light_attack_2: {fileID: 11400000, guid: 95e3d45d16e1fc44ea6548a81ec8ef9e, type: 2}
-  OH_heavy_attack_1: {fileID: 11400000, guid: 0a1bcaffe5b36e240a2c7967bbb63b37, type: 2}
+  baseDamage: 33
+  criticalDamageMuiliplier: 4
+  ohLightActionAttack1: {fileID: 0}
+  ohLightActionAttack2: {fileID: 0}
+  ohHeavyActionAttack1: {fileID: 0}
   TH_light_attack_01: 
   TH_light_attack_02: 
   TH_heavy_attack: 

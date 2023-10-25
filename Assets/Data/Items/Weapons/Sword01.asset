@@ -16,14 +16,19 @@ MonoBehaviour:
   itemName: Long Sword
   modelPrefab: {fileID: 93483267085740, guid: 30b4e150d25ccba41bf0c5956e779877, type: 3}
   isUnarmed: 0
-  OH_light_attack_1: {fileID: 11400000, guid: 531362527906dd64890d1ba1d74fa4cf, type: 2}
-  OH_light_attack_2: {fileID: 11400000, guid: 95e3d45d16e1fc44ea6548a81ec8ef9e, type: 2}
-  OH_heavy_attack_1: {fileID: 11400000, guid: 42152c9cb537d4b45b07d53e89c870e4, type: 2}
+  baseDamage: 31
+  criticalDamageMuiliplier: 4
+  ohLightActionAttack1: {fileID: 0}
+  ohLightActionAttack2: {fileID: 0}
+  ohHeavyActionAttack1: {fileID: 0}
   TH_light_attack_01: th_light_attack_01
   TH_light_attack_02: th_light_attack_02
   TH_heavy_attack: th_heavy_attack_01
-  TH_hand_attacks: []
   right_hand_idle: righ_arm_idle_01
   left_hand_idle: 
   th_idle: th_idle_01
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
+  weaponType: 0
   toolstip: A basic sword.

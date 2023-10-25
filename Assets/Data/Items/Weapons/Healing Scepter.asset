@@ -16,6 +16,8 @@ MonoBehaviour:
   itemName: Healing Scepter
   modelPrefab: {fileID: 9211361060105236431, guid: e4fa2724347e3c34fbfb9e502e9bea46, type: 3}
   isUnarmed: 0
+  baseDamage: 5
+  criticalDamageMuiliplier: 4
   ohLightActionAttack1: {fileID: 0}
   ohLightActionAttack2: {fileID: 0}
   ohHeavyActionAttack1: {fileID: 0}
