@@ -242,7 +242,7 @@
                     "id": "a60afbb4-812b-4bb0-b440-fc847b79a7d3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap,Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -314,7 +314,7 @@
                     "name": "",
                     "id": "e0ced437-388e-4532-8675-56342cab7ba3",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
+                    "interactions": "Tap,Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Roll",
@@ -325,7 +325,7 @@
                     "name": "",
                     "id": "94a5c375-0472-4ae2-a6f4-f28803b127a7",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "",
+                    "interactions": "Tap,Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Roll",

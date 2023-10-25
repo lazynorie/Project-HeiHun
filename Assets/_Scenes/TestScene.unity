@@ -12684,6 +12684,10 @@ PrefabInstance:
       propertyPath: normalCamera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8966903017696220953, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
+      propertyPath: sprintStaminaCost
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8966903017696220954, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
       propertyPath: m_RootOrder
       value: 1

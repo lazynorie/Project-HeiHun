@@ -64,8 +64,7 @@ public class PlayerManager : CharacterManager
     }
     private void LateUpdate()
     {
-        inputHandler.rollFlag = false;
-        //inputHandler.sprintFlag = false;
+        //inputHandler.sprintFlag = false;*/
         /*inputHandler.rbInput = false;
         inputHandler.rtInput = false;
         inputHandler.dPadLeft = false;

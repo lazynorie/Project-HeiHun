@@ -25,6 +25,7 @@ public class PlayerLocalmotion : MonoBehaviour
    [Header("Player Collision")]
    public CapsuleCollider characterCollider;
    public CapsuleCollider collisonCollider;
+   [Header("Stamina Cost")] public int sprintStaminaCost;
    
    [Header("Movement Stats")] 
    [SerializeField] private float walkingSpeed = 3;
@@ -135,11 +136,12 @@ public class PlayerLocalmotion : MonoBehaviour
 
       float speed = movementSpeed;
 
-      if (inputHandler.sprintFlag && inputHandler.moveAmount>0.5)
+      if (inputHandler.sprintFlag && inputHandler.moveAmount>0.5 && playerStats.currentStamina >= 0)
       {
          speed = sprintSpeed;
          playerManager.isSprinting = true;
          moveDirection *= speed;
+         playerStats.currentStamina -= delta * sprintStaminaCost;
       }
       else
       {

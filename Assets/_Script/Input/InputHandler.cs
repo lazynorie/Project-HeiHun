@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
@@ -16,7 +17,8 @@ public class InputHandler : MonoBehaviour
   public float rollInputTimer;
   
   public bool aInput;
-  public bool bInput;
+  public bool bInputTap;
+  public bool bInputHold;
   public bool xInput;
   public bool yInput;
   [FormerlySerializedAs("rbInput")] public bool rbTapInput;
@@ -78,7 +80,28 @@ public class InputHandler : MonoBehaviour
         {
           criticalHitInput = true;
         }
+      }; 
+      inputActions.PlayerAction.Roll.performed += i => {
+        if (i.interaction is TapInteraction)
+        {
+          bInputTap = true;
+        }
+        else if (i.interaction is HoldInteraction)
+        {
+          bInputHold = true;
+        }
       };
+      inputActions.PlayerAction.Roll.canceled += i => {
+        if (i.interaction is TapInteraction)
+        {
+          bInputTap = false;
+        }
+        else if (i.interaction is HoldInteraction)
+        {
+          bInputHold = false;
+        }
+      };
+
       /*todo:
         inputActions.PlayerAction.Roll.performed += i => {
         if (i is TapInteraction)
@@ -111,9 +134,15 @@ public class InputHandler : MonoBehaviour
   public void FixedTickInput(float delta)//rb related tick inputs goes here
   {
     HandleMoveInput(delta);
-    HandleRollInput(delta);
+    HandleRollInput();
     HandleAttackInput(delta);
   }
+
+  private void LateUpdate()
+  {
+    rollFlag = false;
+  }
+
   private void HandleMoveInput(float delta)
   {
     horizontal = movementInput.x;
@@ -122,23 +151,14 @@ public class InputHandler : MonoBehaviour
     mouseX = cameraInput.x;
     mouseY = cameraInput.y;
   }
-  private void HandleRollInput(float delta)
+  private void HandleRollInput()
   {
-    sprintFlag = bInput;
-    if (bInput)
+    if (bInputTap)
     {
-      //rollFlag = true;
-      rollInputTimer += delta;
+      bInputTap = false;
+      rollFlag = true;
     }
-    else
-    {
-      if (rollInputTimer>0 && rollInputTimer<0.5f)
-      {
-        sprintFlag = false;
-        rollFlag = true;
-      }
-      rollInputTimer = 0;
-    }
+    sprintFlag = bInputHold;
   }
   private void HandleAttackInput(float delta)
   {
@@ -179,7 +199,7 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleInteractingButtonInput()
   {
-    if (raTapInput)
+    if (aInput)
     {
       Debug.Log("A button is pressed");
     }
@@ -277,14 +297,14 @@ public class InputHandler : MonoBehaviour
   }
   private void ListeningToInput()
   {
-    raTapInput = inputActions.PlayerAction.A.WasPressedThisFrame();
+    aInput = inputActions.PlayerAction.A.WasPressedThisFrame();
     dPadUp = inputActions.QuickSlotsInput.DPadUp.WasPressedThisFrame();
     dPadDown = inputActions.QuickSlotsInput.DPadDown.WasPressedThisFrame();
     dPadLeft = inputActions.QuickSlotsInput.DPadLeft.WasPressedThisFrame();
     dPadRight = inputActions.QuickSlotsInput.DPadRight.WasPressedThisFrame();
     rtTapInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
     yInput = inputActions.PlayerAction.Y.WasPressedThisFrame();
-    bInput = inputActions.PlayerAction.Roll.IsPressed();
+    //bInput = inputActions.PlayerAction.Roll.IsPressed();
     startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
     rightStickLeftInput = inputActions.PlayerMovement.RightStickLeft.WasPressedThisFrame();
     rightStickRightInput = inputActions.PlayerMovement.RightStickRight.WasPressedThisFrame();
