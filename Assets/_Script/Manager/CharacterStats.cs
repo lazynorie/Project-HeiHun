@@ -13,9 +13,9 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] protected float staminaRegenRate;
 
     [Header("Mana stats")] 
-    [SerializeField] protected int manaLevel;
-    [SerializeField] protected float currentMana;
-    [SerializeField] protected int maxMana;
+    public int manaLevel;
+    public int currentMana;
+    public int maxMana;
     
     [Header("Death flag")] [SerializeField]
     protected bool isDead;

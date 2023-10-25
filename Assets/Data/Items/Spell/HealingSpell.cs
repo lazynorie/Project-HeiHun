@@ -11,12 +11,14 @@ public class HealingSpell : SpellItem
    public static event Action<int> OnHealingSpellCast; 
    public override void AttempToCastSpell(AnimationHandler anim, PlayerStats playerStats)
    {
+      base.AttempToCastSpell(anim,playerStats);
       //GameObject instantiatedWarmSpellFX = Instantiate(spellWarmupFX, anim.transform);
       anim.PlayTargetAnimation(spellAnimation,true);
    }
 
    public override void SuccessfulCastSpell(AnimationHandler anim, PlayerStats playerStats)
    {
+      base.SuccessfulCastSpell(anim,playerStats);
       //GameObject instantiateSpellFX = Instantiate(spellCastFX, anim.transform);
       OnHealingSpellCast?.Invoke(healAmount);
    }

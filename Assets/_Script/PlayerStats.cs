@@ -34,8 +34,17 @@ public class PlayerStats : CharacterStats
    private void Awake()
    {
       playerManager = GetComponent<PlayerManager>();
+      animHandler = GetComponentInChildren<PlayerAnimationHandler>();
    }
    private void Start()
+   {
+      SetUpPlayerStats();
+      EnemyStats.OnEnemyDeath += IncreasePlayerExperience;
+      HealingSpell.OnHealingSpellCast += HealPlayer;
+      SpellItem.OnSpellSuccessfullyCast += DrainMana;
+   }
+
+   private void SetUpPlayerStats()
    {
       maxMana = SetMaxManaFromManaLevel();
       maxHealth = SetMaxHealthFromHealthLevel();
@@ -45,10 +54,7 @@ public class PlayerStats : CharacterStats
       currentMana = maxMana;
       healthBar.SetMaxHealth(maxHealth);
       staminaBar.SetMaxStamina(maxStamina);
-      
-      animHandler = GetComponentInChildren<PlayerAnimationHandler>();
-      EnemyStats.OnEnemyDeath += IncreasePlayerExperience;
-      HealingSpell.OnHealingSpellCast += HealPlayer;
+      manaBar.SetMaxMana(maxMana);
    }
    private void Update()
    {
@@ -143,10 +149,11 @@ public class PlayerStats : CharacterStats
       }
       healthBar.SetCurrentHealth(currentHealth);
    }
-
    public void DrainMana(int manaCost)
    {
       currentMana -= manaCost;
+      if (currentMana < 0) currentMana = 0;
+      manaBar.SetCurrentMana(currentMana);
    }
 }
 

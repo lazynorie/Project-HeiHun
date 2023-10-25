@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
@@ -9,6 +11,8 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private PlayerManager playerManager;
   [SerializeField] private PlayerStats playerStats;
   public string lastAttack;
+  private bool hasEnoughMana;
+  private bool hasEnoughStamina;
 
 
   private void Awake()
@@ -18,7 +22,11 @@ public class PlayerAttacker : MonoBehaviour
     playerInventory = GetComponentInParent<PlayerInventory>();
     playerManager = GetComponentInParent<PlayerManager>();
     playerStats = GetComponentInParent<PlayerStats>();
-    
+  }
+
+  private void Start()
+  {
+    SpellItem.OnAttemptToCastSpell += CheckIfPlayerHasEnoughMana;
   }
 
   public void HandleLightAttack(WeaponItem weapon)
@@ -134,18 +142,25 @@ public class PlayerAttacker : MonoBehaviour
   }
   public void PerformRbMagicAction(WeaponItem weapon)
   {
+    if (playerManager.isInteracting)
+      return;
     if (weapon.weaponType is WeaponType.FaithCaster)
     {
       if (playerInventory.currentSpell != null && playerInventory.currentSpell.spellType is SpellType.Faith)
       {
         //check for mana
-        playerInventory.currentSpell.AttempToCastSpell(playerAnimationHandler,playerStats);
+        if (playerStats.currentMana >= playerInventory.currentSpell.manaCost)
+        {
+          playerInventory.currentSpell.AttempToCastSpell(playerAnimationHandler,playerStats);
+        }
+        else Debug.Log("not enough mana");//todo: player a oh i fucked up animation 
       }
     }
   }
 
   private void SuccessfullyCastSpell()
   {
+    //todo: check mana here if you want the casting animation to go through
     playerInventory.currentSpell.SuccessfulCastSpell(playerAnimationHandler,playerStats);
   }
   #endregion
@@ -157,5 +172,11 @@ public class PlayerAttacker : MonoBehaviour
   {
     playerAnimationHandler.animator.SetBool("isUsingRightHand" ,isAttacking);
 
+  }
+
+  public void CheckIfPlayerHasEnoughMana(int requiredMana)
+  {
+    hasEnoughMana = playerStats.currentMana > requiredMana;
+    Debug.Log("current mana " + hasEnoughMana);
   }
 }
