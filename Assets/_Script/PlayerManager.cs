@@ -95,7 +95,7 @@ public class PlayerManager : CharacterManager
                     //set UI test to display info like item names and info 
                     interactableUI.text.text = interactableText;
                     interactableUIGameObject.SetActive(true);
-                    if(inputHandler.raInput)
+                    if(inputHandler.raTapInput)
                     {
                         OnInteractable?.Invoke();
                         hit.collider.GetComponent<Interactable>().Interact(this);
@@ -109,7 +109,7 @@ public class PlayerManager : CharacterManager
                     interactableUIGameObject.SetActive(false);
                 }
 
-                if (itemInteractableGameObject != null  && inputHandler.raInput)
+                if (itemInteractableGameObject != null  && inputHandler.raTapInput)
                 {
                     itemInteractableGameObject.SetActive(false);
                     //Unpause Game

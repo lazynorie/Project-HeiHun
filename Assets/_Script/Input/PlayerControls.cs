@@ -273,7 +273,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""ab78c33a-1b65-4967-b2c0-96886468a7e3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap,Hold(duration=1.401298E-45)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Critical Hit"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ce7f05e-e9a7-46fe-81e3-51c1003a9e95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -349,7 +358,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e63ab01f-9ddb-4af3-8614-e49ba80c7179"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap,Hold(duration=1.401298E-45)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RB"",
@@ -360,7 +369,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""12aa1115-4739-4007-8a56-fd443b489903"",
                     ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap,Hold(duration=1.401298E-45)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RB"",
@@ -474,6 +483,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Y"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8966a6e8-4451-45ca-85f3-9d53755e270b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Critical Hit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3be3f82f-ea26-4ac6-a060-147768c79b75"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Critical Hit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -610,6 +641,145 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI Navigation"",
+            ""id"": ""e744840c-75b9-4463-9ade-7a27b1a3e764"",
+            ""actions"": [
+                {
+                    ""name"": ""RB"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fa071d2-a6e9-43d1-9d4d-412c72c0aa59"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LB"",
+                    ""type"": ""Button"",
+                    ""id"": ""170630fe-0688-4673-93b2-d05ebfc6c937"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UP"",
+                    ""type"": ""Button"",
+                    ""id"": ""738aa1dc-344c-4219-9c80-1860a8130a5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DOWN"",
+                    ""type"": ""Button"",
+                    ""id"": ""93dddd9a-16ce-4707-aff2-3426ca022c36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LEFT"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdf90c76-2ae1-41aa-bd24-f025abcf81a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RIGHT"",
+                    ""type"": ""Button"",
+                    ""id"": ""a96851ac-7a3a-45da-85cb-c042bef683af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6ed73eb8-5b9f-4b6a-9276-ba3b4b984d3a"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abad3631-e954-48bb-8d3a-ee2bc6ac5428"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bb6d0f1-3957-47d4-9cf6-1878a66a856d"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93b8130e-4ad8-4cce-b6fc-ca69db9c77f9"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b162421-573b-4afa-a365-fd59624d5313"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DOWN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01d26d06-d2e9-4215-930a-7e110ba96f76"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LEFT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""557f3546-e3c0-4cec-b6ba-f9238060a7c5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RIGHT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -624,6 +794,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerAction = asset.FindActionMap("Player Action", throwIfNotFound: true);
         m_PlayerAction_Roll = m_PlayerAction.FindAction("Roll", throwIfNotFound: true);
         m_PlayerAction_RB = m_PlayerAction.FindAction("RB", throwIfNotFound: true);
+        m_PlayerAction_CriticalHit = m_PlayerAction.FindAction("Critical Hit", throwIfNotFound: true);
         m_PlayerAction_RT = m_PlayerAction.FindAction("RT", throwIfNotFound: true);
         m_PlayerAction_A = m_PlayerAction.FindAction("A", throwIfNotFound: true);
         m_PlayerAction_Start = m_PlayerAction.FindAction("Start", throwIfNotFound: true);
@@ -635,6 +806,14 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_QuickSlotsInput_DPadRight = m_QuickSlotsInput.FindAction("D-Pad Right", throwIfNotFound: true);
         m_QuickSlotsInput_DPadDown = m_QuickSlotsInput.FindAction("D-Pad Down", throwIfNotFound: true);
         m_QuickSlotsInput_DPadUp = m_QuickSlotsInput.FindAction("D-Pad Up", throwIfNotFound: true);
+        // UI Navigation
+        m_UINavigation = asset.FindActionMap("UI Navigation", throwIfNotFound: true);
+        m_UINavigation_RB = m_UINavigation.FindAction("RB", throwIfNotFound: true);
+        m_UINavigation_LB = m_UINavigation.FindAction("LB", throwIfNotFound: true);
+        m_UINavigation_UP = m_UINavigation.FindAction("UP", throwIfNotFound: true);
+        m_UINavigation_DOWN = m_UINavigation.FindAction("DOWN", throwIfNotFound: true);
+        m_UINavigation_LEFT = m_UINavigation.FindAction("LEFT", throwIfNotFound: true);
+        m_UINavigation_RIGHT = m_UINavigation.FindAction("RIGHT", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -753,6 +932,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerActionActions m_PlayerActionActionsCallbackInterface;
     private readonly InputAction m_PlayerAction_Roll;
     private readonly InputAction m_PlayerAction_RB;
+    private readonly InputAction m_PlayerAction_CriticalHit;
     private readonly InputAction m_PlayerAction_RT;
     private readonly InputAction m_PlayerAction_A;
     private readonly InputAction m_PlayerAction_Start;
@@ -764,6 +944,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public PlayerActionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Roll => m_Wrapper.m_PlayerAction_Roll;
         public InputAction @RB => m_Wrapper.m_PlayerAction_RB;
+        public InputAction @CriticalHit => m_Wrapper.m_PlayerAction_CriticalHit;
         public InputAction @RT => m_Wrapper.m_PlayerAction_RT;
         public InputAction @A => m_Wrapper.m_PlayerAction_A;
         public InputAction @Start => m_Wrapper.m_PlayerAction_Start;
@@ -784,6 +965,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRB;
                 @RB.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRB;
                 @RB.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRB;
+                @CriticalHit.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnCriticalHit;
+                @CriticalHit.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnCriticalHit;
+                @CriticalHit.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnCriticalHit;
                 @RT.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRT;
                 @RT.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRT;
                 @RT.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnRT;
@@ -809,6 +993,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started += instance.OnRB;
                 @RB.performed += instance.OnRB;
                 @RB.canceled += instance.OnRB;
+                @CriticalHit.started += instance.OnCriticalHit;
+                @CriticalHit.performed += instance.OnCriticalHit;
+                @CriticalHit.canceled += instance.OnCriticalHit;
                 @RT.started += instance.OnRT;
                 @RT.performed += instance.OnRT;
                 @RT.canceled += instance.OnRT;
@@ -885,6 +1072,79 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public QuickSlotsInputActions @QuickSlotsInput => new QuickSlotsInputActions(this);
+
+    // UI Navigation
+    private readonly InputActionMap m_UINavigation;
+    private IUINavigationActions m_UINavigationActionsCallbackInterface;
+    private readonly InputAction m_UINavigation_RB;
+    private readonly InputAction m_UINavigation_LB;
+    private readonly InputAction m_UINavigation_UP;
+    private readonly InputAction m_UINavigation_DOWN;
+    private readonly InputAction m_UINavigation_LEFT;
+    private readonly InputAction m_UINavigation_RIGHT;
+    public struct UINavigationActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UINavigationActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @RB => m_Wrapper.m_UINavigation_RB;
+        public InputAction @LB => m_Wrapper.m_UINavigation_LB;
+        public InputAction @UP => m_Wrapper.m_UINavigation_UP;
+        public InputAction @DOWN => m_Wrapper.m_UINavigation_DOWN;
+        public InputAction @LEFT => m_Wrapper.m_UINavigation_LEFT;
+        public InputAction @RIGHT => m_Wrapper.m_UINavigation_RIGHT;
+        public InputActionMap Get() { return m_Wrapper.m_UINavigation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UINavigationActions set) { return set.Get(); }
+        public void SetCallbacks(IUINavigationActions instance)
+        {
+            if (m_Wrapper.m_UINavigationActionsCallbackInterface != null)
+            {
+                @RB.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRB;
+                @RB.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRB;
+                @RB.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRB;
+                @LB.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLB;
+                @LB.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLB;
+                @LB.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLB;
+                @UP.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnUP;
+                @UP.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnUP;
+                @UP.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnUP;
+                @DOWN.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnDOWN;
+                @DOWN.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnDOWN;
+                @DOWN.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnDOWN;
+                @LEFT.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLEFT;
+                @LEFT.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLEFT;
+                @LEFT.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnLEFT;
+                @RIGHT.started -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRIGHT;
+                @RIGHT.performed -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRIGHT;
+                @RIGHT.canceled -= m_Wrapper.m_UINavigationActionsCallbackInterface.OnRIGHT;
+            }
+            m_Wrapper.m_UINavigationActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @RB.started += instance.OnRB;
+                @RB.performed += instance.OnRB;
+                @RB.canceled += instance.OnRB;
+                @LB.started += instance.OnLB;
+                @LB.performed += instance.OnLB;
+                @LB.canceled += instance.OnLB;
+                @UP.started += instance.OnUP;
+                @UP.performed += instance.OnUP;
+                @UP.canceled += instance.OnUP;
+                @DOWN.started += instance.OnDOWN;
+                @DOWN.performed += instance.OnDOWN;
+                @DOWN.canceled += instance.OnDOWN;
+                @LEFT.started += instance.OnLEFT;
+                @LEFT.performed += instance.OnLEFT;
+                @LEFT.canceled += instance.OnLEFT;
+                @RIGHT.started += instance.OnRIGHT;
+                @RIGHT.performed += instance.OnRIGHT;
+                @RIGHT.canceled += instance.OnRIGHT;
+            }
+        }
+    }
+    public UINavigationActions @UINavigation => new UINavigationActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -896,6 +1156,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnRoll(InputAction.CallbackContext context);
         void OnRB(InputAction.CallbackContext context);
+        void OnCriticalHit(InputAction.CallbackContext context);
         void OnRT(InputAction.CallbackContext context);
         void OnA(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
@@ -908,5 +1169,14 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDPadRight(InputAction.CallbackContext context);
         void OnDPadDown(InputAction.CallbackContext context);
         void OnDPadUp(InputAction.CallbackContext context);
+    }
+    public interface IUINavigationActions
+    {
+        void OnRB(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
+        void OnUP(InputAction.CallbackContext context);
+        void OnDOWN(InputAction.CallbackContext context);
+        void OnLEFT(InputAction.CallbackContext context);
+        void OnRIGHT(InputAction.CallbackContext context);
     }
 }

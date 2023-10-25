@@ -1,4 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Serialization;
+using UnityEngine.XR;
 
 public class InputHandler : MonoBehaviour
 {
@@ -15,9 +19,10 @@ public class InputHandler : MonoBehaviour
   public bool bInput;
   public bool xInput;
   public bool yInput;
-  public bool rbInput;
-  public bool raInput;
-  public bool rtInput;
+  [FormerlySerializedAs("rbInput")] public bool rbTapInput;
+  [FormerlySerializedAs("raInput")] public bool raTapInput;
+  [FormerlySerializedAs("rtInput")] public bool rtTapInput;
+  public bool criticalHitInput;
   public bool dPadUp;
   public bool dPadDown;
   public bool dPadLeft;
@@ -62,6 +67,27 @@ public class InputHandler : MonoBehaviour
       inputActions.PlayerMovement.Movement.performed += 
         inputActions => movementInput = inputActions.ReadValue<Vector2>();
       inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+      inputActions.PlayerAction.RB.performed += i => {
+        if (i.interaction is TapInteraction)
+        {
+          rbTapInput = true;
+        }
+        else if (i.interaction is HoldInteraction)
+        {
+          criticalHitInput = true;
+        }
+      };
+      /*todo:
+        inputActions.PlayerAction.Roll.performed += i => {
+        if (i is TapInteraction)
+        {
+          //rollFlag = true;
+        }
+        else if (i is HoldInteraction)
+        {
+          //sprintflag = true;
+        }
+      }*/
     }
     
     inputActions.Enable();
@@ -78,6 +104,7 @@ public class InputHandler : MonoBehaviour
     HandleStartButtonInput();
     HandleLockOnButtonInput();
     HandleTwoHandInput();
+    HandleCriticalHitInput();
   }
   public void FixedTickInput(float delta)//rb related tick inputs goes here
   {
@@ -95,9 +122,6 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleRollInput(float delta)
   {
-    //bInput = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
-    //以上代码新版inputsystem错误
-    //bInput = inputActions.PlayerAction.Roll.triggered;
     sprintFlag = bInput;
     if (bInput)
     {
@@ -116,12 +140,13 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleAttackInput(float delta)
   {
-    if (rbInput)
+    if (rbTapInput)
     {
+      rbTapInput = false;
       playerAttacker.HandleRbAction();
     }
 
-    if (rtInput)
+    if (rtTapInput)
     {
       if (playerManager.isInteracting)
         return;
@@ -152,7 +177,7 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleInteractingButtonInput()
   {
-    if (raInput)
+    if (raTapInput)
     {
       Debug.Log("A button is pressed");
     }
@@ -240,21 +265,30 @@ public class InputHandler : MonoBehaviour
       }
     }
   }
+  private void HandleCriticalHitInput()
+  {
+    if (criticalHitInput)
+    {
+      criticalHitInput = false;
+      //todo: playerAttacker.AttemptBackStab();
+    }
+  }
   private void ListeningToInput()
   {
-    raInput = inputActions.PlayerAction.A.WasPressedThisFrame();
+    raTapInput = inputActions.PlayerAction.A.WasPressedThisFrame();
     dPadUp = inputActions.QuickSlotsInput.DPadUp.WasPressedThisFrame();
     dPadDown = inputActions.QuickSlotsInput.DPadDown.WasPressedThisFrame();
     dPadLeft = inputActions.QuickSlotsInput.DPadLeft.WasPressedThisFrame();
     dPadRight = inputActions.QuickSlotsInput.DPadRight.WasPressedThisFrame();
-    rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
-    rtInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
+    rtTapInput = inputActions.PlayerAction.RT.WasPressedThisFrame();
     yInput = inputActions.PlayerAction.Y.WasPressedThisFrame();
     bInput = inputActions.PlayerAction.Roll.IsPressed();
     startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
     rightStickLeftInput = inputActions.PlayerMovement.RightStickLeft.WasPressedThisFrame();
     rightStickRightInput = inputActions.PlayerMovement.RightStickRight.WasPressedThisFrame();
     lockOnInput = inputActions.PlayerAction.LockOn.WasPressedThisFrame();
+    //inputActions.PlayerAction.CriticalHit.performed += i => criticalHitInput = true;
+    //rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();
   }
   
 }
