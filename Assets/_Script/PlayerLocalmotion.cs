@@ -141,7 +141,7 @@ public class PlayerLocalmotion : MonoBehaviour
          speed = sprintSpeed;
          playerManager.isSprinting = true;
          moveDirection *= speed;
-         playerStats.currentStamina -= delta * sprintStaminaCost;
+         playerStats.currentStamina -= delta * sprintStaminaCost;//todo :move to playStats script
       }
       else
       {

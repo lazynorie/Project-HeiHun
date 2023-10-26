@@ -1,12 +1,12 @@
+using System;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class WeaponPickUpEvent : UnityEvent<WeaponItem>{}
+
 
 public class WeaponPickUp : Interactable
 {
     public WeaponItem weapon;
-    public WeaponPickUpEvent onWeaponPickUp;
+    
 
     public override void Interact(PlayerManager playerManager)
     {
@@ -29,8 +29,10 @@ public class WeaponPickUp : Interactable
         playerAnimationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
         //UI element to show what item player picks up, thinking about replacing this with event system
-        onWeaponPickUp.Invoke(weapon);
         gameObject.SetActive(false);
+        interactableUI.SwitchItemPickUpText(true);
+        interactableUI.ShowItemPickUpText(this);
+        interactableUI.SetImageForItemPickUp(weapon);
         //using Destory() for now. will implement object pooling later
         //Destroy(gameObject);
     }

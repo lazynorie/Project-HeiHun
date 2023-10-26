@@ -3,14 +3,14 @@ created by Jing Yuan Cheng on Oct 3 2023
 This is the base class of interactible items
 */
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(SphereCollider))]
 public class Interactable : MonoBehaviour
 {
     public InteractEvent onItemIteract;
-    
-    [TextAreaAttribute]
     [Header("Item name")]
     public string interactableItemName;
     [TextAreaAttribute]
@@ -18,6 +18,21 @@ public class Interactable : MonoBehaviour
     public string interacibleText;
     [Header("Detection radius")]
     [SerializeField]private float radius = 0.6f;
+
+    protected InteractableUI interactableUI;
+    protected SphereCollider sphereCollider;
+
+    protected virtual void Awake()
+    {
+        sphereCollider = GetComponent<SphereCollider>();
+        interactableUI = FindObjectOfType<InteractableUI>();
+    }
+
+    protected virtual void Start()
+    {
+        sphereCollider.radius = radius;
+    }
+
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, radius);

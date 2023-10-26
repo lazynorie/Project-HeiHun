@@ -68,9 +68,9 @@ public class InputHandler : MonoBehaviour
     if (inputActions == null)
     {
       inputActions = new PlayerControls();
-      inputActions.PlayerMovement.Movement.performed += 
+      inputActions.PlayerAction.Movement.performed += 
         inputActions => movementInput = inputActions.ReadValue<Vector2>();
-      inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+      inputActions.PlayerAction.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
       inputActions.PlayerAction.RB.performed += i => {
         if (i.interaction is TapInteraction)
         {
@@ -306,8 +306,8 @@ public class InputHandler : MonoBehaviour
     yInput = inputActions.PlayerAction.Y.WasPressedThisFrame();
     //bInput = inputActions.PlayerAction.Roll.IsPressed();
     startInput = inputActions.PlayerAction.Start.WasPressedThisFrame();
-    rightStickLeftInput = inputActions.PlayerMovement.RightStickLeft.WasPressedThisFrame();
-    rightStickRightInput = inputActions.PlayerMovement.RightStickRight.WasPressedThisFrame();
+    rightStickLeftInput = inputActions.PlayerAction.RightStickLeft.WasPressedThisFrame();
+    rightStickRightInput = inputActions.PlayerAction.RightStickRight.WasPressedThisFrame();
     lockOnInput = inputActions.PlayerAction.LockOn.WasPressedThisFrame();
     //inputActions.PlayerAction.CriticalHit.performed += i => criticalHitInput = true;
     //rbInput = inputActions.PlayerAction.RB.WasPressedThisFrame();

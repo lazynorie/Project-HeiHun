@@ -6,6 +6,7 @@ public class PlayerManager : CharacterManager
     public static event Action OnInteractable; 
     private InputHandler inputHandler;
     private Animator animator;
+    private PlayerAnimationHandler playerAnimationHandler;
     public CameraHandler cameraHandler;
     private PlayerLocalmotion playerLocomotion; 
     private InteractableUI interactableUI;
@@ -33,6 +34,7 @@ public class PlayerManager : CharacterManager
         //cameraHandler = FindObjectOfType<CameraHandler>();
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponentInChildren<Animator>();
+        playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
         playerLocomotion = GetComponent<PlayerLocalmotion>();
         interactableUI = FindObjectOfType<InteractableUI>();
     }
@@ -85,6 +87,7 @@ public class PlayerManager : CharacterManager
         }
     }
 
+    #region Interactions
     public void CheckForInteractableObject(){
         RaycastHit hit;
         if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, cameraHandler.ignoreLayer))
@@ -98,7 +101,7 @@ public class PlayerManager : CharacterManager
                     //set UI test to display info like item names and info 
                     interactableUI.text.text = interactableText;
                     interactableUIGameObject.SetActive(true);
-                    if(inputHandler.raTapInput)
+                    if(inputHandler.aInput)
                     {
                         OnInteractable?.Invoke();
                         hit.collider.GetComponent<Interactable>().Interact(this);
@@ -107,17 +110,25 @@ public class PlayerManager : CharacterManager
             }
         }
         else{
-                if(interactableUIGameObject != null)
-                {
-                    interactableUIGameObject.SetActive(false);
-                }
-
-                if (itemInteractableGameObject != null  && inputHandler.raTapInput)
-                {
-                    itemInteractableGameObject.SetActive(false);
-                    //Unpause Game
-                    CustomTime.LocalTimeScale = 1.0f;
-                }
+            if(interactableUIGameObject != null)
+            {
+                interactableUIGameObject.SetActive(false);
             }
+
+            if (itemInteractableGameObject != null  && inputHandler.aInput)
+            {
+                itemInteractableGameObject.SetActive(false);
+                //Unpause Game
+                CustomTime.LocalTimeScale = 1.0f;
+            }
+        }
     }
+
+    public void OpenChestInteraction(Transform playerTransformWhenOpenAChest)
+    {
+        transform.position = playerTransformWhenOpenAChest.position;
+        playerAnimationHandler.PlayTargetAnimation("Open Chest", true);
+    }
+
+    #endregion
 }
