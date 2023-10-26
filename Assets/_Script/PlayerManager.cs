@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerManager : CharacterManager
 { 
@@ -20,11 +21,6 @@ public class PlayerManager : CharacterManager
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
     
-    [Header("interactable item UI elements")]
-    [SerializeField] private GameObject interactableUIGameObject;
-
-    [SerializeField] private GameObject itemInteractableGameObject;
-
     private const int TargetFPS = 60;
     protected override void Awake()
     {
@@ -100,24 +96,28 @@ public class PlayerManager : CharacterManager
                     string interactableText = interactableObject.interacibleText;
                     //set UI test to display info like item names and info 
                     interactableUI.text.text = interactableText;
-                    interactableUIGameObject.SetActive(true);
+                    interactableUI.EnableItemPopUpFrame();
+                    //itemPopUpFrame.SetActive(true);
                     if(inputHandler.aInput)
                     {
                         OnInteractable?.Invoke();
                         hit.collider.GetComponent<Interactable>().Interact(this);
+                        interactableUI.DisableItemPopUpFrame();
                     }
                 }
             }
         }
         else{
-            if(interactableUIGameObject != null)
+            if(interactableUI.itemPopUpFrame != null)
             {
-                interactableUIGameObject.SetActive(false);
+                //itemPopUpFrame.SetActive(false);
+                interactableUI.DisableItemPopUpFrame();
             }
 
-            if (itemInteractableGameObject != null  && inputHandler.aInput)
+            if (interactableUI.itemPickUpFrame != null  && inputHandler.aInput)
             {
-                itemInteractableGameObject.SetActive(false);
+                interactableUI.DisableItemPickUpFrame();
+                //itemPickUpFrame.SetActive(false);
                 //Unpause Game
                 CustomTime.LocalTimeScale = 1.0f;
             }

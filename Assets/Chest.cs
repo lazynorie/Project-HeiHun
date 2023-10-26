@@ -28,9 +28,10 @@ public class Chest : Interactable
         PlayerLocalmotion playerLocalmotion = playerManager.GetComponent<PlayerLocalmotion>();
         playerLocalmotion.RotateTowardsTarget(transform);
         playerLocalmotion.StopPlayer();
-        playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,
-            openCheckPosition.transform.position,Time.deltaTime);
+        //playerManager.transform.position = openCheckPosition.transform.position;
+        playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,openCheckPosition.transform.position,1/Time.fixedDeltaTime);
         animator.Play("Chest Open");
+        interactableUI.DisableItemPopUpFrame();
 
         StartCoroutine(SpawnItemInChest());
         

@@ -29,10 +29,11 @@ public class WeaponPickUp : Interactable
         playerAnimationHandler.PlayTargetAnimation("Item Pick Up Animation", true);
         playerInventory.weaponInventory.Add(weapon);
         //UI element to show what item player picks up, thinking about replacing this with event system
-        gameObject.SetActive(false);
+        
         interactableUI.SwitchItemPickUpText(true);
         interactableUI.ShowItemPickUpText(this);
         interactableUI.SetImageForItemPickUp(weapon);
+        gameObject.SetActive(false);
         //using Destory() for now. will implement object pooling later
         //Destroy(gameObject);
     }

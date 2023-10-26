@@ -15,13 +15,16 @@ public class InteractableUI : MonoBehaviour
      [Header("item infos for item player interacted with")]
      public TextMeshProUGUI itemPickUpText;
      public RawImage imageToDisplay;
-    
-     [Header("interactable item UI elements")]
-     [SerializeField] private GameObject interactableUIGameObject;
+     
+
+     [Header("sub UI frames")] 
+     [SerializeField]
+     public GameObject itemPopUpFrame;
+     [SerializeField] public GameObject itemPickUpFrame;
 
      private void Start()
      {
-         interactableUIGameObject.SetActive(false);
+         itemPopUpFrame.SetActive(false);
          PlayerManager.OnInteractable += DelegatesTrigger;
      }
 
@@ -32,7 +35,7 @@ public class InteractableUI : MonoBehaviour
 
      public void SwitchItemPickUpText(bool _bool)
      {
-         interactableUIGameObject.SetActive(_bool);
+         itemPickUpFrame.SetActive(_bool);
          if (_bool)
          {
              //pause the game if in single player mode
@@ -50,4 +53,25 @@ public class InteractableUI : MonoBehaviour
      {
          Debug.Log("hi there");
      }
+
+     public void EnableItemPopUpFrame()
+     {
+         itemPopUpFrame.SetActive(true);
+     }
+
+     public void DisableItemPopUpFrame()
+     {
+         itemPopUpFrame.SetActive(false);
+     }
+     
+     public void EnableItemPickUpFrame()
+     {
+         itemPickUpFrame.SetActive(true);
+     }
+
+     public void DisableItemPickUpFrame()
+     {
+         itemPickUpFrame.SetActive(false);
+     }
+     
 }

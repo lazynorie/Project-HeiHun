@@ -610,6 +610,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 196859854355572656, guid: c52096883675e5b43af3cbd980f4e968, type: 3}
+      propertyPath: radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 196859854355572657, guid: c52096883675e5b43af3cbd980f4e968, type: 3}
       propertyPath: m_Name
       value: WeaponPickUp
@@ -820,7 +824,8 @@ MonoBehaviour:
   text: {fileID: 1769384144}
   itemPickUpText: {fileID: 1405892993}
   imageToDisplay: {fileID: 2032493610}
-  interactableUIGameObject: {fileID: 773898051}
+  itemPopUpFrame: {fileID: 941525225}
+  itemPickUpFrame: {fileID: 773898051}
 --- !u!1 &324239678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5810,6 +5815,10 @@ PrefabInstance:
     - target: {fileID: 8697325233352533029, guid: 74921284a997e7b468547d5fbc83ef91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697325233352533030, guid: 74921284a997e7b468547d5fbc83ef91, type: 3}
+      propertyPath: radius
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8697325233352533031, guid: 74921284a997e7b468547d5fbc83ef91, type: 3}
       propertyPath: m_Name
@@ -12611,6 +12620,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8966903017696220959, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
+      propertyPath: itemPopUpFrame
+      value: 
+      objectReference: {fileID: 941525225}
+    - target: {fileID: 8966903017696220959, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
+      propertyPath: itemPickUpFrame
+      value: 
+      objectReference: {fileID: 773898051}
     - target: {fileID: 8966903017696220959, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
       propertyPath: interactableUIGameObject
       value: 
