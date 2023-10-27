@@ -25,7 +25,8 @@ public class EnemyManager : CharacterManager
     
     public bool isPerformingAction;
     public bool isInteracting;
-    [Header("A.I")]
+    [Header("A.I")] 
+    [SerializeField] bool turnOffAI;
     public State currentState;
     public float detectionRadius = 15f;
     public bool canDoCombo;
@@ -64,6 +65,7 @@ public class EnemyManager : CharacterManager
     }
     private void HandleStateMachine()
     {
+        if (turnOffAI) return;
         if (currentState != null)
         {
             State nexState = currentState.Tick(this, enemyStats, enemyAnimationHandler);

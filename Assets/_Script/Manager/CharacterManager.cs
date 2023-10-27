@@ -8,8 +8,8 @@ public class CharacterManager : MonoBehaviour
     public Transform lockOnTransform;
     public GameObject lockOnUIelement;
     [Header("Combat Colliders")]
-    public BoxCollider backStabBoxCollider;
-    public BoxCollider riposteCollider;
+    public CriticalDamageCollider backStabBoxCollider;
+    public CriticalDamageCollider riposteCollider;
     [FormerlySerializedAs("backStabCollider")] public CriticalDamageCollider[] criticalDamageColliders;
 
     [Header("Combat Flags")] 
@@ -22,8 +22,10 @@ public class CharacterManager : MonoBehaviour
 
     private void AssignCriticalDamageColliers()
     {
-        backStabBoxCollider = criticalDamageColliders[0].GetComponent<BoxCollider>();
-        riposteCollider = criticalDamageColliders[1].GetComponent<BoxCollider>();
-
+        backStabBoxCollider = criticalDamageColliders[0];
+        if (riposteCollider != null)
+        {
+            riposteCollider = criticalDamageColliders[1];
+        }
     }
 }

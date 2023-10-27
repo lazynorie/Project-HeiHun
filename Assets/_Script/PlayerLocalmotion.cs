@@ -31,7 +31,7 @@ public class PlayerLocalmotion : MonoBehaviour
    [SerializeField] private float walkingSpeed = 3;
    [SerializeField] private float movementSpeed = 5;
    [SerializeField] private float sprintSpeed = 7;
-   [SerializeField] private float rotationSpeed = 10;
+   public float rotationSpeed = 10;
    [SerializeField] private float fallingSpeed = 45;
    [SerializeField] private float strafingSpeed = 2f;
 
@@ -314,14 +314,14 @@ public class PlayerLocalmotion : MonoBehaviour
       rigidbody.velocity = Vector3.zero;
    }
 
-   public void RotateTowardsTarget(Transform target)
+   public void RotateTowardsTarget(Transform target,float rotationRate)
    {
       Vector3 targetDir = transform.root.eulerAngles;
       targetDir = target.position - transform.position;
       targetDir.y = 0;
       targetDir.Normalize();
       Quaternion tr = Quaternion.LookRotation(targetDir);
-      Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
+      Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationRate * Time.deltaTime);
       transform.rotation = targetRotation;
    }
 }

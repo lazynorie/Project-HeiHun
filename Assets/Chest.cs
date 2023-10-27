@@ -26,7 +26,7 @@ public class Chest : Interactable
         //open chest lid
         //spawn item in the chest
         PlayerLocalmotion playerLocalmotion = playerManager.GetComponent<PlayerLocalmotion>();
-        playerLocalmotion.RotateTowardsTarget(transform);
+        playerLocalmotion.RotateTowardsTarget(transform,500);
         playerLocalmotion.StopPlayer();
         //playerManager.transform.position = openCheckPosition.transform.position;
         playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,openCheckPosition.transform.position,1/Time.fixedDeltaTime);

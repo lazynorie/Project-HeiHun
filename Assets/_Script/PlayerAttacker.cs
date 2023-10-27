@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.Design;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
@@ -220,6 +221,7 @@ public class PlayerAttacker : MonoBehaviour
     if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
           transform.TransformDirection(Vector3.forward),out hit, 0.5f, backStabLayer))
     {
+      Debug.DrawLine(inputHandler.criticalAttackRaycastStartPoint.position,hit.point,Color.red,2);
       CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
       DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
       if (enemyCharacterManager != null)
@@ -232,7 +234,7 @@ public class PlayerAttacker : MonoBehaviour
         //pull into a transform.positon so that the animation doesnt look off
         playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,enemyCharacterManager.criticalDamageColliders[0].criticalDamageTransformPoint.position,1/Time.deltaTime);
         //rotate towards target transform
-        playerLocoMotion.RotateTowardsTarget(hit.transform);
+        playerLocoMotion.RotateTowardsTarget(hit.transform, 500);
         /*Vector3 rotationDir = playerManager.transform.root.eulerAngles;
         rotationDir = hit.transform.position - playerManager.transform.position;
         rotationDir.y = 0;
@@ -251,21 +253,23 @@ public class PlayerAttacker : MonoBehaviour
     else if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
                   transform.TransformDirection(Vector3.forward),out hit, 0.5f, riposteLayer))
     {
+      //todo: check if player hitting themselves
       CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
       DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
       if (enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
       {
         playerManager.transform.position =
           enemyCharacterManager.criticalDamageColliders[1].criticalDamageTransformPoint.position;
-        playerLocoMotion.RotateTowardsTarget(hit.transform);
+        playerLocoMotion.RotateTowardsTarget(hit.transform, 500);
         int criticalDamage = playerInventory.rightWeapon.criticalDamageMuiliplier *
                              rightWeapon.weapondamage;
         enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
         playerAnimationHandler.PlayTargetAnimation("Stab",true);//play animation
-        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("CriticalAttackFront",true);//enemy play animation
       }
     }
-
-   
   }
+  
 }
+
+
