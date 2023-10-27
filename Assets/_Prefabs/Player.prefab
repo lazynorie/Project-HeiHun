@@ -336,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8966903017628307526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.107, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -567,7 +567,7 @@ MonoBehaviour:
   weaponsInRightHandSlots:
   - {fileID: 11400000, guid: 01c01cb3b2f6bcb4bb37f90f25b9aab4, type: 2}
   - {fileID: 11400000, guid: 936e00d7f835fd145b030e9145bd735f, type: 2}
-  - {fileID: 11400000, guid: 1574b0fc9facf11499a301e9aa24bc15, type: 2}
+  - {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
   currentLeftWeaponIndex: -1
   weaponsInLeftHandSlots:
@@ -738,7 +738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8966903018415891571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.022, y: 1.245, z: 0.159}
+  m_LocalPosition: {x: -0.022, y: 1.245, z: 0.291}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -901,13 +901,14 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   playerStats: {fileID: 0}
   playerLocoMotion: {fileID: 0}
-  lastAttack: 
+  lastAttack: {fileID: 0}
   backStabLayer:
     serializedVersion: 2
     m_Bits: 8192
   riposteLayer:
     serializedVersion: 2
     m_Bits: 16384
+  hitObject: {fileID: 0}
 --- !u!1 &8967521017240805773
 GameObject:
   m_ObjectHideFlags: 0

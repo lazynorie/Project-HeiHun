@@ -20,6 +20,7 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private LayerMask backStabLayer;
   [SerializeField] private LayerMask riposteLayer;
 
+  public GameObject hitObject;
 
   private void Awake()
   {
@@ -36,7 +37,7 @@ public class PlayerAttacker : MonoBehaviour
   {
     SpellItem.OnAttemptToCastSpell += CheckIfPlayerHasEnoughMana;
   }
-
+  
   private void HandleLightAttack(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
@@ -256,6 +257,8 @@ public class PlayerAttacker : MonoBehaviour
       //todo: check if player hitting themselves
       CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
       DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+      Debug.DrawLine(inputHandler.criticalAttackRaycastStartPoint.position,hit.point,Color.red,2);
+      if (enemyCharacterManager.GetComponent<EnemyStats>().isDead) return;
       if (enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
       {
         playerManager.transform.position =

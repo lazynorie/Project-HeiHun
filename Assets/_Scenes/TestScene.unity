@@ -12458,7 +12458,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25558
+  m_Name: pb_Mesh25874
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16071,10 +16071,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 711251468816779467, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8966903017696220949, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -16123,10 +16119,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8966903017696220956, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
-      propertyPath: weaponsInRightHandSlots.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: b9415406b18b6c64db614d6f75d2e785, type: 2}
     - target: {fileID: 8966903017696221026, guid: 31ce675d99233e6449dc83ae8dcb317f, type: 3}
       propertyPath: manaBar
       value: 
@@ -16195,14 +16187,6 @@ PrefabInstance:
     - target: {fileID: 9119457762549595924, guid: 61bb7bd83d223a7468d8ae170890d84e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9119457762549595925, guid: 61bb7bd83d223a7468d8ae170890d84e, type: 3}
-      propertyPath: turnOffAI
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9119457762549595925, guid: 61bb7bd83d223a7468d8ae170890d84e, type: 3}
-      propertyPath: canBeRiposted
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61bb7bd83d223a7468d8ae170890d84e, type: 3}
