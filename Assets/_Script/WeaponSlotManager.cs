@@ -6,8 +6,10 @@ public class WeaponSlotManager : MonoBehaviour
    private WeaponHolderSlot leftHandSlot;
    private WeaponHolderSlot rightHandSlot;
    private WeaponHolderSlot backSlot;
+   private WeaponHolderSlot shieldSlot;
    private PlayerInventory playerInventory;
-
+   public WeaponHolderSlot[] weaponHolderSlots;
+   
    private DamageCollider leftHandDamageCollider;
    public DamageCollider rightHandDamageCollider;
 
@@ -22,7 +24,7 @@ public class WeaponSlotManager : MonoBehaviour
       quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
       animator = GetComponent<Animator>();
       inputHandler = GetComponentInParent<InputHandler>();
-      WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
+      weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
       foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
       {
          if (weaponSlot.isLeftHandSlot)
@@ -36,6 +38,10 @@ public class WeaponSlotManager : MonoBehaviour
          else if (weaponSlot.isBackSlot)
          {
             backSlot = weaponSlot;
+         }
+         else if (weaponSlot.isShieldSlot)
+         {
+            shieldSlot = weaponSlot;
          }
       }
    }
@@ -72,7 +78,16 @@ public class WeaponSlotManager : MonoBehaviour
          if (inputHandler.twoHandFlag)
          {
             //Move current left hand weapon to back 
-            backSlot.LoadWeaponModel(leftHandSlot.currentWeapon);
+            if (playerInventory.leftWeapon.weaponType is WeaponType.Shield)
+            {
+               shieldSlot.LoadWeaponModel(leftHandSlot.currentWeapon);
+            }
+            else if (playerInventory.leftWeapon.weaponType is WeaponType.MeleeWeapon)
+            {
+               backSlot.LoadWeaponModel(leftHandSlot.currentWeapon);
+            }
+
+
             leftHandSlot.UnloadWeaponAndDestroy();
             animator.CrossFade(weaponItem.th_idle, 0.2f);
          }
@@ -81,6 +96,7 @@ public class WeaponSlotManager : MonoBehaviour
             #region Handle right hand idle animation
             animator.CrossFade("Both Arms Empty", 0.2f);
             backSlot.UnloadWeaponAndDestroy();
+            shieldSlot.UnloadWeaponAndDestroy();
             if (weaponItem != null)
             {
                animator.CrossFade(weaponItem.right_hand_idle,0.2f);

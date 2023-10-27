@@ -7,6 +7,7 @@ public class WeaponHolderSlot : MonoBehaviour
     public bool isLeftHandSlot;
     public bool isRightHandSlot;
     public bool isBackSlot;
+    public bool isShieldSlot;
 
     public GameObject currentWeaponModel;
 

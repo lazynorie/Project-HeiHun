@@ -46,4 +46,5 @@ public enum WeaponType
     SpellCaster,
     PyroCaster,
     FaithCaster,
+    Shield
 }
