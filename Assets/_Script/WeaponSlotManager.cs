@@ -77,7 +77,7 @@ public class WeaponSlotManager : MonoBehaviour
       {
          if (inputHandler.twoHandFlag)
          {
-            //Move current left hand weapon to back 
+            //Move current left hand weapon/shield to back 
             if (playerInventory.leftWeapon.weaponType is WeaponType.Shield)
             {
                shieldSlot.LoadWeaponModel(leftHandSlot.currentWeapon);

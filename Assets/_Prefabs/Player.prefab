@@ -1,5 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &605032265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605032266}
+  - component: {fileID: 605032267}
+  m_Layer: 9
+  m_Name: Back Shield Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605032266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605032265}
+  m_LocalRotation: {x: -0.10138491, y: 0.745453, z: -0.20108773, w: 0.62736326}
+  m_LocalPosition: {x: -0.191, y: -0.124, z: 0.231}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8962300044005964017}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 9.939, y: 97.699, z: -24.18}
+--- !u!114 &605032267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605032265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25eb97a9a3f8a3640b1c95fa98224745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentOverride: {fileID: 605032266}
+  currentWeapon: {fileID: 0}
+  isLeftHandSlot: 0
+  isRightHandSlot: 0
+  isBackSlot: 0
+  isShieldSlot: 1
+  currentWeaponModel: {fileID: 0}
 --- !u!1 &1882213411
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +301,7 @@ MonoBehaviour:
   isLeftHandSlot: 0
   isRightHandSlot: 0
   isBackSlot: 1
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &8966903017521472778
 GameObject:
@@ -571,7 +623,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
   currentLeftWeaponIndex: -1
   weaponsInLeftHandSlots:
-  - {fileID: 11400000, guid: 936e00d7f835fd145b030e9145bd735f, type: 2}
+  - {fileID: 11400000, guid: 12d4d5951d52f0b4190dca954025f86f, type: 2}
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
   - {fileID: 11400000, guid: 1574b0fc9facf11499a301e9aa24bc15, type: 2}
   - {fileID: 11400000, guid: 2e99308e0e47dd94ab8a472c85ff1e7b, type: 2}
@@ -866,6 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52c6fab24543f745afd6dd9200c875b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolderSlots: []
   rightHandDamageCollider: {fileID: 0}
 --- !u!114 &8966903018578381560
 MonoBehaviour:
@@ -3395,6 +3448,7 @@ Transform:
   m_Children:
   - {fileID: 8962416448896012579}
   - {fileID: 8966903017116595314}
+  - {fileID: 605032266}
   m_Father: {fileID: 8971103030737889877}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4867,6 +4921,7 @@ MonoBehaviour:
   isLeftHandSlot: 0
   isRightHandSlot: 1
   isBackSlot: 0
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &8968510260976878017
 GameObject:
@@ -5139,6 +5194,7 @@ MonoBehaviour:
   isLeftHandSlot: 1
   isRightHandSlot: 0
   isBackSlot: 0
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &8968549579867239249
 GameObject:
@@ -6085,6 +6141,7 @@ MonoBehaviour:
   isLeftHandSlot: 1
   isRightHandSlot: 0
   isBackSlot: 0
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!4 &5153840525530470287 stripped
 Transform:
@@ -6113,6 +6170,7 @@ MonoBehaviour:
   isLeftHandSlot: 1
   isRightHandSlot: 0
   isBackSlot: 0
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &7055793455164158973 stripped
 GameObject:
@@ -6136,6 +6194,7 @@ MonoBehaviour:
   isLeftHandSlot: 0
   isRightHandSlot: 1
   isBackSlot: 0
+  isShieldSlot: 0
   currentWeaponModel: {fileID: 0}
 --- !u!4 &7939911047493968364 stripped
 Transform:
@@ -6179,6 +6238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52c6fab24543f745afd6dd9200c875b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolderSlots: []
   rightHandDamageCollider: {fileID: 0}
 --- !u!114 &8966903017533450310
 MonoBehaviour:

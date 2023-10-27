@@ -26,7 +26,7 @@ MonoBehaviour:
   TH_heavy_attack_01: {fileID: 0}
   TH_heavy_attack_02: {fileID: 0}
   right_hand_idle: 
-  left_hand_idle: 
+  left_hand_idle: left_shield_idle_01
   th_idle: 
   baseStamina: 0
   lightAttackMultiplier: 0

@@ -36,6 +36,9 @@ public class PlayerStats : CharacterStats
    {
       playerManager = GetComponent<PlayerManager>();
       animHandler = GetComponentInChildren<PlayerAnimationHandler>();
+      healthBar = FindObjectOfType<HealthBar>();
+      staminaBar = FindObjectOfType<StaminaBar>();
+      manaBar = FindObjectOfType<ManaBar>();
    }
    private void Start()
    {
