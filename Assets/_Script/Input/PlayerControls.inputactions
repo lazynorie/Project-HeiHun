@@ -15,9 +15,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LT",
+                    "type": "Button",
+                    "id": "30e85dfa-2043-4bea-9768-921582966550",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap,Hold",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RB",
                     "type": "Button",
                     "id": "ab78c33a-1b65-4967-b2c0-96886468a7e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap,Hold(duration=1.401298E-45)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LB",
+                    "type": "Button",
+                    "id": "2f904f53-fade-4897-bdf5-5832436ee7d5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap,Hold(duration=1.401298E-45)",
@@ -475,6 +493,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right Stick Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a58250a-065d-4efe-9b74-2976b3d4ae0a",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Tap,Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e20dbe47-8d9a-4c76-8eec-057eb95f327a",
+                    "path": "<Keyboard>/z",
+                    "interactions": "Tap,Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "264e942b-a485-4ccf-9c96-63f984363cc6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Tap,Hold(duration=1.401298E-45)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

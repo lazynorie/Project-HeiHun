@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d142fa0ef9bd364c88e39efc028508b, type: 3}
-  m_Name: New Actions
+  m_Name: Weapon Art Sheid Parry
   m_EditorClassIdentifier: 
   uniqueID: 
-  attackAnimationName: 
-  attackPower: 0
-  staminaConsum: 0
+  animationName: Parry 01
+  staminaConsum: 15

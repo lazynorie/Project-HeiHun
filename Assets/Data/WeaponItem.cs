@@ -20,6 +20,9 @@ public class WeaponItem : Item
     public ActionAttack TH_light_attack_02;
     public ActionAttack TH_heavy_attack_01;
     public ActionAttack TH_heavy_attack_02;
+    
+    [Header("Weapon Art")] 
+    public ActionAttack weaponArt;
 
     [Header("idle animation")] 
     public string right_hand_idle;

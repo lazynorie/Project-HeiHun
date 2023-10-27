@@ -38,6 +38,49 @@ public class PlayerAttacker : MonoBehaviour
     SpellItem.OnAttemptToCastSpell += CheckIfPlayerHasEnoughMana;
   }
   
+  #region Input Actions
+  public void HandleRbAction()
+  {
+    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
+    {
+      PerformRbMeleeAction();
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster ||
+             playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster ||
+             playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
+    {
+      //handle spell faith and fire magic
+      PerformRbMagicAction(playerInventory.rightWeapon);
+    }
+    else if (playerInventory.rightWeapon.weaponType is WeaponType.RangeWeapon)
+    {
+      //todo: handle range action
+    }
+  }
+  public void HandleRtAction()
+  {
+    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
+    {
+      PerformRtMeleeAction();
+    }
+  }
+  public void HandleLtAction()
+  {
+    if (playerInventory.leftWeapon.weaponType == WeaponType.Shield)
+    {
+      //perform shield art
+      PerformLtAction(inputHandler.twoHandFlag);
+    }
+    else if (playerInventory.leftWeapon.weaponType is WeaponType.MeleeWeapon)
+    {
+      
+    }
+  }
+  #endregion
+
+  #region Attack Actions
+
+   
   private void HandleLightAttack(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
@@ -112,38 +155,6 @@ public class PlayerAttacker : MonoBehaviour
       
     }
   }
-
-  #region Input Actions
-  public void HandleRbAction()
-  {
-    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
-    {
-      PerformRbMeleeAction();
-    }
-    else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster ||
-             playerInventory.rightWeapon.weaponType is WeaponType.FaithCaster ||
-             playerInventory.rightWeapon.weaponType is WeaponType.PyroCaster)
-    {
-      //handle spell faith and fire magic
-      PerformRbMagicAction(playerInventory.rightWeapon);
-    }
-    else if (playerInventory.rightWeapon.weaponType is WeaponType.RangeWeapon)
-    {
-      //todo: handle range action
-    }
-  }
-  public void HandleRtAction()
-  {
-    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
-    {
-      PerformRtMeleeAction();
-    }
-  }
-
-  #endregion
-
-  #region Attack Actions
-
   private void PerformRbMeleeAction()
   {
       if (playerManager.canDoCombo)
@@ -161,7 +172,6 @@ public class PlayerAttacker : MonoBehaviour
         HandleLightAttack(playerInventory.rightWeapon);
       }
   }
-
   private void PerformRtMeleeAction()
   {
     if (playerManager.canDoCombo)
@@ -180,7 +190,7 @@ public class PlayerAttacker : MonoBehaviour
     }
     
   }
-  public void PerformRbMagicAction(WeaponItem weapon)
+  private void PerformRbMagicAction(WeaponItem weapon)
   {
     if (playerManager.isInteracting)
       return;
@@ -197,7 +207,18 @@ public class PlayerAttacker : MonoBehaviour
       }
     }
   }
-
+  private void PerformLtAction(bool isTwoHanding)
+  {
+    if (playerManager.isInteracting) return;
+    //else perform left hand weapon art
+    if (isTwoHanding) {
+      //perform right hand weapon art if 2h
+    }
+    else
+    {
+      playerAnimationHandler.PlayTargetAnimation(playerInventory.leftWeapon.weaponArt.animationName,true);
+    }
+  }
   private void SuccessfullyCastSpell()
   {
     //todo: check mana here if you want the casting animation to go through

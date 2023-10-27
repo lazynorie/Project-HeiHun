@@ -22,8 +22,9 @@ public class InputHandler : MonoBehaviour
   public bool xInput;
   public bool yInput;
   [FormerlySerializedAs("rbInput")] public bool rbTapInput;
-  [FormerlySerializedAs("raInput")] public bool raTapInput;
   [FormerlySerializedAs("rtInput")] public bool rtTapInput;
+  public bool ltTapInput;
+  public bool ltHoldInput;
   public bool criticalHitInput;
   public bool dPadUp;
   public bool dPadDown;
@@ -92,16 +93,28 @@ public class InputHandler : MonoBehaviour
         }
       };
       inputActions.PlayerAction.Roll.canceled += i => {
-        if (i.interaction is TapInteraction)
-        {
-          bInputTap = false;
-        }
-        else if (i.interaction is HoldInteraction)
+        if (i.interaction is HoldInteraction)
         {
           bInputHold = false;
         }
       };
+      inputActions.PlayerAction.LT.performed += i => {
+        if (i.interaction is TapInteraction)
+        {
+          ltTapInput = true;
+        }
 
+        if (i.interaction is HoldInteraction)
+        {
+          ltHoldInput = true;
+        }
+      };
+      inputActions.PlayerAction.LT.canceled += i =>  {
+        if (i.interaction is HoldInteraction)
+        {
+          ltHoldInput = false;
+        }
+      };
       /*todo:
         inputActions.PlayerAction.Roll.performed += i => {
         if (i is TapInteraction)
@@ -130,6 +143,7 @@ public class InputHandler : MonoBehaviour
     HandleLockOnButtonInput();
     HandleTwoHandInput();
     HandleCriticalHitInput();
+    HandleLTInput();
   }
   public void FixedTickInput(float delta)//rb related tick inputs goes here
   {
@@ -292,6 +306,30 @@ public class InputHandler : MonoBehaviour
     {
       criticalHitInput = false;
       playerAttacker.AttemptBackStabOrRiposte();
+    }
+  }
+  private void HandleLTInput()
+  {
+    if (ltTapInput)
+    {
+      ltTapInput = false;
+      
+      if (twoHandFlag)//two hand weapon art 
+      {
+        Debug.Log("TH weapon art.");
+      }
+      else
+      {
+        playerAttacker.HandleLtAction();//parry with shield
+      }
+      //left hand weapon art
+      
+    }
+
+    if (ltHoldInput)
+    {
+      //block with shield
+      //charging left hand attack
     }
   }
   private void ListeningToInput()

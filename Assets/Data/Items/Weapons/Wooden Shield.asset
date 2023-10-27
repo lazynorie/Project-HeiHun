@@ -25,6 +25,7 @@ MonoBehaviour:
   TH_light_attack_02: {fileID: 0}
   TH_heavy_attack_01: {fileID: 0}
   TH_heavy_attack_02: {fileID: 0}
+  weaponArt: {fileID: 11400000, guid: a862b85701b7c714881824dccfb59f73, type: 2}
   right_hand_idle: 
   left_hand_idle: left_shield_idle_01
   th_idle: 
