@@ -4,24 +4,25 @@ using UnityEngine.Serialization;
 
 public class PlayerStats : CharacterStats
 {
+   public static event Action<int> OnSolUpdate;
    public static event Action OnPlayerDeath;
    private PlayerManager playerManager;
    public HealthBar healthBar;
    public StaminaBar staminaBar;
    public ManaBar manaBar;
    private PlayerAnimationHandler animHandler;
-   [SerializeField]
-   private int experience;
+   [FormerlySerializedAs("experience")] [SerializeField]
+   private int solCount;
 
-   public int Experience
+   public int SolCount
    {
       get
       {
-         return experience;
+         return solCount;
       }
       set
       {
-         experience = value;
+         solCount = value;
       }
    }
    [SerializeField]
@@ -39,7 +40,7 @@ public class PlayerStats : CharacterStats
    private void Start()
    {
       SetUpPlayerStats();
-      EnemyStats.OnEnemyDeath += IncreasePlayerExperience;
+      EnemyStats.OnEnemyDeath += IncreasePlayerSolCount;
       HealingSpell.OnHealingSpellCast += HealPlayer;
       SpellItem.OnSpellSuccessfullyCast += DrainMana;
    }
@@ -123,9 +124,10 @@ public class PlayerStats : CharacterStats
       //todo: use this to check if player have enough stamina to perform the action
       return true;
    }
-   private void IncreasePlayerExperience(int exp)
+   private void IncreasePlayerSolCount(int sol)
    {
-      experience += exp;
+      solCount += sol;
+      OnSolUpdate?.Invoke(solCount);
    }
    private void RegenStamina()
    {
@@ -171,5 +173,6 @@ public class PlayerStats : CharacterStats
       if (currentMana < 0) currentMana = 0;
       manaBar.SetCurrentMana(currentMana);
    }
+   
 }
 

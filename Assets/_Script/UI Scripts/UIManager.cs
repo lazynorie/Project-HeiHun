@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject weaponInventoryWindow;
     public GameObject selectWindow;
     public GameObject equipmentWindow;
+    public GameObject solCountWindow;
     [HideInInspector]
     public bool inventoryFlag;
 
@@ -139,4 +141,6 @@ public class UIManager : MonoBehaviour
             leftHandWeaponSlotsSelected[i] = false;
         }
     }
+
+   
 }
