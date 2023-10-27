@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4747d931188e34d971c2d906b49545, type: 3}
   m_Name: AI attack 01
   m_EditorClassIdentifier: 
-  actionAnimation: sword and shield slash
+  actionAnimation: straight_sword_oh_heavy_attack_01
   attackScore: 3
   recoveryTime: 1
   maximumAttackAngle: 35

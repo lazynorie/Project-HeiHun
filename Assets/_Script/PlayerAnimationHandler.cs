@@ -126,6 +126,25 @@ public class PlayerAnimationHandler : AnimationHandler
         Vector3 velocity = deltaPosition / delta;
         playerLocalmotion.rigidbody.velocity = velocity;
     }
+
+    public void EnableParry()
+    {
+        playerManager.isParrying = true;
+    }
+    public void DisableParry()
+    {
+        playerManager.isParrying = false;
+    }
+
+    public void EnableCanBeRiposted()
+    {
+        playerManager.canBeRiposted = true;
+    }
+
+    public void DisableCanBeRiposted()
+    {
+        playerManager.canBeRiposted = false;
+    }
     public override void TakeCriticalDamageAnimationEvent()
     {
         base.TakeCriticalDamageAnimationEvent();

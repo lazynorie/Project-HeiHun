@@ -14,6 +14,7 @@ public class CombatStanceState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        if (enemyManager.isInteracting) return this;
         if (enemyManager.isPerformingAction)
         {
             enemyAnimationHandler.animator.SetFloat("Vertical",0f,0.1f,Time.deltaTime);
@@ -32,10 +33,10 @@ public class CombatStanceState : State
         {
             return attackState;
         }
-        else return this;        
+        //else return this;        
         //circle player or walk around
         // if in attack range return attack state
-        
+        return this;
     }
     private void HandleRotateTowardsTarget(EnemyManager enemyManager)
     {

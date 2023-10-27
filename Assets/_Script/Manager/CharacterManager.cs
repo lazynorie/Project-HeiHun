@@ -14,6 +14,7 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Combat Flags")] 
     public bool canBeRiposted;
+    public bool isParrying;
     protected virtual void Awake()
     {
         criticalDamageColliders = GetComponentsInChildren<CriticalDamageCollider>();

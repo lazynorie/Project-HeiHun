@@ -120,14 +120,22 @@ public class WeaponSlotManager : MonoBehaviour
    {
       leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
       if (leftHandDamageCollider != null)
-         leftHandDamageCollider.weapondamage = playerInventory.leftWeapon.baseDamage;//assign damage to damage collider
+      {
+         leftHandDamageCollider.characterManager = GetComponentInParent<CharacterManager>();
+         leftHandDamageCollider.weapondamage =
+            playerInventory.leftWeapon.baseDamage; //assign damage to damage collider}
+      }
       else Debug.Log("there's no dmg collider assigned to this weapon");
    }
    private void LoadRightWeaponDamageCollider()
    {
       rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-      if (rightHandDamageCollider != null) 
+      rightHandDamageCollider.characterManager = GetComponentInParent<CharacterManager>();
+
+      if (rightHandDamageCollider != null)
+      {
          rightHandDamageCollider.weapondamage = playerInventory.rightWeapon.baseDamage;
+      }
       else Debug.Log("there's no dmg collider assigned to this weapon");
    }
    #region handling damagecollider 

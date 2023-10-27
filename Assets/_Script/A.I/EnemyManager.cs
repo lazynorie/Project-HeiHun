@@ -55,9 +55,9 @@ public class EnemyManager : CharacterManager
 
     private void Update()
     {
-        HandleRecoveryTimer();
-        UpdateDistanceAndAngleFromTarget();
         GetParametersFromAnimationHandler();
+        UpdateDistanceAndAngleFromTarget();
+        HandleRecoveryTimer();
     }
     private void FixedUpdate()
     {

@@ -15,6 +15,7 @@ public class AttackState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        if (enemyManager.isInteracting) return this;
         if (enemyManager.isPerformingAction) return this;
         //HandleRotateTowardsTarget(enemyManager);
         if (currentAttack != null)

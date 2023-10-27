@@ -41,4 +41,28 @@ public class EnemyAnimationHandler : AnimationHandler
         enemyStats.TakeDamageWithOutAnimation(enemyStats.pendingCriticalDamage);
         enemyStats.pendingCriticalDamage = 0;
     }
+    
+    public void EnableParry()
+    {
+        enemyManager.isParrying = true;
+    }
+    public void DisableParry()
+    {
+        enemyManager.isParrying = false;
+    }
+
+    public void EnableCanBeRiposted()
+    {
+        enemyManager.canBeRiposted = true;
+    }
+
+    public void DisableCanBeRiposted()
+    {
+        enemyManager.canBeRiposted = false;
+    }
+
+    public void CosumeStamina()
+    {
+        
+    }
 }
