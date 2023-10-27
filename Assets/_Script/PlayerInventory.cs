@@ -127,8 +127,10 @@ public class PlayerInventory : MonoBehaviour
   
   private void LoadFirstWeaponsInInventory()
   {
+    currentRightWeaponIndex = 1;
     rightWeapon = weaponsInRightHandSlots[0];
     weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+    currentLeftWeaponIndex = 1;
     leftWeapon = weaponsInLeftHandSlots[0];
     weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
   }

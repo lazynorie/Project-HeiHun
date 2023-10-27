@@ -170,9 +170,8 @@ public class InputHandler : MonoBehaviour
 
     if (rtTapInput)
     {
-      if (playerManager.isInteracting)
-        return;
-      playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+      rtTapInput = false;
+      playerAttacker.HandleRtAction();
     }
   }
   private void HandleQuickSlotInput()

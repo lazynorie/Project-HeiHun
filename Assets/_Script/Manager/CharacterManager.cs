@@ -9,10 +9,21 @@ public class CharacterManager : MonoBehaviour
     public GameObject lockOnUIelement;
     [Header("Combat Colliders")]
     public BoxCollider backStabBoxCollider;
-    public BackStabCollider backStabCollider;
+    public BoxCollider riposteCollider;
+    [FormerlySerializedAs("backStabCollider")] public CriticalDamageCollider[] criticalDamageColliders;
+
+    [Header("Combat Flags")] 
+    public bool canBeRiposted;
     protected virtual void Awake()
     {
-        backStabCollider = GetComponentInChildren<BackStabCollider>();
-        backStabBoxCollider = backStabCollider.GetComponent<BoxCollider>();
+        criticalDamageColliders = GetComponentsInChildren<CriticalDamageCollider>();
+        AssignCriticalDamageColliers();
+    }
+
+    private void AssignCriticalDamageColliers()
+    {
+        backStabBoxCollider = criticalDamageColliders[0].GetComponent<BoxCollider>();
+        riposteCollider = criticalDamageColliders[1].GetComponent<BoxCollider>();
+
     }
 }

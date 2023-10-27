@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class BackStabCollider : MonoBehaviour
+public class CriticalDamageCollider : MonoBehaviour
 {
-    public Transform backStabberPoint;
+    public Transform criticalDamageTransformPoint;
 }

@@ -13,10 +13,11 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private PlayerStats playerStats;
   [SerializeField] private PlayerLocalmotion playerLocoMotion;
   private WeaponSlotManager weaponSlotManager;
-  public string lastAttack;
+  public ActionAttack lastAttack;
   private bool hasEnoughMana;
   private bool hasEnoughStamina;
   [SerializeField] private LayerMask backStabLayer;
+  [SerializeField] private LayerMask riposteLayer;
 
 
   private void Awake()
@@ -35,47 +36,44 @@ public class PlayerAttacker : MonoBehaviour
     SpellItem.OnAttemptToCastSpell += CheckIfPlayerHasEnoughMana;
   }
 
-  public void HandleLightAttack(WeaponItem weapon)
+  private void HandleLightAttack(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
     if (inputHandler.twoHandFlag)
     {
-      if (weapon.TH_heavy_attack == "")//todo: switch to new system
+      if (weapon.TH_light_attack_01 == null)//
       {
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_01,true);
-      //playerAnimationHandler.PlayTargetAnimation(weapon.OH_light_attack_1.AttackAnimationName, true);
-    }
-    else
+      playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_01.animationName,true);
+      lastAttack = weapon.TH_light_attack_01;
+    }//two hand light attack
+    else//one hand light attack
     {
       if (weapon.ohLightActionAttack1 == null)
       {
         Debug.Log("ohLightActionAttack1 is not assigned");
         return;
-      }//null check
+      }
       playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack1.animationName, true);
-
-       //lastAttack = weapon.OH_light_attack_01;
-       lastAttack = weapon.ohLightActionAttack1.animationName;
+      lastAttack = weapon.ohLightActionAttack1;
     }
   }
-  public void HandleHeavyAttack(WeaponItem weapon)
+  private void HandleHeavyAttack(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
-    if (inputHandler.twoHandFlag)
+    if (inputHandler.twoHandFlag)//handle two hand heavy attack
     {
-      if (weapon.TH_heavy_attack == "")
+      if (weapon.TH_heavy_attack_01 == null)
       {
-        Debug.Log("TH_light_attack_01 animation not assigned");
+        Debug.Log("TH_heavy_attack_01 not assigned");
         return;
-      }//null check
-      //todo: switch to the new system
-      playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack,true);
-      //playerAnimationHandler.PlayTargetAnimation(weapon.OH_heavy_attack_1.AttackAnimationName,true);
+      }
+      playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack_01.animationName,true);
+      lastAttack = weapon.TH_heavy_attack_01;
     }
-    else
+    else//handle one hand heavy attack
     {
       if (weapon.ohHeavyActionAttack1 == null)
       {
@@ -83,16 +81,16 @@ public class PlayerAttacker : MonoBehaviour
         return;
       }//null check
       playerAnimationHandler.PlayTargetAnimation(weapon.ohHeavyActionAttack1.animationName,true);
-      lastAttack = weapon.ohHeavyActionAttack1.animationName;
+      lastAttack = weapon.ohHeavyActionAttack1;
     }
   }
-  public void HandleWeaponCombo(WeaponItem weapon)
+  private void HandleWeaponCombo(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.ohLightActionAttack1.animationName)
+      if (lastAttack == weapon.ohLightActionAttack1)
       {
         if (weapon.ohLightActionAttack2 == null)
         {
@@ -101,6 +99,15 @@ public class PlayerAttacker : MonoBehaviour
         }
         playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack2.animationName, true);
       }
+      else if (lastAttack == weapon.TH_heavy_attack_01)
+      {
+        playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack_02.animationName, true);
+      }
+      else if (lastAttack == weapon.TH_light_attack_01)
+      {
+        playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_02.animationName, true);
+      }
+      
     }
   }
 
@@ -109,7 +116,6 @@ public class PlayerAttacker : MonoBehaviour
   {
     if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
     {
-      //todo: handle melee action
       PerformRbMeleeAction();
     }
     else if (playerInventory.rightWeapon.weaponType is WeaponType.SpellCaster ||
@@ -126,13 +132,17 @@ public class PlayerAttacker : MonoBehaviour
   }
   public void HandleRtAction()
   {
-    
+    if (playerInventory.rightWeapon.weaponType is WeaponType.MeleeWeapon)
+    {
+      PerformRtMeleeAction();
+    }
   }
 
   #endregion
 
   #region Attack Actions
-  public void PerformRbMeleeAction()
+
+  private void PerformRbMeleeAction()
   {
       if (playerManager.canDoCombo)
       {
@@ -148,6 +158,25 @@ public class PlayerAttacker : MonoBehaviour
           return;
         HandleLightAttack(playerInventory.rightWeapon);
       }
+  }
+
+  private void PerformRtMeleeAction()
+  {
+    if (playerManager.canDoCombo)
+    {
+      inputHandler.comboFlag = true;
+      HandleWeaponCombo(playerInventory.rightWeapon);
+      inputHandler.comboFlag = false;
+    }
+    else
+    {
+      if (playerManager.isInteracting)
+        return;
+      if (playerManager.canDoCombo)
+        return;
+      HandleHeavyAttack(playerInventory.rightWeapon);
+    }
+    
   }
   public void PerformRbMagicAction(WeaponItem weapon)
   {
@@ -181,7 +210,12 @@ public class PlayerAttacker : MonoBehaviour
 
   public void AttemptBackStabOrRiposte()
   {
-    if (playerStats.currentStamina <= 0) return;
+    if (playerStats.currentStamina <= 0) return;//check stamina
+    if (playerInventory.rightWeapon.weaponType != WeaponType.MeleeWeapon)
+    {
+      Debug.Log("You are not holding a melee weapon");
+      return;
+    }// check weapon type for backstab
     RaycastHit hit;
     if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
           transform.TransformDirection(Vector3.forward),out hit, 0.5f, backStabLayer))
@@ -196,7 +230,7 @@ public class PlayerAttacker : MonoBehaviour
         }
         //todo: check for team ID
         //pull into a transform.positon so that the animation doesnt look off
-        playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,enemyCharacterManager.backStabCollider.backStabberPoint.position,Time.deltaTime);
+        playerManager.transform.position = Vector3.Lerp(playerManager.transform.position,enemyCharacterManager.criticalDamageColliders[0].criticalDamageTransformPoint.position,1/Time.deltaTime);
         //rotate towards target transform
         playerLocoMotion.RotateTowardsTarget(hit.transform);
         /*Vector3 rotationDir = playerManager.transform.root.eulerAngles;
@@ -214,5 +248,24 @@ public class PlayerAttacker : MonoBehaviour
         enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
       }
     }
+    else if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,
+                  transform.TransformDirection(Vector3.forward),out hit, 0.5f, riposteLayer))
+    {
+      CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+      DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+      if (enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
+      {
+        playerManager.transform.position =
+          enemyCharacterManager.criticalDamageColliders[1].criticalDamageTransformPoint.position;
+        playerLocoMotion.RotateTowardsTarget(hit.transform);
+        int criticalDamage = playerInventory.rightWeapon.criticalDamageMuiliplier *
+                             rightWeapon.weapondamage;
+        enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
+        playerAnimationHandler.PlayTargetAnimation("Stab",true);//play animation
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
+      }
+    }
+
+   
   }
 }
