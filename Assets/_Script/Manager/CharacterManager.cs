@@ -15,13 +15,14 @@ public class CharacterManager : MonoBehaviour
     [Header("Combat Flags")] 
     public bool canBeRiposted;
     public bool isParrying;
+    public bool canDoCombo;
     protected virtual void Awake()
     {
         criticalDamageColliders = GetComponentsInChildren<CriticalDamageCollider>();
         AssignCriticalDamageColliers();
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         
     }

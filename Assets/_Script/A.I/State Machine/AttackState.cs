@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,9 +16,19 @@ public class AttackState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        if (enemyManager.isInteracting) return this;
-        if (enemyManager.isPerformingAction) return this;
-        //HandleRotateTowardsTarget(enemyManager);
+        if (enemyManager.isInteracting && enemyManager.canDoCombo == false) return this;
+        HandleRotateTowardsTarget(enemyManager);
+        if (enemyManager.canBeRiposted) return this;
+        if(enemyManager.isInteracting && enemyManager.canDoCombo)
+        {
+            enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemyManager.canDoCombo = false;
+        }
+        if (enemyManager.isPerformingAction)
+        {
+            return combatStanceState;
+        }
+        
         if (currentAttack != null)
         {
             if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceNeededToAttack)//if too close, get a new attack
@@ -35,9 +46,18 @@ public class AttackState : State
                         enemyAnimationHandler.animator.SetFloat("Horizontal", 0,0.1f,Time.deltaTime);
                         enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
                         enemyManager.isPerformingAction = true;
-                        enemyManager.currentRecoverTime = currentAttack.recoveryTime;
-                        currentAttack = null;
-                        return combatStanceState;
+                        if (currentAttack.isComboAction)
+                        {
+                            currentAttack = currentAttack.comboAction;
+                            return this;
+                        }
+                        else
+                        {
+                            enemyManager.currentRecoverTime = currentAttack.recoveryTime;
+                            currentAttack = null;
+                            return combatStanceState;
+                        }
+                        
                     }
                 }
             }

@@ -12,7 +12,7 @@ public class Chest : Interactable
     [SerializeField] private GameObject itemSpawner;
     public WeaponItem itemInChest;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         animator = GetComponentInChildren<Animator>();

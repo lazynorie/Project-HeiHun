@@ -9,7 +9,7 @@ public class EnemyStats : CharacterStats
     public int exp = 50;
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
-    CapsuleCollider collider; 
+    CapsuleCollider enemyCapsuleCollider; 
     [Header("Respawn time")]
     [SerializeField]
     private float time;
@@ -28,7 +28,7 @@ public class EnemyStats : CharacterStats
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
         animator = GetComponentInChildren<Animator>();
-        collider = GetComponent<CapsuleCollider>();
+        enemyCapsuleCollider = GetComponent<CapsuleCollider>();
         isDead = false;
         time = 0f;
     }
@@ -72,7 +72,7 @@ public class EnemyStats : CharacterStats
     private void Respawn()
     {
         animator.CrossFade("Empty",0.3f);
-        collider.enabled = true;
+        enemyCapsuleCollider.enabled = true;
         currentHealth = maxHealth;
         isDead = false;
         time = 0f;

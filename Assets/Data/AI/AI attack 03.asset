@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa4747d931188e34d971c2d906b49545, type: 3}
-  m_Name: AI attack 01
+  m_Name: AI attack 03
   m_EditorClassIdentifier: 
-  actionAnimation: straight_sword_oh_heavy_attack_01
-  isComboAction: 1
+  actionAnimation: straight_sword_oh_light_attack_02
+  isComboAction: 0
   comboAction: {fileID: 0}
-  attackScore: 3
-  recoveryTime: 1
+  attackScore: 0
+  recoveryTime: 1.5
   maximumAttackAngle: 35
   minimumAttackAngle: -35
   minimumDistanceNeededToAttack: 0
-  maximumDistanceNeededToAttack: 1.5
+  maximumDistanceNeededToAttack: 2
   toolsTip: 

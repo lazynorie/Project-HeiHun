@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class ResetAnimatorBool : StateMachineBehaviour
 {
+    private CharacterManager characterManager;
     public string targetBool1;
     public bool status1;
 
@@ -16,7 +18,8 @@ public class ResetAnimatorBool : StateMachineBehaviour
     
     public string targetBool5;
     public bool status5;
-     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+
+    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool(targetBool1, status1);
@@ -25,5 +28,6 @@ public class ResetAnimatorBool : StateMachineBehaviour
         animator.SetBool(targetBool4, status4);
 
         animator.GetComponentInParent<CharacterManager>().canBeRiposted = false;
+        animator.GetComponentInParent<CharacterManager>().isParrying = false;
     }
 }

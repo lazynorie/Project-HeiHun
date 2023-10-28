@@ -17,16 +17,15 @@ public class PlayerManager : CharacterManager
     public bool isSprinting;
     public bool isInAir;
     public bool isGrounded;
-    public bool canDoCombo;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
     
-    private const int TargetFPS = 60;
+    public const int TargetFPS = 60;
     protected override void Awake()
     {
         base.Awake();
         //在这里设置目标FPS
-        Application.targetFrameRate = TargetFPS;
+        //Application.targetFrameRate = TargetFPS;
         //cameraHandler = FindObjectOfType<CameraHandler>();
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponentInChildren<Animator>();
@@ -49,7 +48,8 @@ public class PlayerManager : CharacterManager
         playerLocomotion.HandleRollingAndSprinting(delta);
         playerLocomotion.HandleFalling(delta,playerLocomotion.moveDirection);
     }
-    void Update()
+
+    protected override void Update()
     {
         float delta = Time.deltaTime;
         inputHandler.TickInput(delta);

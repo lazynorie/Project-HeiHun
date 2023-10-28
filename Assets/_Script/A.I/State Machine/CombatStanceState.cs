@@ -19,7 +19,7 @@ public class CombatStanceState : State
         {
             enemyAnimationHandler.animator.SetFloat("Vertical",0f,0.1f,Time.deltaTime);
         }
-        //HandleRotateTowardsTarget(enemyManager);
+        HandleRotateTowardsTarget(enemyManager);
         //check for attack range
         if (enemyManager.currentRecoverTime <=0 && enemyManager.distanceFromTarget <= enemyManager.attackRange)
         {

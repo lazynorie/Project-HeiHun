@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AI attack 02
   m_EditorClassIdentifier: 
   actionAnimation: straight_sword_oh_light_attack_01
+  isComboAction: 1
+  comboAction: {fileID: 11400000, guid: a6c1d8832f8a05d4699e9de0cec2c585, type: 2}
   attackScore: 4
   recoveryTime: 1.5
   maximumAttackAngle: 35

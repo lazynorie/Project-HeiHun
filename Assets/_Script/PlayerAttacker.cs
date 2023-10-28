@@ -270,6 +270,11 @@ public class PlayerAttacker : MonoBehaviour
         enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
         playerAnimationHandler.PlayTargetAnimation("Backstab_Stab",true);//play animation
         enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
+        if (enemyCharacterManager is EnemyManager)
+        {
+          var characterManager = (EnemyManager)enemyCharacterManager;
+          characterManager.currentTarget = playerStats;
+        }
       }
     }
     else if (Physics.Raycast(inputHandler.criticalAttackRaycastStartPoint.position,

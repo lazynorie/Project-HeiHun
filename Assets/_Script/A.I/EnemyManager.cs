@@ -29,7 +29,6 @@ public class EnemyManager : CharacterManager
     [SerializeField] bool turnOffAI;
     public State currentState;
     public float detectionRadius = 15f;
-    public bool canDoCombo;
     [Header("detection angles")]
     [SerializeField] public float minimumDetectionAngle = -50f;
     [SerializeField] public float maximumDetectionAngle = 50f;
@@ -53,16 +52,19 @@ public class EnemyManager : CharacterManager
         enemyRb.isKinematic = false;
     }
 
-    private void Update()
+    protected override void Update()
     {
         base.Update();
         GetParametersFromAnimationHandler();
         UpdateDistanceAndAngleFromTarget();
         HandleRecoveryTimer();
+        HandleStateMachine();
+        navMeshAgent.transform.localPosition = Vector3.zero;
+        navMeshAgent.transform.localRotation = Quaternion.identity;//important: to fix the navmesh agent going everywhere!
     }
     private void FixedUpdate()
     {
-        HandleStateMachine();
+        
     }
     private void HandleStateMachine()
     {
