@@ -87,7 +87,11 @@ public class PlayerAttacker : MonoBehaviour
 
     if (playerInventory.leftWeapon.weaponType is WeaponType.Shield)
     {
-      PerformBlock(); //perform Block
+      if (inputHandler.twoHandFlag)
+      {
+        //perform two hand charge attack
+      }
+      else PerformBlock(); //perform Block
     }
   }
   #endregion
@@ -243,7 +247,8 @@ public class PlayerAttacker : MonoBehaviour
   {
     if (playerManager.isInteracting) return;
     if (playerManager.isBlocking) return;
-    playerAnimationHandler.PlayTargetAnimation("Block Start",true);
+    //playerAnimationHandler.PlayTargetAnimation("Block Start",true);
+    playerAnimationHandler.PlayTargetAnimationWithRotation("Block Start", true, true);
     playerManager.isBlocking = true;
   }
   #endregion

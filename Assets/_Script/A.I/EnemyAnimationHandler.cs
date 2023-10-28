@@ -61,4 +61,12 @@ public class EnemyAnimationHandler : AnimationHandler
     {
         
     }
+    public void CanRotate()
+    {
+        //animator.SetBool("canRotate",true);
+    }
+    public void StopRotate()
+    {
+        //animator.SetBool("canRotate",false);
+    }
 }

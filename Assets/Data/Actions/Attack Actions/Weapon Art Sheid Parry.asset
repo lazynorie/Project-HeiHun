@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Weapon Art Sheid Parry
   m_EditorClassIdentifier: 
   uniqueID: 
-  animationName: Parry 01
+  animationName: Parry_Parry
   staminaConsum: 15

@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DamageCollider : MonoBehaviour
 {
-    public CharacterManager characterManager;
-    public int weapondamage = 25;
+    public CharacterManager weaponOwner;
+    public int weapondamage = 25; //pass through the weaponItem SO
     private BoxCollider dmgCollider;
 
     private void Awake()
     {
-        dmgCollider = GetComponent<BoxCollider>();
+        dmgCollider = GetComponentInChildren<BoxCollider>();
         dmgCollider.gameObject.SetActive(true);
         dmgCollider.isTrigger = true;
         dmgCollider.enabled = false;
@@ -37,7 +38,7 @@ public class DamageCollider : MonoBehaviour
                 if (enemyManager.isParrying)
                 {
                     //check here if you are parryable
-                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
+                    weaponOwner.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
                 }
             }
@@ -55,7 +56,7 @@ public class DamageCollider : MonoBehaviour
                 if (manager.isParrying)
                 {
                     //check here if you are parryable
-                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
+                    weaponOwner.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
                 }
             }
@@ -63,6 +64,14 @@ public class DamageCollider : MonoBehaviour
             {
                 enemyStats.TakeDamage(weapondamage);
             }
+        }
+        else if (other.tag is "Shield")
+        {
+            Debug.Log("You hit a shield");
+            BlockingCollider shield = other.GetComponent<BlockingCollider>();
+            float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEffiency) / 100;
+            shield.shieldOwner.GetComponent<PlayerStats>().TakeDamage(Mathf.FloorToInt(damageAfterBlock),"Block Hit");
+            
         }
     }
 }

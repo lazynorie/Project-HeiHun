@@ -80,7 +80,7 @@ public class PlayerStats : CharacterStats
       maxMana = manaLevel * 5 + 50;
       return maxMana;
    }
-   public void TakeDamage(int damage)
+   public void TakeDamage(int damage, string animation = "Getting Hit")
    {
       if (isDead) return;
       if (!playerManager.isInvulnerable)
@@ -89,7 +89,7 @@ public class PlayerStats : CharacterStats
       
          healthBar.SetCurrentHealth(currentHealth);
       
-         animHandler.PlayTargetAnimation("Getting Hit", true);
+         animHandler.PlayTargetAnimation(animation, true);
       }
 
       if (currentHealth <=0)

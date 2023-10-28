@@ -19,6 +19,8 @@ public class PlayerManager : CharacterManager
     public bool isGrounded;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
+    [Header("Player Rotation")]
+    public bool canRotate;
 
     private const int TargetFPS = 165;
     protected override void Awake()
@@ -47,6 +49,7 @@ public class PlayerManager : CharacterManager
         playerLocomotion.HandleMovement(delta);
         playerLocomotion.HandleRollingAndSprinting(delta);
         playerLocomotion.HandleFalling(delta,playerLocomotion.moveDirection);
+        playerLocomotion.HandleRotation();
     }
 
     protected override void Update()
@@ -58,6 +61,8 @@ public class PlayerManager : CharacterManager
         isUsingRightHand = animator.GetBool("isUsingRightHand");
         isUsingLeftHand = animator.GetBool("isUsingLeftHand");
         isInvulnerable = animator.GetBool("isInvulnerable");
+        //canRotate = animator.GetBool("canRotate");
+        playerAnimationHandler.canRotate = animator.GetBool("canRotate");
         animator.SetBool("isBlocking",isBlocking);
         CheckForInteractableObject();
     }

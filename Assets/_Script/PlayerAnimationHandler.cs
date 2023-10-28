@@ -9,7 +9,6 @@ public class PlayerAnimationHandler : AnimationHandler
     public PlayerLocalmotion playerLocalmotion;
     private int vertical;
     private int horizontal;
-    public bool canRotate;
 
     protected void Awake()
     {
@@ -93,11 +92,11 @@ public class PlayerAnimationHandler : AnimationHandler
     }
     public void CanRotate()
     {
-        canRotate = true;
+        animator.SetBool("canRotate",true);
     }
     public void StopRotate()
     {
-        canRotate = false;
+        animator.SetBool("canRotate",false);
     }
     public void EnableCombo()
     {
