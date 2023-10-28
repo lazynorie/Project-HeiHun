@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.Serialization;
 
 public class PlayerAttacker : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private PlayerStats playerStats;
   [SerializeField] private PlayerLocalmotion playerLocoMotion;
   private WeaponSlotManager weaponSlotManager;
-  public ActionAttack lastAttack;
+  [FormerlySerializedAs("lastAttack")] public AttackAction last;
   private bool hasEnoughMana;
   private bool hasEnoughStamina;
   [SerializeField] private LayerMask backStabLayer;
@@ -64,7 +65,7 @@ public class PlayerAttacker : MonoBehaviour
       PerformRtMeleeAction();
     }
   }
-  public void HandleLtAction()
+  public void HandleLtTapAction()
   {
     if (playerInventory.leftWeapon.weaponType == WeaponType.Shield)
     {
@@ -76,33 +77,44 @@ public class PlayerAttacker : MonoBehaviour
       
     }
   }
+
+  public void HandleLtHoldAction()
+  {
+    if (inputHandler.twoHandFlag)
+    {
+      
+    }
+
+    if (playerInventory.leftWeapon.weaponType is WeaponType.Shield)
+    {
+      PerformBlock(); //perform Block
+    }
+  }
   #endregion
 
   #region Attack Actions
-
-   
   private void HandleLightAttack(WeaponItem weapon)
   {
     if (playerStats.currentStamina <= 0) return;
     if (inputHandler.twoHandFlag)
     {
-      if (weapon.TH_light_attack_01 == null)//
+      if (weapon.thLight01 == null)//
       {
         Debug.Log("TH_light_attack_01 animation not assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_01.animationName,true);
-      lastAttack = weapon.TH_light_attack_01;
+      playerAnimationHandler.PlayTargetAnimation(weapon.thLight01.animationName,true);
+      last = weapon.thLight01;
     }//two hand light attack
     else//one hand light attack
     {
-      if (weapon.ohLightActionAttack1 == null)
+      if (weapon.ohLightAttackActionAttack1 == null)
       {
         Debug.Log("ohLightActionAttack1 is not assigned");
         return;
       }
-      playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack1.animationName, true);
-      lastAttack = weapon.ohLightActionAttack1;
+      playerAnimationHandler.PlayTargetAnimation(weapon.ohLightAttackActionAttack1.animationName, true);
+      last = weapon.ohLightAttackActionAttack1;
     }
   }
   private void HandleHeavyAttack(WeaponItem weapon)
@@ -110,23 +122,23 @@ public class PlayerAttacker : MonoBehaviour
     if (playerStats.currentStamina <= 0) return;
     if (inputHandler.twoHandFlag)//handle two hand heavy attack
     {
-      if (weapon.TH_heavy_attack_01 == null)
+      if (weapon.thHeavy01 == null)
       {
         Debug.Log("TH_heavy_attack_01 not assigned");
         return;
       }
-      playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack_01.animationName,true);
-      lastAttack = weapon.TH_heavy_attack_01;
+      playerAnimationHandler.PlayTargetAnimation(weapon.thHeavy01.animationName,true);
+      last = weapon.thHeavy01;
     }
     else//handle one hand heavy attack
     {
-      if (weapon.ohHeavyActionAttack1 == null)
+      if (weapon.ohHeavyAttackActionAttack1 == null)
       {
         Debug.Log("ohHeavyActionAttack1 not Assigned");
         return;
       }//null check
-      playerAnimationHandler.PlayTargetAnimation(weapon.ohHeavyActionAttack1.animationName,true);
-      lastAttack = weapon.ohHeavyActionAttack1;
+      playerAnimationHandler.PlayTargetAnimation(weapon.ohHeavyAttackActionAttack1.animationName,true);
+      last = weapon.ohHeavyAttackActionAttack1;
     }
   }
   private void HandleWeaponCombo(WeaponItem weapon)
@@ -135,22 +147,22 @@ public class PlayerAttacker : MonoBehaviour
     if (inputHandler.comboFlag)
     {
       playerAnimationHandler.animator.SetBool("canDoCombo", false);
-      if (lastAttack == weapon.ohLightActionAttack1)
+      if (last == weapon.ohLightAttackActionAttack1)
       {
-        if (weapon.ohLightActionAttack2 == null)
+        if (weapon.ohLightAttackActionAttack2 == null)
         {
           Debug.Log("ohLightActionAttack2 not assigned");
           return;
         }
-        playerAnimationHandler.PlayTargetAnimation(weapon.ohLightActionAttack2.animationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.ohLightAttackActionAttack2.animationName, true);
       }
-      else if (lastAttack == weapon.TH_heavy_attack_01)
+      else if (last == weapon.thHeavy01)
       {
-        playerAnimationHandler.PlayTargetAnimation(weapon.TH_heavy_attack_02.animationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.thHeavy02.animationName, true);
       }
-      else if (lastAttack == weapon.TH_light_attack_01)
+      else if (last == weapon.thLight01)
       {
-        playerAnimationHandler.PlayTargetAnimation(weapon.TH_light_attack_02.animationName, true);
+        playerAnimationHandler.PlayTargetAnimation(weapon.thLight02.animationName, true);
       }
       
     }
@@ -223,6 +235,16 @@ public class PlayerAttacker : MonoBehaviour
   {
     //todo: check mana here if you want the casting animation to go through
     playerInventory.currentSpell.SuccessfulCastSpell(playerAnimationHandler,playerStats);
+  }
+  #endregion
+
+  #region Defensive Actions
+  private void PerformBlock()
+  {
+    if (playerManager.isInteracting) return;
+    if (playerManager.isBlocking) return;
+    playerAnimationHandler.PlayTargetAnimation("Block Start",true);
+    playerManager.isBlocking = true;
   }
   #endregion
   public void CheckIfPlayerHasEnoughMana(int requiredMana)

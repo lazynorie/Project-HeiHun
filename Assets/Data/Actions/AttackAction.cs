@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Action/AttackAction")]
-public class ActionAttack : ScriptableObject
+[CreateAssetMenu(menuName = "Action/Attack Action")]
+public class AttackAction : ScriptableObject
 {
    public string uniqueID;
    public string animationName;

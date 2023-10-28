@@ -12,9 +12,8 @@ public class EnemyAnimationHandler : AnimationHandler
         enemyStats = GetComponentInParent<EnemyStats>();
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
         animator.SetBool("isDead",enemyStats.isDead);
         animator.SetBool("canBeRiposted", enemyManager.canBeRiposted);
     }

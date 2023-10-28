@@ -15,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     [Header("Combat Flags")] 
     public bool canBeRiposted;
     public bool isParrying;
+    public bool isBlocking;
     public bool canDoCombo;
     protected virtual void Awake()
     {

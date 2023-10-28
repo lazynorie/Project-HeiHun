@@ -320,16 +320,18 @@ public class InputHandler : MonoBehaviour
       }
       else
       {
-        playerAttacker.HandleLtAction();//parry with shield
+        playerAttacker.HandleLtTapAction();//parry with shield
       }
       //left hand weapon art
-      
     }
 
     if (ltHoldInput)
     {
-      //block with shield
-      //charging left hand attack
+      playerAttacker.HandleLtHoldAction();
+    }
+    else if (!ltHoldInput)
+    {
+      playerManager.isBlocking = false;
     }
   }
   private void ListeningToInput()

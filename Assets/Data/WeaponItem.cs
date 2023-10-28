@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Item/Weapon Item")]
 public class WeaponItem : Item
@@ -9,20 +10,20 @@ public class WeaponItem : Item
 
     [Header("Damage")] public int baseDamage =25;
     public int criticalDamageMuiliplier = 4;
-    [Header("one hand attack animation")] 
-    public ActionAttack ohLightActionAttack1;
-    public ActionAttack ohLightActionAttack2;
-    public ActionAttack ohHeavyActionAttack1;
+    [FormerlySerializedAs("ohLightActionAttack1")] [Header("one hand attack animation")] 
+    public AttackAction ohLightAttackActionAttack1;
+    [FormerlySerializedAs("ohLightActionAttack2")] public AttackAction ohLightAttackActionAttack2;
+    [FormerlySerializedAs("ohHeavyActionAttack1")] public AttackAction ohHeavyAttackActionAttack1;
 
 
-    [Header("two hand attack animation")] 
-    public ActionAttack TH_light_attack_01;
-    public ActionAttack TH_light_attack_02;
-    public ActionAttack TH_heavy_attack_01;
-    public ActionAttack TH_heavy_attack_02;
+    [FormerlySerializedAs("TH_light_attack_01")] [Header("two hand attack animation")] 
+    public AttackAction thLight01;
+    [FormerlySerializedAs("TH_light_attack_02")] public AttackAction thLight02;
+    [FormerlySerializedAs("TH_heavy_attack_01")] public AttackAction thHeavy01;
+    [FormerlySerializedAs("TH_heavy_attack_02")] public AttackAction thHeavy02;
     
     [Header("Weapon Art")] 
-    public ActionAttack weaponArt;
+    public AttackAction weaponArt;
 
     [Header("idle animation")] 
     public string right_hand_idle;

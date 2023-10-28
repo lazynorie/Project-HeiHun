@@ -11,7 +11,7 @@ public class PlayerAnimationHandler : AnimationHandler
     private int horizontal;
     public bool canRotate;
 
-    public void Initialize()
+    protected void Awake()
     {
         playerManager = GetComponentInParent<PlayerManager>();
         playerStats = GetComponentInParent<PlayerStats>();
@@ -23,6 +23,11 @@ public class PlayerAnimationHandler : AnimationHandler
         horizontal = Animator.StringToHash("Horizontal");
         animator.SetBool("isDead", playerStats.isDead);
         animator.SetBool("canBeRiposted", playerManager.canBeRiposted);
+    }
+
+    public void Initialize()
+    {
+        
     }
     public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
     {

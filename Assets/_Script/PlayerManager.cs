@@ -19,8 +19,8 @@ public class PlayerManager : CharacterManager
     public bool isGrounded;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
-    
-    public const int TargetFPS = 60;
+
+    private const int TargetFPS = 165;
     protected override void Awake()
     {
         base.Awake();
@@ -58,7 +58,7 @@ public class PlayerManager : CharacterManager
         isUsingRightHand = animator.GetBool("isUsingRightHand");
         isUsingLeftHand = animator.GetBool("isUsingLeftHand");
         isInvulnerable = animator.GetBool("isInvulnerable");
-        
+        animator.SetBool("isBlocking",isBlocking);
         CheckForInteractableObject();
     }
     private void LateUpdate()
@@ -76,7 +76,7 @@ public class PlayerManager : CharacterManager
             playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
         }
         
-        float delta = Time.deltaTime;
+        float delta = Time.fixedDeltaTime;
         if (cameraHandler != null)
         {
             cameraHandler.FollowTarget(delta);

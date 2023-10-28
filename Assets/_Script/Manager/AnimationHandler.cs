@@ -1,14 +1,13 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
     public Animator animator;
+    protected CharacterManager characterManagerManager;
 
-    protected virtual void Update()
-    {
-        
-    }
+    
     public void PlayTargetAnimation(string targetAnim, bool isInteracting)
     {
         animator.applyRootMotion = isInteracting;
