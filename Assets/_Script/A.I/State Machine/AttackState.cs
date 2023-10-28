@@ -16,16 +16,16 @@ public class AttackState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        if (enemyManager.isInteracting && enemyManager.canDoCombo == false) return this;
+        if (enemyManager.isInteracting/* && enemyManager.canDoCombo == false*/) return this;
         HandleRotateTowardsTarget(enemyManager);
-        if (enemyManager.canBeRiposted) return this;
-        if(enemyManager.isInteracting && enemyManager.canDoCombo)
+        /*if(/*enemyManager.isInteracting && #1#enemyManager.canDoCombo)
         {
             enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
             enemyManager.canDoCombo = false;
-        }
+        }*/
         if (enemyManager.isPerformingAction)
         {
+            currentAttack = null;
             return combatStanceState;
         }
         

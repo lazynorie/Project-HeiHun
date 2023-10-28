@@ -95,6 +95,7 @@ public class PlayerStats : CharacterStats
       if (currentHealth <=0)
       {
          currentHealth = 0;
+         isDead = true;
          animHandler.PlayTargetAnimation("dead01", true);
          OnPlayerDeath?.Invoke();
          //玩家死亡逻辑
