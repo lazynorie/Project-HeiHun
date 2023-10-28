@@ -36,6 +36,7 @@ public class PlayerManager : CharacterManager
     }
     void Start()
     {
+        
         cameraHandler = CameraHandler.singleton;
 
         //the interactableUIobject has to be set to active for this line to work, or assign the gameobject in editor.

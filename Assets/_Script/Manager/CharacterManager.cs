@@ -21,6 +21,11 @@ public class CharacterManager : MonoBehaviour
         AssignCriticalDamageColliers();
     }
 
+    protected void Update()
+    {
+        
+    }
+
     private void AssignCriticalDamageColliers()
     {
         backStabBoxCollider = criticalDamageColliders[0];

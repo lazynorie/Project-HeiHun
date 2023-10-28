@@ -37,7 +37,7 @@ public class DamageCollider : MonoBehaviour
                 if (enemyManager.isParrying)
                 {
                     //check here if you are parryable
-                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parried", true);
+                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
                 }
             }
@@ -55,7 +55,7 @@ public class DamageCollider : MonoBehaviour
                 if (manager.isParrying)
                 {
                     //check here if you are parryable
-                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parried", true);
+                    characterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
                 }
             }

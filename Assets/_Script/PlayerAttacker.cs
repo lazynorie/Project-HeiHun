@@ -268,7 +268,7 @@ public class PlayerAttacker : MonoBehaviour
         int criticalDamage = playerInventory.rightWeapon.criticalDamageMuiliplier *
                              rightWeapon.weapondamage;
         enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
-        playerAnimationHandler.PlayTargetAnimation("Stab",true);//play animation
+        playerAnimationHandler.PlayTargetAnimation("Backstab_Stab",true);//play animation
         enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
       }
     }
@@ -288,8 +288,9 @@ public class PlayerAttacker : MonoBehaviour
         int criticalDamage = playerInventory.rightWeapon.criticalDamageMuiliplier *
                              rightWeapon.weapondamage;
         enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
-        playerAnimationHandler.PlayTargetAnimation("Stab",true);//play animation
-        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("CriticalAttackFront",true);//enemy play animation
+        playerAnimationHandler.PlayTargetAnimation("Parry_Stab",true);//play animation
+        enemyCharacterManager.canBeRiposted = false;
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Stabbed",true);//enemy play animation
       }
     }
   }

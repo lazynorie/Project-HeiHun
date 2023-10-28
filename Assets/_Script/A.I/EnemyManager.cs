@@ -55,6 +55,7 @@ public class EnemyManager : CharacterManager
 
     private void Update()
     {
+        base.Update();
         GetParametersFromAnimationHandler();
         UpdateDistanceAndAngleFromTarget();
         HandleRecoveryTimer();

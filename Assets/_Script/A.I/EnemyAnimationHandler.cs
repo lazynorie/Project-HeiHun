@@ -5,16 +5,18 @@ public class EnemyAnimationHandler : AnimationHandler
 {
     private EnemyManager enemyManager;
     private EnemyStats enemyStats;
-    private void Awake()
+    protected void Awake()
     {
         enemyManager = GetComponentInParent<EnemyManager>();
         animator = GetComponent<Animator>();
         enemyStats = GetComponentInParent<EnemyStats>();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         animator.SetBool("isDead",enemyStats.isDead);
+        animator.SetBool("canBeRiposted", enemyManager.canBeRiposted);
     }
 
     private void OnAnimatorMove()// velocity of enemy is totally base on animation
@@ -34,14 +36,12 @@ public class EnemyAnimationHandler : AnimationHandler
     {
         animator.SetBool("canDoCombo", false);
     }
-
     public override void TakeCriticalDamageAnimationEvent()
     {
         base.TakeCriticalDamageAnimationEvent();
         enemyStats.TakeDamageWithOutAnimation(enemyStats.pendingCriticalDamage);
         enemyStats.pendingCriticalDamage = 0;
     }
-    
     public void EnableParry()
     {
         enemyManager.isParrying = true;
@@ -50,17 +50,14 @@ public class EnemyAnimationHandler : AnimationHandler
     {
         enemyManager.isParrying = false;
     }
-
     public void EnableCanBeRiposted()
     {
         enemyManager.canBeRiposted = true;
     }
-
     public void DisableCanBeRiposted()
     {
         enemyManager.canBeRiposted = false;
     }
-
     public void CosumeStamina()
     {
         

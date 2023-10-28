@@ -22,6 +22,7 @@ public class PlayerAnimationHandler : AnimationHandler
         vertical = Animator.StringToHash("Vertical");
         horizontal = Animator.StringToHash("Horizontal");
         animator.SetBool("isDead", playerStats.isDead);
+        animator.SetBool("canBeRiposted", playerManager.canBeRiposted);
     }
     public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
     {
