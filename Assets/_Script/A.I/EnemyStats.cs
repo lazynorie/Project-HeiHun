@@ -38,12 +38,12 @@ public class EnemyStats : CharacterStats
         maxHealth = healthLevel * 10;
         return maxHealth;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, string animationName = "Getting Hit")
     {
         if (isDead)
             return;
         currentHealth = currentHealth - damage;
-        animator.Play("Getting Hit");
+        animator.Play(animationName);
         if (currentHealth <=0)
         {
             isDead = true;

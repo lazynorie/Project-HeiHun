@@ -34,7 +34,7 @@ public class DamageCollider : MonoBehaviour
             PlayerStats playerStats = other.GetComponent<PlayerStats>();
             CharacterManager enemyManager = other.GetComponent<CharacterManager>();
             BlockingCollider shield = other.transform.GetComponentInChildren<BlockingCollider>();
-            if (enemyManager!=null)
+            if (enemyManager != null)
             {
                 if (enemyManager.isParrying)
                 {
@@ -52,6 +52,7 @@ public class DamageCollider : MonoBehaviour
                     }
                 }
             }
+
             if (playerStats != null)
             {
                 playerStats.TakeDamage(weapondamage);
@@ -61,7 +62,9 @@ public class DamageCollider : MonoBehaviour
         {
             EnemyStats enemyStats = other.GetComponent<EnemyStats>();
             CharacterManager manager = other.GetComponent<CharacterManager>();
-            if (manager!=null)
+            BlockingCollider shield1 = other.transform.GetComponentInChildren<BlockingCollider>();
+
+            if (manager != null)
             {
                 if (manager.isParrying)
                 {
@@ -69,19 +72,30 @@ public class DamageCollider : MonoBehaviour
                     weaponOwner.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
                 }
+                else if (manager.isBlocking && shield1 != null)
+                {
+                    float damageAfterBlock = weapondamage - (weapondamage * shield1.blockingEfficiency) / 100;
+                    if (enemyStats != null)
+                    {
+                        enemyStats.TakeDamage((int)damageAfterBlock, "Block Impact");
+                        return;
+                    }
+                }
+
+                if (enemyStats != null)
+                {
+                    enemyStats.TakeDamage(weapondamage);
+                }
             }
-            if (enemyStats != null)
+            else if (other.tag is "Shield")
             {
-                enemyStats.TakeDamage(weapondamage);
+                Debug.Log("You hit a shield");
+                BlockingCollider shield = other.GetComponent<BlockingCollider>();
+                float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEfficiency) / 100;
+                shield.shieldOwner.GetComponent<PlayerStats>()
+                    .TakeDamage(Mathf.FloorToInt(damageAfterBlock), "Block Hit");
+
             }
-        }
-        else if (other.tag is "Shield")
-        {
-            Debug.Log("You hit a shield");
-            BlockingCollider shield = other.GetComponent<BlockingCollider>();
-            float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEfficiency) / 100;
-            shield.shieldOwner.GetComponent<PlayerStats>().TakeDamage(Mathf.FloorToInt(damageAfterBlock),"Block Hit");
-            
         }
     }
 }
