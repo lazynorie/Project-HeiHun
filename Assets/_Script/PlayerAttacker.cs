@@ -248,7 +248,7 @@ public class PlayerAttacker : MonoBehaviour
     if (playerManager.isInteracting) return;
     if (playerManager.isBlocking) return;
     //playerAnimationHandler.PlayTargetAnimation("Block Start",true);
-    playerAnimationHandler.PlayTargetAnimationWithRotation("Block Start", true, true);
+    playerAnimationHandler.PlayTargetAnimationWithRotation("Block Start", false, true);
     playerManager.isBlocking = true;
   }
   #endregion
