@@ -33,6 +33,7 @@ public class DamageCollider : MonoBehaviour
         {
             PlayerStats playerStats = other.GetComponent<PlayerStats>();
             CharacterManager enemyManager = other.GetComponent<CharacterManager>();
+            BlockingCollider shield = other.transform.GetComponentInChildren<BlockingCollider>();
             if (enemyManager!=null)
             {
                 if (enemyManager.isParrying)
@@ -40,6 +41,15 @@ public class DamageCollider : MonoBehaviour
                     //check here if you are parryable
                     weaponOwner.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Parry_Parried", true);
                     return;
+                }
+                else if (enemyManager.isBlocking && shield != null)
+                {
+                    float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEfficiency) / 100;
+                    if (playerStats != null)
+                    {
+                        playerStats.TakeDamage((int)damageAfterBlock, "Block Impact");
+                        return;
+                    }
                 }
             }
             if (playerStats != null)
@@ -69,7 +79,7 @@ public class DamageCollider : MonoBehaviour
         {
             Debug.Log("You hit a shield");
             BlockingCollider shield = other.GetComponent<BlockingCollider>();
-            float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEffiency) / 100;
+            float damageAfterBlock = weapondamage - (weapondamage * shield.blockingEfficiency) / 100;
             shield.shieldOwner.GetComponent<PlayerStats>().TakeDamage(Mathf.FloorToInt(damageAfterBlock),"Block Hit");
             
         }

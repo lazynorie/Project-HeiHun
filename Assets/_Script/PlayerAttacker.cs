@@ -14,6 +14,7 @@ public class PlayerAttacker : MonoBehaviour
   [SerializeField] private PlayerManager playerManager;
   [SerializeField] private PlayerStats playerStats;
   [SerializeField] private PlayerLocalmotion playerLocoMotion;
+  [SerializeField] private PlayerEquipmentManager playerEquipmentManager;
   private WeaponSlotManager weaponSlotManager;
   [FormerlySerializedAs("lastAttack")] public AttackAction last;
   private bool hasEnoughMana;
@@ -26,6 +27,7 @@ public class PlayerAttacker : MonoBehaviour
   private void Awake()
   {
     playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
+    playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
     inputHandler = GetComponentInParent<InputHandler>();
     playerInventory = GetComponentInParent<PlayerInventory>();
     playerManager = GetComponentInParent<PlayerManager>();
@@ -77,7 +79,6 @@ public class PlayerAttacker : MonoBehaviour
       
     }
   }
-
   public void HandleLtHoldAction()
   {
     if (inputHandler.twoHandFlag)
@@ -249,6 +250,7 @@ public class PlayerAttacker : MonoBehaviour
     if (playerManager.isBlocking) return;
     //playerAnimationHandler.PlayTargetAnimation("Block Start",true);
     playerAnimationHandler.PlayTargetAnimationWithRotation("Block Start", false, true);
+    playerEquipmentManager.OpenBlockingCollider();
     playerManager.isBlocking = true;
   }
   #endregion

@@ -22,12 +22,12 @@ public class PlayerManager : CharacterManager
     [Header("Player Rotation")]
     public bool canRotate;
 
-    private const int TargetFPS = 165;
+    private const int TargetFPS = 120;
     protected override void Awake()
     {
         base.Awake();
         //在这里设置目标FPS
-        //Application.targetFrameRate = TargetFPS;
+        Application.targetFrameRate = TargetFPS;
         //cameraHandler = FindObjectOfType<CameraHandler>();
         inputHandler = GetComponent<InputHandler>();
         animator = GetComponentInChildren<Animator>();

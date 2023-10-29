@@ -78,7 +78,6 @@ GameObject:
   - component: {fileID: 8950586422643249430}
   - component: {fileID: 6597977880569437728}
   - component: {fileID: 4534048277544898559}
-  - component: {fileID: 4934287571103408135}
   m_Layer: 0
   m_Name: SM_Wep_Shield_05
   m_TagString: Shield
@@ -192,17 +191,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponOwner: {fileID: 0}
   weapondamage: 25
---- !u!114 &4934287571103408135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8995485868332226718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c30acd4443f1e4a9c8c358626693d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockingEffiency: 0
-  shieldOwner: {fileID: 0}
