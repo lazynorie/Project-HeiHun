@@ -49,6 +49,8 @@ public class InputHandler : MonoBehaviour
   private UIManager uiManager;
   private WeaponSlotManager weaponSlotManager;
   private BlockingCollider blockingCollider;
+  private PlayerAnimationHandler playerAnimationHandler;
+  private PlayerVFXManager playerVFXManager;
 
   public Vector2 movementInput;
   Vector2 cameraInput;
@@ -64,6 +66,8 @@ public class InputHandler : MonoBehaviour
     weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
     playerAttacker = GetComponentInChildren<PlayerAttacker>();
     blockingCollider = GetComponentInChildren<BlockingCollider>();
+    playerAnimationHandler = GetComponentInChildren<PlayerAnimationHandler>();
+    playerVFXManager = GetComponentInChildren<PlayerVFXManager>();
   }
 
   public void OnEnable()
@@ -146,6 +150,7 @@ public class InputHandler : MonoBehaviour
     HandleTwoHandInput();
     HandleCriticalHitInput();
     HandleLTInput();
+    HandleXInput();
   }
   public void FixedTickInput(float delta)//rb related tick inputs goes here
   {
@@ -175,6 +180,16 @@ public class InputHandler : MonoBehaviour
       rollFlag = true;
     }
     sprintFlag = bInputHold;
+  }
+
+  private void HandleXInput()//
+  {
+    if (xInput)
+    {
+      Debug.Log("X is pressed this frame.");
+      xInput = false;
+      playerInventory.currentConsumableItem.AttemptToConsumeItem(playerAnimationHandler,weaponSlotManager,playerVFXManager);
+    }
   }
   private void HandleAttackInput(float delta)
   {
@@ -345,6 +360,7 @@ public class InputHandler : MonoBehaviour
   }
   private void ListeningToInput()
   {
+    xInput = inputActions.PlayerAction.X.WasPerformedThisFrame();
     aInput = inputActions.PlayerAction.A.WasPressedThisFrame();
     dPadUp = inputActions.QuickSlotsInput.DPadUp.WasPressedThisFrame();
     dPadDown = inputActions.QuickSlotsInput.DPadDown.WasPressedThisFrame();

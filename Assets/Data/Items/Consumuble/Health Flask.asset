@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aad19204d8d6534f8bd36902526be4c, type: 3}
+  m_Name: Health Flask
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: Healing Flask
+  maxAmount: 5
+  currentAmount: 5
+  itemModel: {fileID: 7073672307340475630, guid: 547ff6e5ed7eece448f79fa7bda5cd02, type: 3}
+  consumableAnimation: Potion_Drink
+  isInteracting: 0
+  flaskType: 0
+  healthRestoreAmount: 100
+  manaRestoreAmount: 100
+  recoveryVFX: {fileID: 0}

@@ -149,7 +149,7 @@ public class PlayerStats : CharacterStats
          }
       }
    }
-   private void HealPlayer(int healAmount)
+   public void HealPlayer(int healAmount)
    {
       if (currentHealth < maxHealth)
       {

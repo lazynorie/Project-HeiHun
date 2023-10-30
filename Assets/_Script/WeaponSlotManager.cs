@@ -4,7 +4,7 @@ public class WeaponSlotManager : MonoBehaviour
 {
    private PlayerManager playerManager;
    private WeaponHolderSlot leftHandSlot;
-   private WeaponHolderSlot rightHandSlot;
+   public WeaponHolderSlot rightHandSlot;
    private WeaponHolderSlot backSlot;
    private WeaponHolderSlot shieldSlot;
    private PlayerInventory playerInventory;
@@ -114,6 +114,16 @@ public class WeaponSlotManager : MonoBehaviour
          //update UI on the screen when swapping weapons
          quickSlotsUI.UpdateWeaponQuickSlotsUI(false,weaponItem);
       }
+   }
+   public void LoadBothWeaponOnSlot()
+   {
+      LoadWeaponOnSlot(playerInventory.rightWeapon,false);
+      LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+   }
+
+   public void ReloadRightHandWeaponOnSlot()
+   {
+      LoadWeaponOnSlot(playerInventory.rightWeapon,false);
    }
    #region Handle Weapon Damage Collider
    private void LoadLeftWeaponDamageCollider()

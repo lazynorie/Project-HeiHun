@@ -6,15 +6,6 @@
             "id": "193861d6-f952-439d-bd61-a4c1b7bd5bdb",
             "actions": [
                 {
-                    "name": "Roll",
-                    "type": "Button",
-                    "id": "a60afbb4-812b-4bb0-b440-fc847b79a7d3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap,Hold",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LT",
                     "type": "Button",
                     "id": "30e85dfa-2043-4bea-9768-921582966550",
@@ -69,6 +60,33 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "a60afbb4-812b-4bb0-b440-fc847b79a7d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap,Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "X",
+                    "type": "Button",
+                    "id": "c42b163d-3a2e-4250-91bc-fdb5ad0a3817",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Y",
+                    "type": "Button",
+                    "id": "746eb26c-e0e2-4277-8beb-240674508c9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Start",
                     "type": "Button",
                     "id": "5c35ef83-046d-4a31-a6d3-fd2bc835368e",
@@ -81,15 +99,6 @@
                     "name": "LockOn",
                     "type": "Button",
                     "id": "480a23ce-0305-49a6-b1fd-49872a3d86ad",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Y",
-                    "type": "Button",
-                    "id": "746eb26c-e0e2-4277-8beb-240674508c9b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -133,28 +142,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "e0ced437-388e-4532-8675-56342cab7ba3",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "Tap,Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "94a5c375-0472-4ae2-a6f4-f28803b127a7",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "Tap,Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "e63ab01f-9ddb-4af3-8614-e49ba80c7179",
@@ -262,28 +249,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "LockOn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "56fed71d-6ae2-43a1-ad4f-c8c0d0173535",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Y",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50dc2b65-53ef-443f-8ede-5f8b88c512ee",
-                    "path": "<Keyboard>/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Y",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -526,6 +491,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "LB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71551056-5454-4430-b778-4b0659ab17dd",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "febd68b9-a818-44d6-b212-302baa151a35",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56fed71d-6ae2-43a1-ad4f-c8c0d0173535",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50dc2b65-53ef-443f-8ede-5f8b88c512ee",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0ced437-388e-4532-8675-56342cab7ba3",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Tap,Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94a5c375-0472-4ae2-a6f4-f28803b127a7",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Tap,Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
