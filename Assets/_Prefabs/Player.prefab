@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &285488121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285488122}
+  - component: {fileID: 285488124}
+  - component: {fileID: 285488123}
+  m_Layer: 9
+  m_Name: Blocking Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &285488122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285488121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8966903016932754797}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &285488124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285488121}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5735774, y: 0.94022775, z: 0.0936594}
+  m_Center: {x: 0.0056307316, y: 0.9569998, z: 0.2979827}
+--- !u!114 &285488123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285488121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c30acd4443f1e4a9c8c358626693d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingCollider: {fileID: 0}
+  blockingEfficiency: 0
+  shieldOwner: {fileID: 0}
 --- !u!1 &605032265
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +246,7 @@ Transform:
   - {fileID: 8966903017628307527}
   - {fileID: 8966903017521472779}
   - {fileID: 638676748549271749}
+  - {fileID: 285488122}
   m_Father: {fileID: 8966903017696220954}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -517,15 +579,18 @@ MonoBehaviour:
   riposteCollider: {fileID: 0}
   criticalDamageColliders: []
   canBeRiposted: 0
+  isParrying: 0
+  isBlocking: 0
+  canDoCombo: 0
   cameraHandler: {fileID: 0}
   isInteracting: 0
   isInvulnerable: 0
   isSprinting: 0
   isInAir: 0
   isGrounded: 1
-  canDoCombo: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
+  canRotate: 0
 --- !u!114 &8966903017696220958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,8 +616,9 @@ MonoBehaviour:
   xInput: 0
   yInput: 0
   rbTapInput: 0
-  raTapInput: 0
   rtTapInput: 0
+  ltTapInput: 0
+  ltHoldInput: 0
   criticalHitInput: 0
   dPadUp: 0
   dPadDown: 0
@@ -640,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1083fec2f854a42ad2f94ee17fa971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 10
+  healthLevel: 100
   maxHealth: 0
   currentHealth: 0
   staminaLevel: 10
@@ -841,6 +907,7 @@ GameObject:
   - component: {fileID: 8966903018578381563}
   - component: {fileID: 8966903018578381560}
   - component: {fileID: 8971093768367289681}
+  - component: {fileID: 1968869064}
   m_Layer: 9
   m_Name: Humanoid Model
   m_TagString: Untagged
@@ -933,9 +1000,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  canRotate: 1
   inputHandler: {fileID: 0}
   playerLocalmotion: {fileID: 0}
-  canRotate: 1
 --- !u!114 &8971093768367289681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -954,7 +1021,8 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   playerStats: {fileID: 0}
   playerLocoMotion: {fileID: 0}
-  lastAttack: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
+  last: {fileID: 0}
   backStabLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -962,6 +1030,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   hitObject: {fileID: 0}
+--- !u!114 &1968869064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967519730735729531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0b2b1c6be417d4693d85a9dadd6275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingCollider: {fileID: 285488123}
 --- !u!1 &8967521017240805773
 GameObject:
   m_ObjectHideFlags: 0
@@ -6253,9 +6334,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  canRotate: 1
   inputHandler: {fileID: 0}
   playerLocalmotion: {fileID: 0}
-  canRotate: 1
 --- !u!4 &8933575630051282225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 523fec55b1c51fb4884b93bee2c8a0ae, type: 3}

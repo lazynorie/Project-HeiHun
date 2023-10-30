@@ -9,6 +9,8 @@ public class AttackState : State
     public EnemyAttackAction[] enemyAttacks;
     public EnemyAttackAction currentAttack;
     private CombatStanceState combatStanceState;
+
+    private bool performComboNextAttack = false;
     private void Start()
     {
         AssignStateMachineManager();
@@ -16,19 +18,21 @@ public class AttackState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        if (enemyManager.isInteracting/* && enemyManager.canDoCombo == false*/) return this;
-        HandleRotateTowardsTarget(enemyManager);
-        /*if(/*enemyManager.isInteracting && #1#enemyManager.canDoCombo)
+        if (enemyManager.isInteracting && enemyManager.canDoCombo == false) return this;
+        if(enemyManager.isInteracting && enemyManager.canDoCombo)
         {
-            enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
-            enemyManager.canDoCombo = false;
-        }*/
+            if (performComboNextAttack)
+            {
+                enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
+                enemyManager.canDoCombo = false;
+            }
+            
+        }
+        HandleRotateTowardsTarget(enemyManager);
         if (enemyManager.isPerformingAction)
         {
-            currentAttack = null;
             return combatStanceState;
         }
-        
         if (currentAttack != null)
         {
             if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceNeededToAttack)//if too close, get a new attack
@@ -46,7 +50,8 @@ public class AttackState : State
                         enemyAnimationHandler.animator.SetFloat("Horizontal", 0,0.1f,Time.deltaTime);
                         enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
                         enemyManager.isPerformingAction = true;
-                        if (currentAttack.isComboAction)
+                        RollForComboChange(enemyManager);
+                        if (currentAttack.isComboAction && performComboNextAttack)
                         {
                             currentAttack = currentAttack.comboAction;
                             return this;
@@ -57,7 +62,6 @@ public class AttackState : State
                             currentAttack = null;
                             return combatStanceState;
                         }
-                        
                     }
                 }
             }
@@ -137,5 +141,13 @@ public class AttackState : State
                 enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
         }
     }
-
+    private void RollForComboChange(EnemyManager enemyManager)
+    {
+        float comboChance = Random.Range(0, 100);
+        if (enemyManager.allowAIToPeformCombos && comboChance <= enemyManager.comboLikelyHood)
+        {
+            performComboNextAttack = true;
+        }
+        else performComboNextAttack = false;
+    }
 }

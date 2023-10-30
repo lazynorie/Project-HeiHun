@@ -29,6 +29,9 @@ public class EnemyManager : CharacterManager
     [SerializeField] bool turnOffAI;
     public State currentState;
     public float detectionRadius = 15f;
+    public bool allowAIToPeformCombos;
+    [Range(0,100)]
+    public int comboLikelyHood;
     [Header("detection angles")]
     [SerializeField] public float minimumDetectionAngle = -50f;
     [SerializeField] public float maximumDetectionAngle = 50f;
