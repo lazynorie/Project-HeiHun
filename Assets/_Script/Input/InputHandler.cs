@@ -242,25 +242,23 @@ public class InputHandler : MonoBehaviour
   }
   private void HandleLockOnButtonInput()
   {
-    if (lockOnInput && !lockOnFlag)
+    if (lockOnInput && !lockOnFlag)//lock on if there's no current lock on target
     {
       cameraHandler.HandleLockOn();
       if (cameraHandler.nearestLockOnTarget != null)
       {
-        Debug.Log("lock on");
         cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
         cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
         lockOnFlag = true;
       }
     }
-    else if(lockOnInput && lockOnFlag)
+    else if(lockOnInput && lockOnFlag) //deactivate lock on if lock on is on
     {
       lockOnFlag = false;
       cameraHandler.ClearLockOnTargets();
     }
-    if (lockOnFlag && rightStickLeftInput)
+    if (lockOnFlag && rightStickLeftInput) //change lock on target
     {
-      Debug.Log("rightStickLeft");
       cameraHandler.HandleLockOn();
       if (cameraHandler.leftLockTarget != null)
       {
@@ -273,9 +271,8 @@ public class InputHandler : MonoBehaviour
         Debug.Log(cameraHandler.leftLockTarget.ToString());
       }
     }
-    if (lockOnFlag && rightStickRightInput)
+    if (lockOnFlag && rightStickRightInput) //change lock on target
     {
-      Debug.Log("rightStickRight");
       cameraHandler.HandleLockOn();
       if (cameraHandler.rightLockTarget != null)
       {

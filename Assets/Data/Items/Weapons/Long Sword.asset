@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Long Sword
   modelPrefab: {fileID: 93483267085740, guid: 30b4e150d25ccba41bf0c5956e779877, type: 3}
   isUnarmed: 0
-  baseDamage: 31
+  baseDamage: 10
   criticalDamageMuiliplier: 4
   blockingEfficiency: 0
   ohLightAttackActionAttack1: {fileID: 11400000, guid: 531362527906dd64890d1ba1d74fa4cf, type: 2}
