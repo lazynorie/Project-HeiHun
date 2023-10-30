@@ -4,33 +4,27 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     private EnemyManager enemyManager;
-    public static event Action<int> OnEnemyDeath; 
+    public static event Action<int> OnEnemyDeath;
+    public UI_EnenmyHealthBar enenmyHealthBar;
     public float respawnTimer;
     public int exp = 50;
-    private Vector3 spawnPosition;
-    private Quaternion spawnRotation;
     CapsuleCollider enemyCapsuleCollider; 
-    [Header("Respawn time")]
-    [SerializeField]
-    private float time;
-    
     private Animator animator;
 
     private void Awake()
     {
         enemyManager = GetComponent<EnemyManager>();
+        enenmyHealthBar = GetComponentInChildren<UI_EnenmyHealthBar>();
     }
 
     private void Start()
     {
-        spawnPosition = transform.position;
-        spawnRotation = transform.rotation;
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
         animator = GetComponentInChildren<Animator>();
         enemyCapsuleCollider = GetComponent<CapsuleCollider>();
+        enenmyHealthBar.SetMaxHealth(maxHealth);
         isDead = false;
-        time = 0f;
     }
     private int SetMaxHealthFromHealthLevel()
     {
@@ -42,7 +36,8 @@ public class EnemyStats : CharacterStats
     {
         if (isDead)
             return;
-        currentHealth = currentHealth - damage;
+        currentHealth -= damage;
+        enenmyHealthBar.SetCurrentHealth(currentHealth);
         animator.Play(animationName);
         if (currentHealth <=0)
         {
@@ -58,7 +53,8 @@ public class EnemyStats : CharacterStats
     {
         if (isDead)
             return;
-        currentHealth = currentHealth - damage;
+        currentHealth -= damage;
+        enenmyHealthBar.SetCurrentHealth(currentHealth);
         if (currentHealth <=0)
         {
             isDead = true;
@@ -75,7 +71,6 @@ public class EnemyStats : CharacterStats
         enemyCapsuleCollider.enabled = true;
         currentHealth = maxHealth;
         isDead = false;
-        time = 0f;
         enemyManager.currentState = GetComponentInChildren<StateMachineManager>().idleState;
     }
 }

@@ -249,6 +249,7 @@ public class InputHandler : MonoBehaviour
       {
         Debug.Log("lock on");
         cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+        cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
         lockOnFlag = true;
       }
     }
@@ -263,7 +264,9 @@ public class InputHandler : MonoBehaviour
       cameraHandler.HandleLockOn();
       if (cameraHandler.leftLockTarget != null)
       {
+        cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().DisableHealthBar();
         cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+        cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
       }
       else
       {
@@ -276,7 +279,10 @@ public class InputHandler : MonoBehaviour
       cameraHandler.HandleLockOn();
       if (cameraHandler.rightLockTarget != null)
       {
+        cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().DisableHealthBar();
         cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
+        cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
+
       }
       else
       {

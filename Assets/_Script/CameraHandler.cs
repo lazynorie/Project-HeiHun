@@ -113,7 +113,6 @@ public class CameraHandler : MonoBehaviour
             float zangle = Mathf.LerpAngle(cameraPivotTransform.localEulerAngles.z, eularAngle.z, 0.5f);
             cameraPivotTransform.localEulerAngles = new Vector3(xangle, 0, zangle);
             //cameraPivotTransform.localEulerAngles = eularAngle;
-
         }
     }
     private void HandleCameraCollision(float delta)
