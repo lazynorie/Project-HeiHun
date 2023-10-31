@@ -27,7 +27,10 @@ public class PlayerVFXManager : MonoBehaviour
     {
         playerStats.RestorePlayerHealthPoints(restoringHPAmount);
         playerStats.RestorePlayerManaPoints(restoringManaAmount);
-        //todo: GameObject healingParticles = Instantiate(currentVFX, playerStats.transform);
+        if (currentVFX != null)
+        {
+            GameObject healingParticles = Instantiate(currentVFX, playerStats.transform);
+        }
         Destroy(instantiatedVFXmodel.gameObject);
         if (inputHandler.twoHandFlag)//load right hand weapon only if player is 2h
         {

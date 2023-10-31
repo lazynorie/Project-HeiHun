@@ -22,4 +22,4 @@ MonoBehaviour:
   flaskType: 0
   healthRestoreAmount: 100
   manaRestoreAmount: 0
-  recoveryVFX: {fileID: 0}
+  recoveryVFX: {fileID: 100748, guid: cd4d7020429cde74db076ffa72495419, type: 3}
