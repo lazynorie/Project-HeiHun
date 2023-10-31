@@ -30,6 +30,7 @@ public class PlayerVFXManager : MonoBehaviour
         if (currentVFX != null)
         {
             GameObject healingParticles = Instantiate(currentVFX, playerStats.transform);
+            Destroy(healingParticles,2);
         }
         Destroy(instantiatedVFXmodel.gameObject);
         if (inputHandler.twoHandFlag)//load right hand weapon only if player is 2h
