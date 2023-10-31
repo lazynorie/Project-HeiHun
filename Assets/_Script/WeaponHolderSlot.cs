@@ -4,6 +4,7 @@ public class WeaponHolderSlot : MonoBehaviour
 {
     public Transform parentOverride;
     public WeaponItem currentWeapon;
+    public WeaponHolderSlotType weaponHolderSlotType;
     public bool isLeftHandSlot;
     public bool isRightHandSlot;
     public bool isBackSlot;
@@ -57,4 +58,12 @@ public class WeaponHolderSlot : MonoBehaviour
            Destroy(currentWeaponModel);
         }
     }
+}
+
+public enum WeaponHolderSlotType
+{
+    LeftHandSlot,
+    RightHandSlot,
+    BackSlot,
+    ShieldOnBackSlot
 }

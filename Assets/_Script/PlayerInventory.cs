@@ -4,12 +4,15 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
   private WeaponSlotManager weaponSlotManager;
+  
+  [Header("Current Quick Slots")]
   public ConsumableItem currentConsumableItem;
   public SpellItem currentSpell;
   public WeaponItem rightWeapon;
   public WeaponItem leftWeapon;
   public WeaponItem unarmedWeapon;
-  
+  [Header("Current Equipment")]
+  public HelmetEquiment currentHelmet;
   [Header("Equipped Weapons Inventory")]
   public int currentRightWeaponIndex = -1;
   public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[4];
