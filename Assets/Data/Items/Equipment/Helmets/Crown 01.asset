@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: Crown 01
-  phyDefense: 0
+  phyDefense: 2
+  healthLevel: 0
+  manaLevel: 0
   helmetModelName: SM_Chr_Attach_King_Crown_01

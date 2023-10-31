@@ -13,14 +13,16 @@ public class PlayerInventory : MonoBehaviour
   public WeaponItem unarmedWeapon;
   [Header("Current Equipment")]
   public HelmetEquiment currentHelmet;
+  public RingEquipmentScript currentLeftRing;
+  public RingEquipmentScript currentRightRing;
   [Header("Equipped Weapons Inventory")]
   public int currentRightWeaponIndex = -1;
   public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[4];
   public int currentLeftWeaponIndex = -1;
   public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[4];
-  [Header("Inactive Weapon Inventory")]
-//list for player weapons
+  [Header("Inactive Equipment Inventory")]
   public List<WeaponItem> weaponInventory;
+  public List<EquipmentItem> equipmentItems;
   
   private void Awake()
   {

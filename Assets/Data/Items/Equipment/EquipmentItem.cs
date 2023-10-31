@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class EquipmentItem : Item
 {
-    [Header("Defense Stats")] 
+    [Header("Stats")] 
     public float phyDefense;
+
+    public float healthLevel;
+
+    public float manaLevel;
+    
     //magic defense
     private PlayerStats playerStats;
     

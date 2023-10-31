@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: Soldier Helmet
-  phyDefense: 0
+  phyDefense: 5
+  healthLevel: 0
+  manaLevel: 0
   helmetModelName: SM_Chr_Attach_Soldier_01
