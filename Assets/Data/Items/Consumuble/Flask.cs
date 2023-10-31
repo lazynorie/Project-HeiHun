@@ -28,7 +28,8 @@ public class Flask : ConsumableItem
         }
         else Debug.Log("assign VFX to flask");
         GameObject flask = Instantiate(itemModel, weaponSlotManager.rightHandSlot.transform);
-        playerVFXManager.restoringAmount = healthRestoreAmount;
+        playerVFXManager.restoringHPAmount = healthRestoreAmount;
+        playerVFXManager.restoringManaAmount = manaRestoreAmount;
         playerVFXManager.instantiatedVFXmodel = flask;
         //spawn flask model in player hand and play drinking animation
         weaponSlotManager.rightHandSlot.UnloadWeapon();

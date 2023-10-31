@@ -25,12 +25,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     private void Start()
     {
-        helmetSlotManager.UnequipAllHelmetModels();
-        helmetSlotManager.EquipHelmetModelByName(playerInventory.currentHelmet.helmetModelName);
-        leftRingSlot.UnequipAllRingsModels();
-        leftRingSlot.EquipRingModelByName(playerInventory.currentLeftRing.RingModelName);
-        rightRingSlot.UnequipAllRingsModels();
-        rightRingSlot.EquipRingModelByName(playerInventory.currentRightRing.RingModelName);
+        EquipAllEquipmentOnSlots();
     }
 
     public void OpenBlockingCollider()
@@ -53,6 +48,9 @@ public class PlayerEquipmentManager : MonoBehaviour
         blockingCollider.DisableBlockingCollider();
     }
 
+    /// <summary>
+    /// simply assign rings slots to left hand ringslot or righthand ringslot
+    /// </summary>
     private void AssignRingSlots()
     {
         foreach (var manager in ringSlotManagers)
@@ -68,4 +66,22 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
     }
 
+    private void EquipAllEquipmentOnSlots()
+    {
+        if (playerInventory.currentHelmet != null)
+        {
+            helmetSlotManager.UnequipAllHelmetModels();
+            helmetSlotManager.EquipHelmetModelByName(playerInventory.currentHelmet.helmetModelName);
+        }
+        if (playerInventory.currentLeftRing != null)
+        {
+            leftRingSlot.UnequipAllRingsModels();
+            leftRingSlot.EquipRingModelByName(playerInventory.currentLeftRing.RingModelName);
+        }
+        if (playerInventory.currentRightRing != null)
+        {
+            rightRingSlot.UnequipAllRingsModels();
+            rightRingSlot.EquipRingModelByName(playerInventory.currentRightRing.RingModelName);
+        }
+    }
 }

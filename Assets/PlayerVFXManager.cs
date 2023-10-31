@@ -13,7 +13,8 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject currentVFX;
 
     public GameObject instantiatedVFXmodel;
-    public int restoringAmount;
+    public int restoringHPAmount;
+    public int restoringManaAmount;
 
     private void Awake()
     {
@@ -24,10 +25,11 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void HealPlayerFromEffect()
     {
-        playerStats.HealPlayer(restoringAmount);
+        playerStats.RestorePlayerHealthPoints(restoringHPAmount);
+        playerStats.RestorePlayerManaPoints(restoringManaAmount);
         //todo: GameObject healingParticles = Instantiate(currentVFX, playerStats.transform);
         Destroy(instantiatedVFXmodel.gameObject);
-        if (inputHandler.twoHandFlag)
+        if (inputHandler.twoHandFlag)//load right hand weapon only if player is 2h
         {
             weaponSlotManager.ReloadRightHandWeaponOnSlot();
             return;

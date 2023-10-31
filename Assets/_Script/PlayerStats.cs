@@ -44,7 +44,7 @@ public class PlayerStats : CharacterStats
    {
       SetUpPlayerStats();
       EnemyStats.OnEnemyDeath += IncreasePlayerSolCount;
-      HealingSpell.OnHealingSpellCast += HealPlayer;
+      HealingSpell.OnHealingSpellCast += RestorePlayerHealthPoints;
       SpellItem.OnSpellSuccessfullyCast += DrainMana;
    }
 
@@ -149,13 +149,26 @@ public class PlayerStats : CharacterStats
          }
       }
    }
-   public void HealPlayer(int healAmount)
+   public void RestorePlayerHealthPoints(int healAmount)
    {
       if (currentHealth < maxHealth)
       {
          currentHealth += healAmount;
       }
       healthBar.SetCurrentHealth(currentHealth);
+   }
+
+   public void RestorePlayerManaPoints(int restoreAmount)
+   {
+      if (currentMana < maxMana)
+      {
+         currentMana += restoreAmount;
+      }
+      if (currentMana >= maxMana)
+      {
+         currentMana = maxMana;
+      }
+      manaBar.SetCurrentMana(currentMana);
    }
    public void HealPlayerOverTime(float healrate, float lastTime)
    {
