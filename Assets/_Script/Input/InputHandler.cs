@@ -281,10 +281,6 @@ public class InputHandler : MonoBehaviour
         cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
         cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
       }
-      else
-      {
-        Debug.Log(cameraHandler.leftLockTarget.ToString());
-      }
     }
     if (lockOnFlag && rightStickRightInput) //change lock on target
     {
@@ -294,11 +290,6 @@ public class InputHandler : MonoBehaviour
         cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().DisableHealthBar();
         cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
         cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
-
-      }
-      else
-      {
-        Debug.Log(cameraHandler.rightLockTarget.ToString());
       }
     }
   }

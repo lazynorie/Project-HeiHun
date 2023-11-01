@@ -59,7 +59,7 @@ public class DamageCollider : MonoBehaviour
                 playerStats.TakeDamage(weapondamage);
             }
         }
-        else if (other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             Debug.Log("you hit " + other);
             EnemyStats enemyStats = other.GetComponent<EnemyStats>();
@@ -90,6 +90,11 @@ public class DamageCollider : MonoBehaviour
                 }
             }
             
+        }
+        if (other.tag is "MagicWall")
+        {
+            MagicalWallScript magicalWallScript = other.GetComponent<MagicalWallScript>();
+            magicalWallScript.isHit = true;
         }
         /*else if (other.tag is "Shield")
         {

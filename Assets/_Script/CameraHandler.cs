@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -58,8 +59,14 @@ public class CameraHandler : MonoBehaviour
     private void Start()
     {
         //ignoreLayer = ~(1 << 8 | 1 << 9 | 1 << 10);
-        //enviromentLayer = LayerMask.NameToLayer("Environment");
+        enviromentLayer = LayerMask.NameToLayer("Environment");
     }
+
+    private void Update()
+    {
+        CheckIfEnvironmentBlockLos();
+    }
+
     public void FollowTarget(float delta)
     {
         //Vector3 targetPosition = Vector3.Lerp(myTransform.position, tragetTransform.position, delta / followSpeed);
@@ -248,6 +255,19 @@ public class CameraHandler : MonoBehaviour
         }
     }
 
+    private void CheckIfEnvironmentBlockLos()//run this in update
+    {
+        if (currentLockOnTarget != null)
+        {
+            RaycastHit hit;
+            Physics.Linecast(cameraPivotTransform.position, currentLockOnTarget.lockOnTransform.position, out hit);
+            if (hit.transform.gameObject.layer == enviromentLayer)
+            {
+                inputHandler.lockOnFlag = false;
+                ClearLockOnTargets();
+            }
+        }
+    }
     void OnDrawGizmos()
     {
         if (currentHitObject)
