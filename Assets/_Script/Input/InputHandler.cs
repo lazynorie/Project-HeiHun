@@ -270,6 +270,7 @@ public class InputHandler : MonoBehaviour
     else if(lockOnInput && lockOnFlag) //deactivate lock on if lock on is on
     {
       lockOnFlag = false;
+      cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().DisableHealthBar();
       cameraHandler.ClearLockOnTargets();
     }
     if (lockOnFlag && rightStickLeftInput) //change lock on target

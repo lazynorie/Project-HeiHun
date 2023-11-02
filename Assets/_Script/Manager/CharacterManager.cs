@@ -12,6 +12,7 @@ public class CharacterManager : MonoBehaviour
     public CriticalDamageCollider riposteCollider;
     [FormerlySerializedAs("backStabCollider")] public CriticalDamageCollider[] criticalDamageColliders;
 
+    [Header("Movement Flags")] public bool isUsingRootmotion;
     [Header("Combat Flags")] 
     public bool canBeRiposted;
     public bool isParrying;

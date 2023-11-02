@@ -26,6 +26,11 @@ public class EnemyAnimationHandler : AnimationHandler
         deltaPosition.y = 0;
         Vector3 velocity = deltaPosition / delta;
         enemyManager.enemyRb.velocity = velocity;
+
+        if (enemyManager.isUsingRootmotion)
+        {
+            enemyManager.transform.rotation *= animator.deltaRotation;
+        }
     }
     public void EnableCombo()
     {

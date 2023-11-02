@@ -249,7 +249,7 @@ public class PlayerAttacker : MonoBehaviour
     if (playerManager.isInteracting) return;
     if (playerManager.isBlocking) return;
     //playerAnimationHandler.PlayTargetAnimation("Block Start",true);
-    playerAnimationHandler.PlayTargetAnimationWithRotation("Block Start", false, true);
+    playerAnimationHandler.PlayTargetAnimation("Block Start", false, true);
     playerEquipmentManager.OpenBlockingCollider();
     playerManager.isBlocking = true;
   }
@@ -298,7 +298,7 @@ public class PlayerAttacker : MonoBehaviour
                              rightWeapon.weapondamage;
         enemyCharacterManager.GetComponent<EnemyStats>().pendingCriticalDamage = criticalDamage;
         playerAnimationHandler.PlayTargetAnimation("Backstab_Stab",true);//play animation
-        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimation("Stabbed",true);//enemy play animation
+        enemyCharacterManager.GetComponentInChildren<AnimationHandler>().PlayTargetAnimationWithRootRotation("Stabbed",true);//enemy play animation
         if (enemyCharacterManager is EnemyManager)
         {
           var characterManager = (EnemyManager)enemyCharacterManager;

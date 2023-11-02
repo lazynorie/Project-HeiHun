@@ -12,6 +12,7 @@ public class StateMachineManager : MonoBehaviour
     public CombatStanceState combatStanceState;
     public AttackState attackState;
     public AmbushState ambushState;
+    public RotateState rotateState;
     
     public void Initialize()
     {
@@ -38,6 +39,9 @@ public class StateMachineManager : MonoBehaviour
                     break;
                 case AmbushState:
                     ambushState = (AmbushState)state;
+                    break;
+                case RotateState :
+                    rotateState = (RotateState)state;
                     break;
             }
         }

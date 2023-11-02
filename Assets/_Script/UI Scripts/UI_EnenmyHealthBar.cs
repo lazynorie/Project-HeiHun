@@ -50,14 +50,14 @@ public class UI_EnenmyHealthBar : MonoBehaviour
         if (slider.value <= 0)
         {
             //Destroy(slider.gameObject);
-            gameObject.SetActive(false);
+            slider.gameObject.SetActive(false);
         }
     }
 
     public void EnableHealthBar()
     {
         slider.gameObject.SetActive(true);
-        timeUntilBarIsHidden = 5;
+        timeUntilBarIsHidden = 99;
     }
 
     public void DisableHealthBar()

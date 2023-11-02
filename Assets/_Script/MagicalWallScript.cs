@@ -10,7 +10,7 @@ public class MagicalWallScript : MonoBehaviour
     private Material magicalWallMaterial;
     public float alpha;
     public float fadeTimer = 2.5f;
-    private MeshCollider collider;
+    private MeshCollider meshCollider;
     private MeshRenderer meshRenderer;
     
     private AudioSource audioSource;
@@ -18,7 +18,7 @@ public class MagicalWallScript : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<MeshCollider>();
+        meshCollider = GetComponent<MeshCollider>();
         audioSource = GetComponent<AudioSource>();
         meshRenderer = GetComponent<MeshRenderer>();
         magicalWallMaterial = new Material(defaultMaterial);
@@ -48,9 +48,9 @@ public class MagicalWallScript : MonoBehaviour
         Color fadedWallColor = new Color(1, 1, 1, alpha);
         magicalWallMaterial.color = fadedWallColor;
 
-        if (collider.enabled)
+        if (meshCollider.enabled)
         {
-            collider.enabled = false;
+            meshCollider.enabled = false;
             audioSource.PlayOneShot(soundClip);
         }
 

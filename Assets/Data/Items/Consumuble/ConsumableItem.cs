@@ -17,7 +17,7 @@ public class ConsumableItem : Item
     {
         if (currentAmount > 0)
         {
-            anim.PlayTargetAnimationWithRotation(consumableAnimation, isInteracting, true);            
+            anim.PlayTargetAnimation(consumableAnimation, isInteracting, true);            
         }
         else
         {

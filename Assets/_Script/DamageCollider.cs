@@ -36,7 +36,7 @@ public class DamageCollider : MonoBehaviour
             BlockingCollider shield = other.transform.GetComponentInChildren<BlockingCollider>();
             if (enemyManager != null)
             {
-                Debug.Log("you hit " + other);
+                //Debug.Log("you hit " + other);
                 if (enemyManager.isParrying)
                 {
                     //check here if you are parryable
@@ -61,7 +61,7 @@ public class DamageCollider : MonoBehaviour
         }
         if (other.tag == "Enemy")
         {
-            Debug.Log("you hit " + other);
+            //Debug.Log("you hit " + other);
             EnemyStats enemyStats = other.GetComponent<EnemyStats>();
             CharacterManager manager = other.GetComponent<CharacterManager>();
             BlockingCollider shield1 = other.transform.GetComponentInChildren<BlockingCollider>();

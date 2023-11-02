@@ -119,5 +119,6 @@ public class EnemyManager : CharacterManager
     {
         isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
         canDoCombo = enemyAnimationHandler.animator.GetBool("canDoCombo");
+        isUsingRootmotion = enemyAnimationHandler.animator.GetBool("isUsingRootmotion");
     }
 }
