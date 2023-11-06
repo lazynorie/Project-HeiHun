@@ -15,7 +15,6 @@ public class EnemyManager : CharacterManager
     public float distanceFromTarget;
     public float viewableAngle;
     public float rotationSpeed = 25f;
-    public float attackRange = 5f;
 
     public Rigidbody enemyRb;
     
@@ -29,6 +28,8 @@ public class EnemyManager : CharacterManager
     [SerializeField] bool turnOffAI;
     public State currentState;
     public float detectionRadius = 15f;
+    public float aggroRange = 5f;
+    [Header("A.I combo")]
     public bool allowAIToPeformCombos;
     [Range(0,100)]
     public int comboLikelyHood;
@@ -120,5 +121,6 @@ public class EnemyManager : CharacterManager
         isInteracting = enemyAnimationHandler.animator.GetBool("isInteracting");
         canDoCombo = enemyAnimationHandler.animator.GetBool("canDoCombo");
         isUsingRootmotion = enemyAnimationHandler.animator.GetBool("isUsingRootmotion");
+        canRotate = enemyAnimationHandler.animator.GetBool("canRotate");
     }
 }

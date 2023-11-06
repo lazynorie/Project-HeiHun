@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AI attack 01
   m_EditorClassIdentifier: 
   actionAnimation: straight_sword_oh_heavy_attack_01
-  isComboAction: 1
+  isComboAction: 0
   comboAction: {fileID: 0}
   attackScore: 3
   recoveryTime: 3

@@ -11,6 +11,7 @@ public class AttackState : State
     private CombatStanceState combatStanceState;
 
     private bool performComboNextAttack = false;
+    public bool hasPerformedAttack = false;//don't forget to reset this in combatstance state
     private void Start()
     {
         AssignStateMachineManager();
@@ -18,61 +19,45 @@ public class AttackState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
-        if (enemyManager.isInteracting && enemyManager.canDoCombo == false) return this;
-        if(enemyManager.isInteracting && enemyManager.canDoCombo)
+        RotateTowardsTargetWhenAttacking(enemyManager);
+        if (enemyManager.distanceFromTarget >= enemyManager.aggroRange)
         {
-            if (performComboNextAttack)
-            {
-                enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
-                enemyManager.canDoCombo = false;
-            }
-            
+            return stateMachineManager.pursueTargetState;
         }
-        HandleRotateTowardsTarget(enemyManager);
-        if (enemyManager.isPerformingAction)
+
+        if (performComboNextAttack && enemyManager.canDoCombo )
         {
-            return combatStanceState;
+            AttackTargetWithCombo(enemyAnimationHandler, enemyManager);
         }
-        if (currentAttack != null)
+
+        if (!hasPerformedAttack)
         {
-            if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceNeededToAttack)//if too close, get a new attack
-            {
-                return combatStanceState;
-            }
-            else if (enemyManager.distanceFromTarget < currentAttack.maximumDistanceNeededToAttack)
-            {
-                if (enemyManager.viewableAngle <= currentAttack.maximumAttackAngle 
-                    && enemyManager.viewableAngle >= currentAttack.minimumAttackAngle)
-                {
-                    if (enemyManager.currentRecoverTime <= 0 && enemyManager.isPerformingAction == false)
-                    {
-                        enemyAnimationHandler.animator.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
-                        enemyAnimationHandler.animator.SetFloat("Horizontal", 0,0.1f,Time.deltaTime);
-                        enemyAnimationHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
-                        enemyManager.isPerformingAction = true;
-                        RollForComboChange(enemyManager);
-                        if (currentAttack.isComboAction && performComboNextAttack)
-                        {
-                            currentAttack = currentAttack.comboAction;
-                            return this;
-                        }
-                        else
-                        {
-                            enemyManager.currentRecoverTime = currentAttack.recoveryTime;
-                            currentAttack = null;
-                            return combatStanceState;
-                        }
-                    }
-                }
-            }
+            AttackTarget(enemyAnimationHandler, enemyManager);
+            RollForComboChange(enemyManager);
         }
-        else
+
+        if (hasPerformedAttack && performComboNextAttack)
         {
-            GetNewAttack(enemyManager);
+            return this;
         }
-        return combatStanceState;
+
+        return stateMachineManager.rotateState;
     }
-    private void GetNewAttack(EnemyManager enemyManager)
+
+    private void AttackTarget(EnemyAnimationHandler animationHandler, EnemyManager enemyManager)
+    {
+        animationHandler.PlayTargetAnimation(currentAttack.actionAnimation,true);
+        enemyManager.currentRecoverTime = currentAttack.recoveryTime; //set new cd timer
+        hasPerformedAttack = true;
+    }
+    private void AttackTargetWithCombo(EnemyAnimationHandler animationHandler, EnemyManager enemyManager)
+    {
+        performComboNextAttack = false;
+        enemyManager.currentRecoverTime = currentAttack.recoveryTime; //set new cd timer
+        animationHandler.PlayTargetAnimation(currentAttack.actionAnimation,true);
+        currentAttack = null;
+    }
+    /*private void GetNewAttack(EnemyManager enemyManager)
     {
         int maxScore = 0;
 
@@ -112,11 +97,10 @@ public class AttackState : State
                 }
             }
         }
-    }
-    
-    private void HandleRotateTowardsTarget(EnemyManager enemyManager)
+    }*/
+    private void RotateTowardsTargetWhenAttacking(EnemyManager enemyManager)
     {
-        if (enemyManager.isPerformingAction)//rotate manually
+        if (enemyManager.canRotate && enemyManager.isInteracting)//rotate manually
         {
             Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             direction.y = 0;
@@ -129,25 +113,23 @@ public class AttackState : State
             enemyManager.transform.rotation =
                 Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed/Time.deltaTime);
         }
-        else//rotate with pathfinding
-        {
-            Vector3 relativeDir = transform.InverseTransformDirection(enemyManager.navMeshAgent.desiredVelocity);
-            Vector3 targetVelocity = enemyManager.enemyRb.velocity;
-
-            enemyManager.navMeshAgent.enabled = true;
-            enemyManager.navMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-            enemyManager.enemyRb.velocity = targetVelocity;
-            enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation,
-                enemyManager.navMeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
-        }
     }
+
     private void RollForComboChange(EnemyManager enemyManager)
     {
         float comboChance = Random.Range(0, 100);
-        if (enemyManager.allowAIToPeformCombos && comboChance <= enemyManager.comboLikelyHood)
+        if (enemyManager.allowAIToPeformCombos 
+            && comboChance <= enemyManager.comboLikelyHood
+            && currentAttack.comboAction != null)
         {
             performComboNextAttack = true;
+            currentAttack = currentAttack.comboAction;
         }
-        else performComboNextAttack = false;
+        else
+        {
+            performComboNextAttack = false;
+            currentAttack = null;
+        }
     }
+
 }

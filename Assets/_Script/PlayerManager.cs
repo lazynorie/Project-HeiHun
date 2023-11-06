@@ -19,9 +19,7 @@ public class PlayerManager : CharacterManager
     public bool isGrounded;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
-    [Header("Player Rotation")]
-    public bool canRotate;
-
+    
     private const int TargetFPS = 120;
     protected override void Awake()
     {

@@ -18,6 +18,7 @@ public class CharacterManager : MonoBehaviour
     public bool isParrying;
     public bool isBlocking;
     public bool canDoCombo;
+    [Header("Rotation")] public bool canRotate;
     protected virtual void Awake()
     {
         criticalDamageColliders = GetComponentsInChildren<CriticalDamageCollider>();

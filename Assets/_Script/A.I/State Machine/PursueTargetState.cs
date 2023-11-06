@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PursueTargetState : State
 {
@@ -15,28 +17,34 @@ public class PursueTargetState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+        float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
+        HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset
+
+        if (viewableAngle > 65 || viewableAngle <-65)
+        {
+            return stateMachineManager.rotateState;
+        }
         if (enemyManager.isInteracting)
             return this;
-        //chase the target
-        if (enemyManager.isPerformingAction)
+        if (enemyManager.isPerformingAction)//if ai is performing action stop all movements
         {
-            enemyAnimationHandler.animator.SetFloat("Vertical",0f,0f,Time.deltaTime);
+            enemyAnimationHandler.animator.SetFloat("Vertical",0f);
+            enemyAnimationHandler.animator.SetFloat("Horizontal", 0f);
             return this;
         }
-        if (enemyManager.distanceFromTarget > enemyManager.attackRange)
-        {
-            enemyAnimationHandler.animator.SetFloat("Vertical",1f,0.1f,Time.deltaTime);
-        }
-        HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset
-        ResetNavmeshLocationRotation(enemyManager);
-        if (enemyManager.distanceFromTarget <= enemyManager.attackRange)//if within attack range, switch to combat stance state
+        if (enemyManager.distanceFromTarget <= enemyManager.aggroRange)//if within attack range, switch to combat stance state
         {
             return combatStanceState;
         }
-        else
+        //chase the target
+       
+        if (enemyManager.distanceFromTarget > enemyManager.aggroRange)
         {
-            return this;
+            enemyAnimationHandler.animator.SetFloat("Vertical",1f,0.1f,Time.deltaTime);
         }
+        //ResetNavmeshLocationRotation(enemyManager);
+        return this;
     }
     
     private void HandleRotateTowardsTarget(EnemyManager enemyManager)
@@ -73,4 +81,5 @@ public class PursueTargetState : State
         enemyManager.navMeshAgent.transform.localPosition = Vector3.zero;
         enemyManager.navMeshAgent.transform.localRotation = Quaternion.identity;
     }
+    
 }

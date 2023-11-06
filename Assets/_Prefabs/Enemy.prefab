@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachineManager: {fileID: 0}
+  viewbleAngle: 0
 --- !u!1 &762704151
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +761,7 @@ MonoBehaviour:
   criticalDamageColliders:
   - {fileID: 9119457763433875341}
   - {fileID: 0}
+  isUsingRootmotion: 0
   canBeRiposted: 0
   isParrying: 0
   isBlocking: 0
@@ -1274,6 +1276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachineManager: {fileID: 0}
+  horizontalAIMovingSpeed: 0.51
+  verticalAIMovingSpeed: 0.51
 --- !u!1 &9119457763605596217
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,12 +16,13 @@ public class RotateState : State
     {
         anim.animator.SetFloat("Vertical", 0);
         anim.animator.SetFloat("Horizontal",0);
-        if (manager.currentTarget == null)
+        Vector3 targetDirection = manager.currentTarget.transform.position - manager.transform.position;
+        viewbleAngle = Vector3.SignedAngle(targetDirection, manager.transform.forward, Vector3.up);
+
+        if (manager.isInteracting)
         {
             return this;
         }
-        Vector3 targetDirection = manager.currentTarget.transform.position - manager.transform.position;
-        viewbleAngle = Vector3.SignedAngle(targetDirection, manager.transform.forward, Vector3.up);
         
         if (viewbleAngle >= 100 && viewbleAngle <= 180 && !manager.isInteracting)
         {
@@ -43,6 +45,6 @@ public class RotateState : State
             return this;
         }
 
-        return this;
+        return stateMachineManager.combatStanceState;
     }
 }
