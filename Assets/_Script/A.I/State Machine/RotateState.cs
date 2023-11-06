@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class RotateState : State
 {
+    private CombatStanceState combatStanceState;
     public float viewbleAngle;
     void Start()
     {
-        AssignStateMachineManager();    
+        AssignStateMachineManager();
+        combatStanceState = stateMachineManager.combatStanceState;
     }
 
     public override State Tick(EnemyManager manager, EnemyStats stats, EnemyAnimationHandler anim)
@@ -27,22 +29,22 @@ public class RotateState : State
         if (viewbleAngle >= 100 && viewbleAngle <= 180 && !manager.isInteracting)
         {
             anim.PlayTargetAnimationWithRootRotation("turn behind clockwise" ,true);
-            return this;
+            return combatStanceState;
         }
         else if (viewbleAngle < -100 && viewbleAngle > -180 && !manager.isInteracting)
         {
              anim.PlayTargetAnimationWithRootRotation("turn behind counter clockwise", true);
-             return this;
+             return combatStanceState;
         }
         else if (viewbleAngle <=-45 && viewbleAngle >= -100 && !manager.isInteracting)
         {
             anim.PlayTargetAnimationWithRootRotation("turn right", true);
-            return this;
+            return combatStanceState;
         }
         else if (viewbleAngle >=45 && viewbleAngle <=100 && !manager.isInteracting )
         {
             anim.PlayTargetAnimationWithRootRotation("turn left", true);
-            return this;
+            return combatStanceState;
         }
 
         return stateMachineManager.combatStanceState;

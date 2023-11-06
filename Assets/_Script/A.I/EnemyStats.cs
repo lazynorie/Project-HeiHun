@@ -10,19 +10,21 @@ public class EnemyStats : CharacterStats
     public int exp = 50;
     CapsuleCollider enemyCapsuleCollider; 
     private Animator animator;
+    private BossManager bossManager;
 
     private void Awake()
     {
         enemyManager = GetComponent<EnemyManager>();
+        bossManager = GetComponent<BossManager>();
+        animator = GetComponentInChildren<Animator>();
         enenmyHealthBar = GetComponentInChildren<UI_EnenmyHealthBar>();
+        enemyCapsuleCollider = GetComponent<CapsuleCollider>();
+        maxHealth = SetMaxHealthFromHealthLevel();
+        currentHealth = maxHealth;
     }
 
     private void Start()
     {
-        maxHealth = SetMaxHealthFromHealthLevel();
-        currentHealth = maxHealth;
-        animator = GetComponentInChildren<Animator>();
-        enemyCapsuleCollider = GetComponent<CapsuleCollider>();
         enenmyHealthBar.SetMaxHealth(maxHealth);
         isDead = false;
     }
@@ -34,8 +36,7 @@ public class EnemyStats : CharacterStats
     }
     public void TakeDamage(int damage, string animationName = "Getting Hit")
     {
-        if (isDead)
-            return;
+        if (isDead) return;
         currentHealth -= damage;
         enenmyHealthBar.SetCurrentHealth(currentHealth);
         animator.Play(animationName);
@@ -51,8 +52,7 @@ public class EnemyStats : CharacterStats
     }
     public void TakeDamageWithOutAnimation(int damage)
     {
-        if (isDead)
-            return;
+        if (isDead) return;
         currentHealth -= damage;
         enenmyHealthBar.SetCurrentHealth(currentHealth);
         if (currentHealth <=0)

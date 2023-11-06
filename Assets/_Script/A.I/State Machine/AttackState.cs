@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class AttackState : State
 {
-    public EnemyAttackAction[] enemyAttacks;
     public EnemyAttackAction currentAttack;
     private CombatStanceState combatStanceState;
-
     private bool performComboNextAttack = false;
     public bool hasPerformedAttack = false;//don't forget to reset this in combatstance state
     private void Start()
@@ -57,47 +55,6 @@ public class AttackState : State
         animationHandler.PlayTargetAnimation(currentAttack.actionAnimation,true);
         currentAttack = null;
     }
-    /*private void GetNewAttack(EnemyManager enemyManager)
-    {
-        int maxScore = 0;
-
-        for (int i = 0; i < enemyAttacks.Length; i++)
-        {
-            EnemyAttackAction enemyAttack = enemyAttacks[i];
-            if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeededToAttack 
-                && enemyManager.distanceFromTarget >= enemyAttack.minimumDistanceNeededToAttack)//distance check
-            {
-                if (enemyManager.viewableAngle <= enemyAttack.maximumAttackAngle 
-                    && enemyManager.viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
-                {
-                    maxScore += enemyAttack.attackScore;
-                }
-            }
-        }
-
-        int randomValue = Random.Range(0, maxScore);
-        int tempScore = 0;
-
-        for (int i = 0; i < enemyAttacks.Length; i++)
-        {
-            EnemyAttackAction enemyAttack = enemyAttacks[i];
-            if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeededToAttack 
-                && enemyManager.distanceFromTarget >= enemyAttack.minimumDistanceNeededToAttack)//distance check
-            {
-                if (enemyManager.viewableAngle <= enemyAttack.maximumAttackAngle 
-                    && enemyManager.viewableAngle >= enemyAttack.minimumAttackAngle)//angle check
-                {
-                    if (currentAttack != null)
-                        return;
-                    tempScore += enemyAttack.attackScore;
-                    if (tempScore>randomValue)
-                    {
-                        currentAttack = enemyAttack;
-                    }
-                }
-            }
-        }
-    }*/
     private void RotateTowardsTargetWhenAttacking(EnemyManager enemyManager)
     {
         if (enemyManager.canRotate && enemyManager.isInteracting)//rotate manually
@@ -114,7 +71,6 @@ public class AttackState : State
                 Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed/Time.deltaTime);
         }
     }
-
     private void RollForComboChange(EnemyManager enemyManager)
     {
         float comboChance = Random.Range(0, 100);

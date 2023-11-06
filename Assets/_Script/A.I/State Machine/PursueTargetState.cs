@@ -21,10 +21,10 @@ public class PursueTargetState : State
         float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
         HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset
 
-        if (viewableAngle > 65 || viewableAngle <-65)
+        /*if (viewableAngle > 65 || viewableAngle <-65)
         {
             return stateMachineManager.rotateState;
-        }
+        }*/
         if (enemyManager.isInteracting)
             return this;
         if (enemyManager.isPerformingAction)//if ai is performing action stop all movements
@@ -43,7 +43,7 @@ public class PursueTargetState : State
         {
             enemyAnimationHandler.animator.SetFloat("Vertical",1f,0.1f,Time.deltaTime);
         }
-        //ResetNavmeshLocationRotation(enemyManager);
+        ResetNavmeshLocationRotation(enemyManager);
         return this;
     }
     
