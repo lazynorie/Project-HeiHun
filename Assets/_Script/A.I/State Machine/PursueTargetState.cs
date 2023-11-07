@@ -17,6 +17,10 @@ public class PursueTargetState : State
     }
     public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimationHandler enemyAnimationHandler)
     {
+        if (enemyStats.isDead)
+        {
+            return this;
+        }
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float viewableAngle = Vector3.SignedAngle(targetDirection, enemyManager.transform.forward, Vector3.up);
         HandleRotateTowardsTarget(enemyManager);//call this before navmesh location and rotation reset

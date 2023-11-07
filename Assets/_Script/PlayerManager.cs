@@ -134,5 +134,13 @@ public class PlayerManager : CharacterManager
         playerAnimationHandler.PlayTargetAnimation("Open Chest", true);
     }
 
+    public void EnterFogWallInteraction(Transform fogWallEntrance)
+    {
+        playerLocomotion.StopPlayer();
+        playerLocomotion.RotateTowardsTarget(fogWallEntrance,500);
+        playerAnimationHandler.PlayTargetAnimation("EntryFogWall",true);
+        //transform.position = fogWallEntrance.position;
+    }
+
     #endregion
 }

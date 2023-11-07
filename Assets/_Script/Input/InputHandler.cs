@@ -262,9 +262,9 @@ public class InputHandler : MonoBehaviour
       cameraHandler.HandleLockOn();
       if (cameraHandler.nearestLockOnTarget != null)
       {
+        lockOnFlag = true;
         cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
         cameraHandler.currentLockOnTarget.GetComponentInChildren<UI_EnenmyHealthBar>().EnableHealthBar();
-        lockOnFlag = true;
       }
     }
     else if(lockOnInput && lockOnFlag) //deactivate lock on if lock on is on

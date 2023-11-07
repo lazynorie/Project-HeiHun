@@ -18,10 +18,9 @@ public class UIBossHealthBar : MonoBehaviour
    private void Start()
    {
       DisableBossHealthBar();
-      FogWallScript.OnBossActivate += SetBossName;
-      FogWallScript.OnBossActivate += ActiveBossHealthBar;
-      FogWallScript.OnBossActivate += SetBossMaxHealth;
-      FogWallScript.OnBossActivate += SetBossCurrentHealth;
+      EventColliderForBossFight.OnBossActivate += SetBossName;
+      EventColliderForBossFight.OnBossActivate += ActiveBossHealthBar;
+      EventColliderForBossFight.OnBossActivate += SetBossMaxHealth;
    }
 
    private void ActiveBossHealthBar(BossManager obj)

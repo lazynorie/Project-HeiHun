@@ -6,18 +6,28 @@ public class EnemyStats : CharacterStats
     private EnemyManager enemyManager;
     public static event Action<int> OnEnemyDeath;
     public UI_EnenmyHealthBar enenmyHealthBar;
+    private UIBossHealthBar uiBossHealthBar;
     public float respawnTimer;
     public int exp = 50;
     CapsuleCollider enemyCapsuleCollider; 
     private Animator animator;
+
+    [SerializeField] private bool isBoss;
     private BossManager bossManager;
 
     private void Awake()
     {
         enemyManager = GetComponent<EnemyManager>();
-        bossManager = GetComponent<BossManager>();
+        if (isBoss)
+        {
+            bossManager = GetComponent<BossManager>();
+            uiBossHealthBar = FindObjectOfType<UIBossHealthBar>();
+        }
+        else
+        {
+            enenmyHealthBar = GetComponentInChildren<UI_EnenmyHealthBar>();
+        }
         animator = GetComponentInChildren<Animator>();
-        enenmyHealthBar = GetComponentInChildren<UI_EnenmyHealthBar>();
         enemyCapsuleCollider = GetComponent<CapsuleCollider>();
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
@@ -25,7 +35,10 @@ public class EnemyStats : CharacterStats
 
     private void Start()
     {
-        enenmyHealthBar.SetMaxHealth(maxHealth);
+        if (!isBoss)
+        {
+            enenmyHealthBar.SetMaxHealth(maxHealth);
+        }
         isDead = false;
     }
     private int SetMaxHealthFromHealthLevel()
@@ -38,7 +51,13 @@ public class EnemyStats : CharacterStats
     {
         if (isDead) return;
         currentHealth -= damage;
-        enenmyHealthBar.SetCurrentHealth(currentHealth);
+        if (isBoss)
+        {
+            uiBossHealthBar.SetBossCurrentHealth(currentHealth);
+        }else
+        {        
+            enenmyHealthBar.SetCurrentHealth(currentHealth);
+        }
         animator.Play(animationName);
         if (currentHealth <=0)
         {
@@ -54,7 +73,13 @@ public class EnemyStats : CharacterStats
     {
         if (isDead) return;
         currentHealth -= damage;
-        enenmyHealthBar.SetCurrentHealth(currentHealth);
+        if (isBoss)
+        {
+            uiBossHealthBar.SetBossCurrentHealth(currentHealth);
+        }else
+        {        
+            enenmyHealthBar.SetCurrentHealth(currentHealth);
+        }
         if (currentHealth <=0)
         {
             isDead = true;

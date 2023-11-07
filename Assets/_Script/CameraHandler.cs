@@ -58,7 +58,7 @@ public class CameraHandler : MonoBehaviour
     }
     private void Start()
     {
-        //ignoreLayer = ~(1 << 8 | 1 << 9 | 1 << 10);
+        //ignoreLayer = ~(1 << 9 | 1 << 10 | 1 << 11);
         enviromentLayer = LayerMask.NameToLayer("Environment");
     }
 

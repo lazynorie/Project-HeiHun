@@ -20,17 +20,17 @@ public class Interactable : MonoBehaviour
     [SerializeField]private float radius = 0.6f;
 
     protected InteractableUI interactableUI;
-    protected SphereCollider sphereCollider;
+    protected SphereCollider interactiveCollider;
 
     protected virtual void Awake()
     {
-        sphereCollider = GetComponent<SphereCollider>();
+        interactiveCollider = GetComponent<SphereCollider>();
         interactableUI = FindObjectOfType<InteractableUI>();
     }
 
     protected virtual void Start()
     {
-        sphereCollider.radius = radius;
+        interactiveCollider.radius = radius;
     }
 
     private void OnDrawGizmosSelected() {

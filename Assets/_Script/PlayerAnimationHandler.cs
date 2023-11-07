@@ -156,4 +156,16 @@ public class PlayerAnimationHandler : AnimationHandler
         playerStats.TakeDamageWithOutAnimation(playerStats.pendingCriticalDamage);
         playerStats.pendingCriticalDamage = 0;
     }
+
+    public void DisableCollision()
+    {
+        playerLocalmotion.characterCollider.enabled = false;
+        playerLocalmotion.collisonCollider.enabled = false;
+    }
+
+    public void EnableCollision()
+    {
+        playerLocalmotion.characterCollider.enabled = true;
+        playerLocalmotion.collisonCollider.enabled = true;
+    }
 }
